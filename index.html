@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國中數學群島</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 單一視覺世界：海島地圖＋紙感面板。左地圖、右學習面板；手機改上下排列 */
+  --sea:#47aac8; --sea-deep:#2c7f9e; --shallow:#a9dfe9; --land:#a4d47c;
+  --sand:#f3e2b8; --sand-dark:#d9bf86; --grass:#9fd36f; --grass-dark:#6fb04a;
+  --paper:#fff8ef; --card:#ffffff; --ink:#1e2b33; --muted:#5d6a71; --line:#eadfcf;
+  --ch1:#3a67d1; --ch2:#e9822a; --game:#8a5bd6; --exam:#d6455b; --gold:#e8b21c;
+  --good:#2f9e5b; --good-bg:#e6f5ea; --bad:#cf3f45; --bad-bg:#fbe9ea;
+  --display:"Huninn","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--ch1);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.1;font-size:.9em;margin:0 .1em}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .2em}
+.fr>span:last-child{padding:0 .2em}
+sup{font-size:.7em;line-height:0}
+.hidden{display:none!important}
+.sys{display:inline-block;vertical-align:middle;border-left:3px solid currentColor;padding:2px 0 2px 10px;line-height:1.7;margin:4px 0}
+.tbl{border-collapse:collapse;margin:10px 0 0;font-size:15px;font-weight:500}
+.tbl th,.tbl td{border:1px solid var(--line);padding:4px 12px;text-align:center;background:#fff;font-variant-numeric:tabular-nums}
+.tbl th{background:#f6efe5}
+
+/* ---------- 入口頁 ---------- */
+#home{height:100%;overflow:auto;background:linear-gradient(#bfe7f1 0,#bfe7f1 120px,var(--sea) 120px,var(--sea-deep) 900px,var(--paper) 900px)}
+.home-in{max-width:980px;margin:0 auto;padding:28px 20px 60px}
+.home-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.home-top h1{font-size:clamp(34px,6vw,52px);color:#16404f;line-height:1.15}
+.home-top p{margin:6px 0 0;color:#234c5b}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border-radius:999px;padding:6px 14px;font-weight:700;box-shadow:0 2px 0 rgba(0,0,0,.08);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip .s{color:var(--gold)}
+.isles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;margin-top:40px}
+.isle-card{background:none;border:0;padding:0;text-align:center;display:flex;flex-direction:column;align-items:center}
+.isle-card svg{width:200px;height:130px;display:block;margin-bottom:-18px;transition:transform .25s}
+.isle-card:not([disabled]):hover svg{transform:translateY(-6px)}
+.isle-card .box{background:#fff;border-radius:16px;padding:16px 14px 14px;width:100%;border-top:5px solid var(--c);box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.isle-card h3{font-size:21px;line-height:1.3}
+.isle-card small{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+.isle-card .meta{margin-top:8px;font-weight:700;font-variant-numeric:tabular-nums}
+.isle-card[disabled]{cursor:default}
+.isle-card[disabled] .box{opacity:.78}
+.lock{display:inline-block;margin-top:8px;font-size:13px;background:#eef1f3;color:var(--muted);border-radius:999px;padding:2px 10px}
+.chapters{background:var(--paper);margin-top:56px;border-radius:20px;padding:26px 22px}
+.chapters h2{font-size:26px}
+.chapters>p{margin:4px 0 14px;color:var(--muted)}
+.vol{font-weight:900;margin:18px 0 8px;color:var(--ch1)}
+.crow{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:8px}
+.crow b{font-family:var(--display);font-size:22px;font-weight:400;color:var(--c)}
+.crow small{display:block;color:var(--muted);font-size:13px}
+.crow .st{font-weight:700;font-variant-numeric:tabular-nums}
+.crow[disabled]{opacity:.55;cursor:default}
+
+/* ---------- 島嶼畫面 ---------- */
+#island{height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,430px)}
+.map{position:relative;overflow:hidden;background:var(--land);min-height:0}
+.map svg{width:100%;height:100%;display:block}
+.hud{position:absolute;z-index:5;left:14px;top:14px;right:14px;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.hud>*{pointer-events:auto}
+.hud-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.92);border:0;border-radius:12px;padding:7px 12px;font-weight:700;box-shadow:0 2px 0 rgba(0,0,0,.08);font-size:15px;font-variant-numeric:tabular-nums}
+.pill.title{font-family:var(--display);font-weight:400;font-size:17px}
+.say{position:absolute;z-index:5;left:50%;bottom:14px;transform:translateX(-50%);max-width:calc(100% - 28px);background:#fff;border-radius:14px;padding:8px 14px;box-shadow:0 3px 0 rgba(0,0,0,.1);font-size:14px;display:flex;gap:8px;align-items:center}
+.say b{color:var(--grass-dark);white-space:nowrap}
+.map canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;touch-action:none;cursor:grab}
+#labels{position:absolute;z-index:1;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;transform:translate(-50%,-100%);pointer-events:auto;border:0;background:rgba(255,255,255,.95);border-radius:999px;padding:3px 10px 3px 3px;display:flex;gap:6px;align-items:center;font-weight:700;font-size:13px;white-space:nowrap;box-shadow:0 2px 0 rgba(0,0,0,.12);line-height:1.4}
+.lbl .id{background:var(--c);color:#fff;border-radius:999px;padding:1px 9px}
+.lbl .s{color:#888}.lbl .s.on{color:#b8860b}
+.lbl.plain{padding:3px 11px;color:var(--c)}
+.pill[aria-pressed="true"]{background:var(--ink);color:#fff}
+.isle{cursor:pointer}
+.isle:hover .top{filter:brightness(1.06)}
+.isle:focus{outline:none}
+.isle:focus-visible .top{stroke:var(--ink);stroke-width:3}
+#teacher{transition:transform 1.3s cubic-bezier(.5,0,.3,1)}
+@media (prefers-reduced-motion:reduce){#teacher{transition:none}.isle-card svg{transition:none}}
+
+.panel{background:var(--paper);overflow:auto;border-left:1px solid var(--line);min-height:0}
+.ph{position:sticky;top:0;z-index:2;background:var(--paper);border-bottom:1px solid var(--line);padding:16px 20px 14px;display:flex;gap:12px;align-items:center}
+.ph .t{flex:1;min-width:0}
+.ph .eb{font-size:12px;font-weight:900;color:var(--exam);letter-spacing:.04em}
+.ph h2{font-size:26px;line-height:1.2}
+.circ{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;flex:none;font-size:18px}
+.pb{padding:16px 20px 40px;display:flex;flex-direction:column;gap:14px}
+.lead{color:var(--muted);margin:0}
+.prog{border:1px solid #f1c9b4;background:#fff3ea;border-radius:16px;padding:14px}
+.prog .h{font-size:12px;font-weight:900;color:var(--exam);letter-spacing:.04em;margin-bottom:10px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pcard{background:#fff;border-radius:12px;padding:10px 12px}
+.pcard .k{font-weight:700;font-size:14px;display:flex;gap:6px;align-items:center}
+.pcard .v{font-family:var(--display);font-size:28px;line-height:1.2;font-variant-numeric:tabular-nums}
+.pcard .v small{font-family:var(--body);font-size:13px;color:var(--muted)}
+.bar{height:6px;background:#f1e7dc;border-radius:3px;overflow:hidden;margin:4px 0 6px}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:3px}
+.pcard p{margin:0;font-size:12px;color:var(--muted);line-height:1.45}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px;font-weight:700}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chh{font-size:14px;font-weight:900;color:var(--c);margin-top:6px}
+.row{display:grid;grid-template-columns:56px 1fr auto;gap:10px;align-items:center;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 4px;text-align:left;width:100%}
+.row:hover{background:#fff}
+.row .no{font-family:var(--display);font-size:26px;color:var(--c)}
+.row .nm{font-weight:700;font-size:17px}
+.row small{display:block;color:var(--muted);font-size:13px;font-weight:400}
+.row .r{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:var(--c)}
+.flag{color:var(--gold)}
+.box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.stars{display:flex;align-items:center;gap:10px;font-weight:700}
+.stars span{font-size:26px;color:#ddd;letter-spacing:2px}
+.stars span i{font-style:normal;color:var(--gold)}
+.sub h3{font-family:var(--body);font-weight:700;font-size:18px;display:flex;gap:10px;align-items:center}
+.sub h3 .n{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:14px;flex:none}
+.sub h3 .st{margin-left:auto;font-size:22px;color:#ddd}
+.sub h3 .st.on{color:var(--gold)}
+.sub ul{margin:10px 0 14px;padding-left:20px}
+.sub li{margin-bottom:6px}
+.btn{display:block;width:100%;border:0;border-radius:999px;background:var(--ink);color:#fff;padding:12px;font-weight:700;font-size:16px}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.game{background:var(--game)}
+.btn.exam{background:var(--exam)}
+.gamebox{border-color:#d9c8f3;background:#f7f1ff}
+.gamebox h3{color:var(--game)}
+.qtop{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;flex-wrap:wrap}
+.dots{display:flex;gap:4px;flex:1}
+.dots i{width:8px;height:8px;border-radius:50%;background:#e2d8cc}
+.dots i.ok{background:var(--good)}.dots i.no{background:var(--bad)}.dots i.cur{background:var(--exam)}
+.err{background:var(--good-bg);color:var(--good);border-radius:999px;padding:1px 10px}
+.err.has{background:var(--bad-bg);color:var(--bad)}
+.qq{font-size:21px;font-weight:700;line-height:1.55}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{display:flex;gap:10px;align-items:center;text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px;font-size:18px;min-height:58px}
+.opt .l{width:28px;height:28px;border-radius:50%;background:#f3ece3;display:grid;place-items:center;font-size:13px;font-weight:700;flex:none}
+.opt:not([disabled]):hover{border-color:var(--ink)}
+.opt.ok{border-color:var(--good);background:var(--good-bg)}
+.opt.no{border-color:var(--bad);background:var(--bad-bg)}
+.opt[disabled]{cursor:default}
+.fb{border-radius:16px;padding:14px;background:var(--good-bg)}
+.fb.no{background:var(--bad-bg)}
+.fb h4{margin:0 0 4px;font-size:18px;color:var(--good)}
+.fb.no h4{color:var(--bad)}
+.fb p{margin:0 0 10px}
+.tsay{display:flex;gap:10px;background:#fff;border-radius:12px;padding:10px;margin-bottom:12px;align-items:flex-start}
+.av{width:32px;height:32px;border-radius:50%;background:var(--grass-dark);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.tsay small{display:block;color:var(--grass-dark);font-weight:700;font-size:12px}
+.result{text-align:center}
+.result .big{font-family:var(--display);font-size:56px;line-height:1.1;font-variant-numeric:tabular-nums}
+.result p{margin:6px 0 16px;color:var(--muted)}
+.actions{display:flex;flex-direction:column;gap:10px}
+.nl svg{width:100%;height:auto;display:block;cursor:crosshair;touch-action:manipulation}
+.target{font-size:24px;font-weight:700;text-align:center;font-family:var(--display)}
+.primes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.primes button{border:2px solid #d9c8f3;background:#fff;border-radius:14px;padding:12px;font-size:22px;font-weight:700}
+.primes button:hover{border-color:var(--game)}
+.chain{font-size:20px;text-align:center;line-height:1.8;min-height:2em}
+.chain b{color:var(--game)}
+.note{font-size:14px;color:var(--muted);text-align:center;margin:0}
+.flash{text-align:center;font-weight:700;min-height:1.6em}
+.flash.ok{color:var(--good)}.flash.no{color:var(--bad)}
+
+.modal{position:fixed;inset:0;background:rgba(30,43,51,.35);display:grid;place-items:center;z-index:10;padding:16px}
+.modal .m{background:var(--paper);border-radius:20px;padding:24px;width:min(360px,100%);display:flex;flex-direction:column;gap:14px}
+.modal h2{font-size:24px;text-align:center}
+.modal input{font:inherit;font-size:17px;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.modal label{font-size:14px;color:var(--muted)}
+
+@media (max-width:860px){
+  #island{grid-template-columns:1fr;grid-template-rows:48% 52%}
+  .panel{border-left:0;border-top:1px solid var(--line)}
+  .pill{font-size:13px;padding:5px 9px}
+  .pill.title{font-size:14px}
+  .say{font-size:13px}
+}
+@media (max-width:420px){
+  .opts{grid-template-columns:1fr}
+  .ph h2{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<div id="home" class="hidden"></div>
+
+<div id="island" class="hidden">
+  <div class="map">
+    <svg id="mapsvg" viewBox="0 0 800 720" preserveAspectRatio="xMidYMid meet" aria-label="整數・分數・指數島地圖"></svg>
+    <div id="labels"></div>
+    <div class="hud">
+      <div class="hud-row">
+        <button class="pill" id="toHome">‹ 入口</button>
+        <span class="pill title" id="hudTitle">整數・分數・指數島</span>
+      </div>
+      <div class="hud-row">
+        <span class="pill"><span style="color:var(--gold)">★</span> <span id="hudStars">0 / 16</span></span>
+        <span class="pill">會考徽章 <span id="hudExam">0 / 2</span></span>
+        <button class="pill" id="hudName" title="更換名字">👤 <span id="hudNameT"></span></button>
+        <button class="pill only3d hidden" id="btnView">⌖ 全景</button>
+        <button class="pill only3d hidden" id="btnSpin" aria-pressed="false">⟳ 自動旋轉</button>
+      </div>
+    </div>
+    <div class="say" id="say"><b id="sayName">高斯老師</b><span id="sayT">點一座小島開始挑戰！</span></div>
+  </div>
+  <div class="panel" id="panel"></div>
+</div>
+
+<div class="modal hidden" id="nameModal">
+  <form class="m" id="nameForm">
+    <h2>歡迎來到<br>國中數學群島！</h2>
+    <label for="nameIn">輸入你的名字，島上的老師會這樣叫你</label>
+    <input id="nameIn" maxlength="12" autocomplete="off" placeholder="例如：小明">
+    <button class="btn" type="submit">開始探險</button>
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+/* ================= 工具 ================= */
+const M='−';
+const n=x=>x<0?M+(-x):''+x;
+const p=x=>x<0?'('+n(x)+')':n(x);
+const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const rnz=(a,b)=>{let x=0;while(x===0)x=ri(a,b);return x};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
+function lcm(a,b){return a/gcd(a,b)*b}
+class Fr{constructor(a,b=1){if(b<0){a=-a;b=-b}const g=gcd(a,b)||1;this.a=a/g;this.b=b/g}
+  add(o){return new Fr(this.a*o.b+o.a*this.b,this.b*o.b)}
+  sub(o){return new Fr(this.a*o.b-o.a*this.b,this.b*o.b)}
+  mul(o){return new Fr(this.a*o.a,this.b*o.b)}
+  div(o){return new Fr(this.a*o.b,this.b*o.a)}
+  neg(){return new Fr(-this.a,this.b)}
+  key(){return this.a+'/'+this.b}}
+const frRaw=(a,b)=>(a<0?M:'')+`<span class="fr"><span>${Math.abs(a)}</span><span>${b}</span></span>`;
+const fh=f=>f.b===1?n(f.a):frRaw(f.a,f.b);
+const fp=f=>f.a<0?'('+fh(f)+')':fh(f);
+const pw=(B,e)=>e===1?B:`${B}<sup>${n(e)}</sup>`;
+const sci=(a,e)=>`${a} × 10<sup>${n(e)}</sup>`;
+/* 標記語法：[a/b] 轉成分數 */
+const mk=s=>s.replace(/\[([^\/\[\]]+)\/([^\/\[\]]+)\]/g,(_,a,b)=>{const neg=a[0]===M;return(neg?M:'')+`<span class="fr"><span>${neg?a.slice(1):a}</span><span>${b}</span></span>`});
+
+const ltx=s=>String(s).replace(/<(?=[\s\d−=])/g,'&lt;');
+function finalize(q,opts,exp){const idx=shuffle(opts.map((_,i)=>i));return{q:ltx(q),opts:idx.map(i=>ltx(opts[i])),ans:idx.indexOf(0),exp:ltx(exp)}}
+function numQ(q,ans,cands,exp,fmt=n){const rd=v=>Number.isFinite(v)?Math.round(v*1e6)/1e6:v;ans=rd(ans);cands=cands.map(rd);const s=[ans];for(const c of cands){if(Number.isFinite(c)&&!s.includes(c))s.push(c);if(s.length===4)break}
+  let k=1;while(s.length<4){for(const c of [ans+k,ans-k])if(s.length<4&&!s.includes(c))s.push(c);k++}
+  return finalize(q,s.map(fmt),exp)}
+function frQ(q,ans,cands,exp){const s=[ans],keys=[ans.key()];for(const c of cands){if(c&&!keys.includes(c.key())){s.push(c);keys.push(c.key())}if(s.length===4)break}
+  let k=1;while(s.length<4){for(const c of [ans.add(new Fr(k,ans.b)),ans.sub(new Fr(k,ans.b))])if(s.length<4&&!keys.includes(c.key())){s.push(c);keys.push(c.key())}k++}
+  return finalize(q,s.map(fh),exp)}
+function strQ(q,ans,cands,fallback,exp){const s=[ans];for(const c of cands.concat(fallback)){if(c&&!s.includes(c))s.push(c);if(s.length===4)break}return finalize(q,s,exp)}
+
+/* ================= 課程內容（康軒版七上 第1–2章） ================= */
+const SEC_NUMBER=[
+ {id:'1-1',ch:1,title:'負數與數線',glyph:'−3',pos:[175,215],game:'g1',subs:[
+  {id:'1-1a',title:'正負數與相反數',pts:['用「正、負」表示意義相反的量，例如收入 +500 元、支出 −300 元。','0 不是正數，也不是負數。','只有正負號不同的兩個數互為相反數，例如 5 與 −5；0 的相反數是 0。','−(−a) = a，例如 −(−7) = 7。']},
+  {id:'1-1b',title:'數線、大小與絕對值',pts:['數線三要素：原點、正向、單位長。','數線上越右邊的數越大；兩個負數比大小，絕對值大的反而小。','絕對值是一個數到原點的距離：|−6| = 6，|0| = 0。','數線上 A(a)、B(b) 兩點的距離是 |a − b|，中點坐標是 (a + b) ÷ 2。']}]},
+ {id:'1-2',ch:1,title:'整數的加減',glyph:'+ −',pos:[120,380],subs:[
+  {id:'1-2a',title:'整數的加法',pts:['同號相加：絕對值相加，保留共同的符號，例如 (−4) + (−9) = −13。','異號相加：絕對值大的減去小的，取絕對值較大者的符號，例如 (−12) + 5 = −7。','加法有交換律與結合律，可以先把好算的數湊在一起。']},
+  {id:'1-2b',title:'整數的減法與去括號',pts:['減去一個數，等於加上它的相反數：a − b = a + (−b)。','例如 3 − (−8) = 3 + 8 = 11。','去括號：−(a + b) = −a − b，−(a − b) = −a + b。','減法沒有交換律：5 − 2 ≠ 2 − 5。']}]},
+ {id:'1-3',ch:1,title:'整數的乘除與四則運算',glyph:'× ÷',pos:[190,530],subs:[
+  {id:'1-3a',title:'乘除與正負號',pts:['同號相乘除得正，異號相乘除得負。','多個不為 0 的數相乘：負數有奇數個，積為負；有偶數個，積為正。','任何數乘以 0 都得 0；0 不能當除數。']},
+  {id:'1-3b',title:'四則運算的順序',pts:['先算括號，再算乘除，最後算加減；同級運算由左到右。','分配律：a × (b + c) = a × b + a × c。','例如 −3 + 4 × (−2) = −3 + (−8) = −11。']}]},
+ {id:'1-4',ch:1,title:'指數記法與科學記號',glyph:'10ⁿ',pos:[320,620],subs:[
+  {id:'1-4a',title:'指數記法',pts:['a<sup>n</sup> 表示 n 個 a 相乘，a 是底數，n 是指數。','(−2)<sup>4</sup> = 16，但 −2<sup>4</sup> = −16：括號決定底數是誰。','負數的偶數次方為正，奇數次方為負；(−1)<sup>n</sup> 只會是 1 或 −1。']},
+  {id:'1-4b',title:'科學記號',pts:['科學記號寫成 a × 10<sup>n</sup>，其中 1 ≤ a < 10，n 是整數。','大數：小數點往左移幾位，n 就是正幾，例如 52000 = 5.2 × 10<sup>4</sup>。','小數：小數點往右移幾位，n 就是負幾，例如 0.0036 = 3.6 × 10<sup>−3</sup>。','1 奈米 = 10<sup>−9</sup> 公尺，1 微米 = 10<sup>−6</sup> 公尺。']}]},
+ {id:'2-1',ch:2,title:'因數與倍數',glyph:'質數',pos:[480,620],game:'g2',subs:[
+  {id:'2-1a',title:'因數、倍數與質數',pts:['若 a = b × c（皆為正整數），則 b、c 是 a 的因數，a 是 b、c 的倍數。','質數只有 1 和自己兩個因數，例如 2、3、5、7、11；1 不是質數也不是合數。','倍數判別：2 看個位數；3、9 看各位數字和；5 看個位是 0 或 5；4 看末兩位。']},
+  {id:'2-1b',title:'質因數分解',pts:['把一個數寫成質數相乘，就是質因數分解，例如 60 = 2 × 2 × 3 × 5。','標準分解式由小到大排列，相同的質數用指數記法：60 = 2<sup>2</sup> × 3 × 5。','可以用短除法或樹狀圖，一直用質數去除，直到商為 1。']}]},
+ {id:'2-2',ch:2,title:'最大公因數與最小公倍數',glyph:'( , )',pos:[610,530],subs:[
+  {id:'2-2a',title:'最大公因數',pts:['兩數共有的因數叫公因數，其中最大的叫最大公因數，記作 (a, b)。','用短除法時，左邊所有公因數相乘，就是最大公因數。','若 (a, b) = 1，稱 a、b 互質，例如 8 與 15。']},
+  {id:'2-2b',title:'最小公倍數',pts:['兩數共有的倍數叫公倍數，其中最小的正數叫最小公倍數，記作 [a, b]。','短除法中，左邊的公因數和底下剩下的數全部相乘，就是最小公倍數。','兩個正整數一定有：(a, b) × [a, b] = a × b。']}]},
+ {id:'2-3',ch:2,title:'分數的四則運算',glyph:'½',pos:[680,380],subs:[
+  {id:'2-3a',title:'分數的加減',pts:['異分母分數相加減，先通分（用分母的最小公倍數），再把分子相加減。','負號可以放在分子或整個分數前面：[−3/4] = [(−3)/4]。','算完要約分到最簡分數。']},
+  {id:'2-3b',title:'分數的乘除',pts:['分數相乘：分子乘分子、分母乘分母，可以先約分再乘。','除以一個數，等於乘以它的倒數：[a/b] ÷ [c/d] = [a/b] × [d/c]。','正負號規則和整數一樣：同號得正，異號得負。']}]},
+ {id:'2-4',ch:2,title:'指數律',glyph:'aⁿ',pos:[625,215],subs:[
+  {id:'2-4a',title:'同底數相乘除',pts:['同底數相乘，指數相加：a<sup>m</sup> × a<sup>n</sup> = a<sup>m+n</sup>。','同底數相除，指數相減：a<sup>m</sup> ÷ a<sup>n</sup> = a<sup>m−n</sup>（a ≠ 0）。','任何不為 0 的數，0 次方都等於 1。']},
+  {id:'2-4b',title:'次方的次方與乘積的次方',pts:['次方再次方，指數相乘：(a<sup>m</sup>)<sup>n</sup> = a<sup>m×n</sup>。','乘積的次方：(a × b)<sup>n</sup> = a<sup>n</sup> × b<sup>n</sup>。','分數的次方：分子、分母各自次方，例如 ([−2/3])<sup>2</sup> = [4/9]。']}]},
+];
+
+/* ---------- 出題器：每次挑戰都是新的數字 ---------- */
+const PRIMES=[23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97];
+const COMPS={21:'3 × 7',27:'3 × 9',33:'3 × 11',39:'3 × 13',49:'7 × 7',51:'3 × 17',57:'3 × 19',63:'7 × 9',69:'3 × 23',77:'7 × 11',81:'9 × 9',87:'3 × 29',91:'7 × 13',93:'3 × 31'};
+function divisors(x){const d=[];for(let i=1;i<=x;i++)if(x%i===0)d.push(i);return d}
+function factorize(x){const f=[];for(let q=2;x>1;q++){let e=0;while(x%q===0){x/=q;e++}if(e)f.push([q,e])}return f}
+const fmtF=f=>f.map(([q,e])=>pw(''+q,e)).join(' × ');
+const expandF=f=>f.flatMap(([q,e])=>Array(e).fill(q)).join(' × ');
+function randFactored(){for(;;){const f=[[2,ri(1,4)],[3,ri(0,3)],[5,ri(0,2)],[7,ri(0,1)]].filter(x=>x[1]>0);const N=f.reduce((a,[q,e])=>a*q**e,1);if(f.length>=2&&N>=24&&N<=2000)return{f,N}}}
+function coprimePair(){for(;;){const x=ri(2,9),y=ri(2,9);if(x!==y&&gcd(x,y)===1)return[x,y]}}
+function properFr(){const b=ri(2,9);return new Fr(rnz(-(b-1),b-1),b)}
+
+const GEN={
+'1-1a':[
+ ()=>{const x=rnz(-30,30);return numQ(`${n(x)} 的相反數是多少？`,-x,[x,Math.abs(x)+1,-Math.abs(x)-1],`只有正負號不同的兩個數互為相反數，所以 ${n(x)} 的相反數是 ${n(-x)}。`)},
+ ()=>{const c=pick([['向東走','公尺','向西走'],['收入','元','支出'],['上升','公尺','下降'],['存入','元','提出']]);const a=ri(3,90);let b=ri(3,90);if(b===a)b++;
+   return numQ(`若${c[0]} ${a} ${c[1]}記為 +${a}，則${c[2]} ${b} ${c[1]}應記為多少？`,-b,[b,-a,a],`「${c[2]}」和「${c[0]}」意義相反，所以用負數表示，記為 ${n(-b)}。`,x=>x>0?'+'+x:n(x))},
+ ()=>{const a=ri(2,15),b=ri(2,15),c=ri(2,15);return finalize('下列哪一個數是負數？',[`${M}|${M}${c}|`,`${M}(${M}${a})`,`|${M}${b}|`,'0'],`${M}(${M}${a}) = ${a}，|${M}${b}| = ${b}，0 不是正數也不是負數；只有 ${M}|${M}${c}| = ${M}${c} 是負數。`)},
+],
+'1-1b':[
+ ()=>{const x=rnz(-60,60),a=Math.abs(x);return numQ(`|${n(x)}| = ?`,a,[-a,a+10,a-1],`絕對值是到原點的距離，不會是負數：|${n(x)}| = ${a}。`)},
+ ()=>{const v=shuffle(Array.from({length:20},(_,i)=>-(i+1))).slice(0,4);const big=Math.random()<.5;const ans=big?Math.max(...v):Math.min(...v);
+   return numQ(`下列哪一個數${big?'最大':'最小'}？`,ans,v.filter(x=>x!==ans),big?`負數比大小：絕對值越小的數越大，離原點最近的 ${n(ans)} 最大。`:`負數比大小：絕對值越大的數越小，離原點最遠的 ${n(ans)} 最小。`)},
+ ()=>{const a=ri(-15,15);let b=ri(-15,15);if(b===a)b=a-7;const d=Math.abs(a-b);
+   return numQ(`數線上 A(${n(a)})、B(${n(b)}) 兩點的距離是多少？`,d,[Math.abs(a+b),Math.abs(a)+Math.abs(b),a-b,b-a],`距離 = |a − b| = |${n(a)} − ${p(b)}| = |${n(a-b)}| = ${d}。`)},
+ ()=>{const a=ri(-15,10),b=a+2*ri(2,10);const [x,y]=Math.random()<.5?[a,b]:[b,a];const m=(x+y)/2;
+   return numQ(`數線上 A(${n(x)})、B(${n(y)})，線段 AB 中點的坐標是多少？`,m,[(y-x)/2,(x-y)/2,x+y],`中點坐標 = (a + b) ÷ 2 = (${n(x)} + ${p(y)}) ÷ 2 = ${n(x+y)} ÷ 2 = ${n(m)}。`)},
+],
+'1-2a':[
+ ()=>{const a=rnz(-50,50),b=rnz(-50,-1);const s=a+b;return numQ(`${n(a)} + ${p(b)} = ?`,s,[a-b,-s,-a+b],`${a*b>0?'同號相加：絕對值相加，保留共同的符號。':'異號相加：絕對值大的減去小的，取絕對值較大者的符號。'}所以答案是 ${n(s)}。`)},
+ ()=>{const a=rnz(-30,30),b=rnz(-30,30),c=rnz(-30,-1);const s=a+b+c;return numQ(`${n(a)} + ${p(b)} + ${p(c)} = ?`,s,[a+b-c,-s,a-b+c],`先算 ${n(a)} + ${p(b)} = ${n(a+b)}，再加上 ${p(c)}，得 ${n(s)}。`)},
+],
+'1-2b':[
+ ()=>{const a=rnz(-40,40),b=rnz(-40,40);const s=a-b;return numQ(`${n(a)} − ${p(b)} = ?`,s,[a+b,b-a,-a-b],`減去一個數等於加上它的相反數：${n(a)} − ${p(b)} = ${n(a)} + ${p(-b)} = ${n(s)}。`)},
+ ()=>{const a=rnz(-20,20),b=rnz(-20,20),c=rnz(-20,20);const s=a-b+c;return numQ(`${n(a)} − (${n(b)} − ${p(c)}) = ?`,s,[a-b-c,a+b-c,-a+b-c],`去括號：−(b − c) = −b + c，所以原式 = ${n(a)} − ${p(b)} + ${p(c)} = ${n(s)}。`)},
+ ()=>{const s=ri(-10,8),u=ri(3,15),d=ri(3,15);const e=s+u-d;return numQ(`某地清晨氣溫 ${n(s)}°C，中午上升 ${u}°C，晚上又下降 ${d}°C。晚上氣溫是多少？`,e,[s-u+d,s+u+d,-e],`${n(s)} + ${u} − ${d} = ${n(e)}，晚上氣溫是 ${n(e)}°C。`,x=>n(x)+'°C')},
+],
+'1-3a':[
+ ()=>{const a=rnz(-12,12),b=rnz(-12,-1);const s=a*b;return numQ(`${n(a)} × ${p(b)} = ?`,s,[-s,a+b,-(a+b)],`${s>0?'同號相乘得正':'異號相乘得負'}：${n(a)} × ${p(b)} = ${n(s)}。`)},
+ ()=>{const q=rnz(-12,12),b=rnz(-12,-2);const c=q*b;return numQ(`${n(c)} ÷ ${p(b)} = ?`,q,[-q,b,-b],`${q>0?'同號相除得正':'異號相除得負'}：${n(c)} ÷ ${p(b)} = ${n(q)}。`)},
+ ()=>{const k=ri(2,9),m=ri(1,6);const neg=k%2===1;return finalize(`${k} 個負數與 ${m} 個正數相乘（都不是 0），結果是什麼數？`,[neg?'負數':'正數',neg?'正數':'負數','0','無法判斷'],`負數有 ${k} 個，是${neg?'奇':'偶'}數個，所以乘積是${neg?'負':'正'}數。正數的個數不影響正負號。`)},
+],
+'1-3b':[
+ ()=>{const a=rnz(-9,9),b=rnz(-9,9),c=rnz(-9,9);const s=a+b*c;return numQ(`${n(a)} + ${p(b)} × ${p(c)} = ?`,s,[(a+b)*c,a-b*c,-s],`先乘後加：${p(b)} × ${p(c)} = ${n(b*c)}，${n(a)} + ${p(b*c)} = ${n(s)}。`)},
+ ()=>{const c=rnz(-6,6)||2,k=rnz(-9,9),a=rnz(-20,20);const b=c*k,s=a-k;return numQ(`${n(a)} − ${p(b)} ÷ ${p(c)} = ?`,s,[(a-b)%c===0?(a-b)/c:null,a+k,k-a],`先除後減：${p(b)} ÷ ${p(c)} = ${n(k)}，${n(a)} − ${p(k)} = ${n(s)}。`)},
+ ()=>{const a=rnz(-12,12),b=rnz(-12,12),c=rnz(-6,6);const s=(a-b)*c;return numQ(`(${n(a)} − ${p(b)}) × ${p(c)} = ?`,s,[a-b*c,(a+b)*c,-s],`先算括號：${n(a)} − ${p(b)} = ${n(a-b)}，再乘以 ${p(c)}，得 ${n(s)}。`)},
+],
+'1-4a':[
+ ()=>{const b=pick([-2,-3,2,3,-4,-5]);const e=Math.abs(b)<=3?ri(2,5):ri(2,3);const v=b**e;
+   return numQ(`${p(b)}<sup>${e}</sup> = ?`,v,[-v,b*e,Math.abs(b)**e],`${p(b)}<sup>${e}</sup> 是 ${e} 個 ${p(b)} 相乘。${b<0?(e%2?'負數的奇數次方為負，':'負數的偶數次方為正，'):''}結果是 ${n(v)}。`)},
+ ()=>{const b=ri(2,5),e=b>3?ri(2,3):ri(2,4);const v=-(b**e);return numQ(`${M}${b}<sup>${e}</sup> = ?`,v,[-v,-b*e,b*e],`底數是 ${b}，前面的負號不在次方裡：${M}${b}<sup>${e}</sup> = ${M}(${b}<sup>${e}</sup>) = ${n(v)}。`)},
+ ()=>{const k=ri(11,99);const v=k%2?-1:1;return numQ(`(${M}1)<sup>${k}</sup> = ?`,v,[-v,k,-k],`${k} 是${k%2?'奇':'偶'}數，(${M}1) 的${k%2?'奇':'偶'}數次方等於 ${n(v)}。`)},
+],
+'1-4b':[
+ ()=>{let m=ri(11,99);if(m%10===0)m++;const e=ri(3,8);const N=(m*10**(e-1)).toLocaleString('en-US');const a=(m/10).toFixed(1);
+   return strQ(`把 ${N} 寫成科學記號：`,sci(a,e),[sci(a,e-1),sci(a,e+1),`${m} × 10<sup>${e-1}</sup>`],[],`小數點往左移 ${e} 位，數字才會落在 1 到 10 之間，所以 ${N} = ${sci(a,e)}。${m} × 10<sup>${e-1}</sup> 的 ${m} 大於 10，不是科學記號。`)},
+ ()=>{let m=ri(11,99);if(m%10===0)m++;const e=ri(2,6);const D='0.'+'0'.repeat(e-1)+m;const a=(m/10).toFixed(1);
+   return strQ(`把 ${D} 寫成科學記號：`,sci(a,-e),[sci(a,e),sci(a,-(e+1)),sci(a,-(e-1))],[],`小數點往右移 ${e} 位，數字才會落在 1 到 10 之間，所以 ${D} = ${sci(a,-e)}。`)},
+ ()=>{const [u,ue]=pick([['奈米',-9],['微米',-6]]);let m=ri(11,99);if(m%10===0)m++;const j=ri(0,1);const k=m*10**j;const a=(m/10).toFixed(1);const E=j+1+ue;
+   return strQ(`1 ${u} = 10<sup>${n(ue)}</sup> 公尺。${k} ${u}用科學記號表示是多少公尺？`,sci(a,E),[sci(a,E-1),sci(a,E+1),sci(a,-E)],[],`${k} = ${sci(a,j+1)}，所以 ${k} ${u} = ${sci(a,j+1)} × 10<sup>${n(ue)}</sup> = ${sci(a,E)} 公尺。`)},
+],
+'2-1a':[
+ ()=>{const pr=pick(PRIMES);const cs=shuffle(Object.keys(COMPS)).slice(0,3).map(Number);
+   return finalize('下列哪一個數是質數？',[pr,...cs].map(String),`${cs.map(c=>`${c} = ${COMPS[c]}`).join('，')}，都是合數；只有 ${pr} 除了 1 和自己以外沒有其他因數，是質數。`)},
+ ()=>{const N=pick([12,18,20,24,28,30,32,36,40,42,44,45,48,50,54,60,63,72]);const d=divisors(N);
+   return numQ(`${N} 共有幾個正因數？`,d.length,[d.length-1,d.length+1,d.length+2],`${N} 的因數有 ${d.join('、')}，共 ${d.length} 個。`)},
+ ()=>{const k=pick([3,9,4]);const ds=x=>String(x).split('').reduce((a,c)=>a+ +c,0);
+   let ans;do{ans=ri(100,999)}while(ans%k);const others=[];
+   while(others.length<3){const x=ri(100,999);if(x%k&&!others.includes(x)&&(k!==9||others.length>0||x%3===0))others.push(x)}
+   const why=k===4?`末兩位 ${String(ans).slice(-2)} 是 4 的倍數`:`各位數字和 ${ds(ans)} 是 ${k} 的倍數`;
+   return finalize(`下列哪一個數是 ${k} 的倍數？`,[ans,...others].map(String),`${ans} 的${why}，所以 ${ans} 是 ${k} 的倍數。${k===4?'判斷 4 的倍數只要看末兩位。':`判斷 ${k} 的倍數看各位數字和。`}`)},
+],
+'2-1b':[
+ ()=>{const {f,N}=randFactored();const ans=fmtF(f);const vars=[];
+   f.forEach((_,i)=>{const g=f.map(x=>x.slice());g[i][1]++;vars.push(fmtF(g));if(f[i][1]>=2){const h=f.map(x=>x.slice());h[i][1]--;vars.push(fmtF(h))}});
+   if(f[0][0]===2&&f[0][1]>=2){const rest=f.slice(1);vars.push([f[0][1]>2?pw('2',f[0][1]-2):null,'4',fmtF(rest)].filter(Boolean).join(' × '))}
+   return strQ(`${N} 的標準分解式是？`,ans,shuffle(vars),[ans+' × 11'],`用質數一直去除：${N} = ${expandF(f)} = ${ans}。`)},
+ ()=>{const {f,N}=randFactored();const ps=f.map(x=>x[0]);const ans=ps.join('、');
+   const comp=(N%4===0)?4:(N%6===0)?6:(N%9===0)?9:10;
+   const c1='1、'+ans,c2=ps.slice(0,-1).join('、'),c3=[...ps,comp].sort((a,b)=>a-b).join('、');
+   return strQ(`${N} 的質因數有哪些？`,ans,[c3,c1,c2],[ans+'、11'],`${N} = ${fmtF(f)}，質因數是 ${ans}。1 不是質數，${comp} 雖然是因數但不是質數。`)},
+],
+'2-2a':[
+ ()=>{const g=ri(2,16),[x,y]=coprimePair();const a=g*x,b=g*y;return numQ(`(${a}, ${b}) = ?（最大公因數）`,g,[g*x*y,2*g,x*y],`${a} = ${g} × ${x}，${b} = ${g} × ${y}，${x} 與 ${y} 互質，所以 (${a}, ${b}) = ${g}。`)},
+ ()=>{const g=ri(2,8);let t;do{t=shuffle([2,3,4,5,6,7]).slice(0,3)}while(gcd(gcd(t[0],t[1]),t[2])!==1);const v=t.map(x=>x*g);
+   return numQ(`${v.join('、')} 三個數的最大公因數是多少？`,g,[g*2,gcd(v[0],v[1])===g?g+1:gcd(v[0],v[1]),1],`三個數都是 ${g} 的倍數：${v.map((x,i)=>`${x} = ${g} × ${t[i]}`).join('，')}，而 ${t.join('、')} 沒有共同的質因數，所以最大公因數是 ${g}。`)},
+],
+'2-2b':[
+ ()=>{const g=ri(2,12),[x,y]=coprimePair();const a=g*x,b=g*y,L=g*x*y;return numQ(`[${a}, ${b}] = ?（最小公倍數）`,L,[g,a*b,2*L],`${a} = ${g} × ${x}，${b} = ${g} × ${y}，所以 [${a}, ${b}] = ${g} × ${x} × ${y} = ${L}。`)},
+ ()=>{const ok=pick([[8,15],[9,20],[14,25],[16,21],[27,32],[10,21],[22,15],[25,36],[35,12]]);const bad=[];
+   while(bad.length<3){const g=ri(2,7),[x,y]=[ri(2,9),ri(2,9)];if(x!==y){const s=`${g*x} 和 ${g*y}`;if(!bad.includes(s))bad.push(s)}}
+   return finalize('下列哪一組數互質？',[`${ok[0]} 和 ${ok[1]}`,...bad],`${ok[0]} 與 ${ok[1]} 的最大公因數是 1，所以互質；其他各組都有大於 1 的公因數。兩個合數也可能互質喔！`)},
+ ()=>{const g=ri(2,9),[x,y]=coprimePair();const P=g*x*g*y,L=g*x*y;return numQ(`兩個正整數的最大公因數是 ${g}，兩數的乘積是 ${P}，它們的最小公倍數是多少？`,L,[P,g,P/2],`(a, b) × [a, b] = a × b，所以最小公倍數 = ${P} ÷ ${g} = ${L}。`)},
+],
+'2-3a':[
+ ()=>{let F1,F2;do{F1=properFr();F2=properFr()}while(F1.b===F2.b);const plus=Math.random()<.5,op=plus?'+':'−';
+   const ans=plus?F1.add(F2):F1.sub(F2);const L=lcm(F1.b,F2.b);
+   const naive=new Fr(plus?F1.a+F2.a:F1.a-F2.a,F1.b+F2.b);
+   return frQ(`${fh(F1)} ${op} ${fp(F2)} = ?`,ans,[naive,ans.neg(),plus?F1.sub(F2):F1.add(F2)],`通分，分母取 ${L}：${frRaw(F1.a*L/F1.b,L)} ${op} ${(F2.a<0?'(':'')+frRaw(F2.a*L/F2.b,L)+(F2.a<0?')':'')} = ${fh(ans)}。分母不能直接相加喔！`)},
+],
+'2-3b':[
+ ()=>{const F1=properFr(),F2=properFr();const ans=F1.mul(F2);return frQ(`${fh(F1)} × ${fp(F2)} = ?`,ans,[ans.neg(),new Fr(F1.a*F2.b,F1.b*F2.a),F1.add(F2)],`分子乘分子、分母乘分母，再約分：${fh(F1)} × ${fp(F2)} = ${fh(ans)}。${ans.a<0?'異號相乘得負。':'同號相乘得正。'}`)},
+ ()=>{const F1=properFr(),F2=properFr();const ans=F1.div(F2);const R=new Fr(F2.b,F2.a);return frQ(`${fh(F1)} ÷ ${fp(F2)} = ?`,ans,[F1.mul(F2),ans.neg(),ans.a?new Fr(ans.b,ans.a):null],`除以 ${fp(F2)} 等於乘以它的倒數 ${fp(R)}：${fh(F1)} × ${fp(R)} = ${fh(ans)}。`)},
+],
+'2-4a':[
+ ()=>{const B=pick(['2','3','5','a','x']);let m=ri(2,9),k=ri(2,9);if(m===2&&k===2)k=3;const num=!isNaN(B);
+   return strQ(`${pw(B,m)} × ${pw(B,k)} = ?`,pw(B,m+k),[pw(B,m*k),num?pw(String(B*B),m+k):`2${pw(B,m+k)}`,pw(B,m+k+1)],[pw(B,m+k-1),pw(B,m+k+2)],`同底數相乘，指數相加：${pw(B,m)} × ${pw(B,k)} = ${B}<sup>${m}+${k}</sup> = ${pw(B,m+k)}。`)},
+ ()=>{const B=pick(['2','3','7','a','y']);const m=ri(6,12),k=ri(2,m-2);
+   return strQ(`${pw(B,m)} ÷ ${pw(B,k)} = ?`,pw(B,m-k),[pw(B,m+k),m%k===0&&m/k!==m-k?pw(B,m/k):pw(B,m*k),pw(B,m-k+1)],[pw(B,m-k-1)||'1',pw(B,m-k+2)],`同底數相除，指數相減：${pw(B,m)} ÷ ${pw(B,k)} = ${B}<sup>${m}−${k}</sup> = ${pw(B,m-k)}。`)},
+ ()=>{const x=rnz(-99,99);return numQ(`(${n(x)})<sup>0</sup> = ?`,1,[0,x,-1],`任何不為 0 的數，0 次方都等於 1，所以 (${n(x)})<sup>0</sup> = 1。`)},
+],
+'2-4b':[
+ ()=>{const B=pick(['2','3','a','x']);let m=ri(2,6),k=ri(2,5);if(m===2&&k===2)m=3;
+   return strQ(`(${pw(B,m)})<sup>${k}</sup> = ?`,pw(B,m*k),[pw(B,m+k),m**k<=99&&m**k!==m*k?pw(B,m**k):pw(B,m*k+1),pw(B,m*k-1)],[pw(B,m*k+2),pw(B,m*k+3),pw(B,m*k+4)],`次方再次方，指數相乘：(${pw(B,m)})<sup>${k}</sup> = ${B}<sup>${m}×${k}</sup> = ${pw(B,m*k)}。`)},
+ ()=>{const [A,B]=pick([['a','b'],['x','y'],['2','a'],['3','x'],['5','y']]);const e=ri(2,6);
+   return strQ(`(${A} × ${B})<sup>${e}</sup> = ?`,`${pw(A,e)} × ${pw(B,e)}`,[`${A} × ${pw(B,e)}`,`${pw(A,e)} × ${B}`,`${pw(A,e)} + ${pw(B,e)}`],[],`乘積的次方，每個因數都要次方：(${A} × ${B})<sup>${e}</sup> = ${pw(A,e)} × ${pw(B,e)}。`)},
+ ()=>{let b,c;do{b=rnz(-4,4);c=ri(2,5)}while(gcd(b,c)!==1||Math.abs(b)===1&&Math.random()<.5);const e=ri(2,3);const F=new Fr(b,c);const ans=new Fr(b**e,c**e);
+   return frQ(`(${fh(F)})<sup>${e}</sup> = ?`,ans,[ans.neg(),new Fr(b**e,c),new Fr(b*e,c*e)],`分子、分母各自 ${e} 次方：${b<0?(e%2?'負數的奇數次方為負，':'負數的偶數次方為正，'):''}(${fh(F)})<sup>${e}</sup> = ${fh(ans)}。`)},
+],
+};
+/* ---------- 會考小船（固定題，每次打亂選項） ---------- */
+const EXAMS_NUM={
+1:[
+ {q:'某地清晨氣溫為 −3°C，中午上升 11°C，晚上又下降 6°C。晚上的氣溫是多少？',o:['2°C','−2°C','8°C','14°C'],e:'−3 + 11 − 6 = 2，晚上氣溫是 2°C。'},
+ {q:'數線上 A 點坐標為 −7，B 點坐標為 5，線段 AB 的中點坐標是多少？',o:['−1','1','−6','6'],e:'中點坐標 = (−7 + 5) ÷ 2 = −2 ÷ 2 = −1。'},
+ {q:'若 a < 0 < b，下列哪一個式子的值一定是負數？',o:['a × b','b − a','a × a','−a'],e:'a 為負、b 為正，異號相乘得負，所以 a × b 一定是負數；b − a、a × a、−a 都是正數。'},
+ {q:'1 奈米 = 10<sup>−9</sup> 公尺。某病毒直徑約 120 奈米，用科學記號表示約為多少公尺？',o:['1.2 × 10<sup>−7</sup>','1.2 × 10<sup>−6</sup>','1.2 × 10<sup>−11</sup>','12 × 10<sup>−8</sup>'],e:'120 = 1.2 × 10<sup>2</sup>，所以 120 奈米 = 1.2 × 10<sup>2</sup> × 10<sup>−9</sup> = 1.2 × 10<sup>−7</sup> 公尺。12 × 10<sup>−8</sup> 的 12 大於 10，不是科學記號。'},
+ {q:'計算 (−2)<sup>3</sup> − (−3)<sup>2</sup> ÷ 3 × (−1) 的值。',o:['−5','−11','5','11'],e:'(−2)<sup>3</sup> = −8，(−3)<sup>2</sup> ÷ 3 × (−1) = 9 ÷ 3 × (−1) = −3，所以 −8 − (−3) = −5。'},
+ {q:'計算 |−8| − |3 − 10| 的值。',o:['1','15','−1','−15'],e:'|−8| = 8，|3 − 10| = |−7| = 7，8 − 7 = 1。'},
+],
+2:[
+ {q:'有兩條繩子，長 84 公分與 126 公分。想把它們剪成長度相同、且盡量長的小段，沒有剩餘。每段長幾公分？',o:['42','21','14','252'],e:'每段長度要同時是 84 和 126 的因數，且要最大，所以取最大公因數 (84, 126) = 42。'},
+ {q:'甲公車每 12 分鐘發一班，乙公車每 18 分鐘發一班。早上 7:00 兩車同時發車，下一次同時發車是幾點？',o:['7:36','7:30','7:06','8:12'],e:'下一次同時發車要經過 12 和 18 的最小公倍數 [12, 18] = 36 分鐘，所以是 7:36。'},
+ {q:'360 的標準分解式是哪一個？',o:['2<sup>3</sup> × 3<sup>2</sup> × 5','2<sup>2</sup> × 3<sup>2</sup> × 10','2<sup>3</sup> × 3 × 15','2<sup>3</sup> × 3<sup>2</sup> × 5<sup>2</sup>'],e:'360 = 2 × 2 × 2 × 3 × 3 × 5 = 2<sup>3</sup> × 3<sup>2</sup> × 5。標準分解式裡只能有質數，10、15 不是質數。'},
+ {q:mk('計算 [−3/4] + [5/6] 的值。'),o:[mk('[1/12]'),mk('[−1/12]'),mk('[1/5]'),mk('[−19/12]')],e:mk('通分，分母取 12：[−9/12] + [10/12] = [1/12]。')},
+ {q:mk('計算 ([−2/3]) ÷ [4/9] × ([−1/2]) 的值。'),o:[mk('[3/4]'),mk('[−3/4]'),mk('[4/27]'),mk('[−4/27]')],e:mk('([−2/3]) × [9/4] = [−3/2]，再乘以 ([−1/2]) 得 [3/4]。負數有兩個，結果為正。')},
+ {q:'計算 2<sup>10</sup> × 4<sup>3</sup> ÷ 8<sup>4</sup> 的值。',o:['2<sup>4</sup>','2<sup>2</sup>','2<sup>7</sup>','2<sup>6</sup>'],e:'4<sup>3</sup> = 2<sup>6</sup>，8<sup>4</sup> = 2<sup>12</sup>，所以原式 = 2<sup>10 + 6 − 12</sup> = 2<sup>4</sup>。'},
+]};
+const EX_NUMBER=[{key:1,title:'第 1 章 整數的運算',qs:EXAMS_NUM[1]},{key:2,title:'第 2 章 分數的運算',qs:EXAMS_NUM[2]}];
+/* ================= 共用輔助 ================= */
+function term(c,pw_,v,first){if(c===0)return'';const s=c<0?(first?M:' − '):(first?'':' + ');const a=Math.abs(c);const coef=(a===1&&pw_>0)?'':a;const vv=pw_===0?'':pw_===1?v:v+(pw_===2?'²':pw_===3?'³':`<sup>${pw_}</sup>`);return s+coef+vv}
+function poly(cs,v='x'){let o='',f=true;const d=cs.length-1;cs.forEach((c,i)=>{const t=term(c,d-i,v,f);if(t){o+=t;f=false}});return o||'0'}
+const lin=(a,b,v='x')=>poly([a,b],v);
+const eq2=(a,b,c)=>`${(term(a,1,'x',true)+term(b,1,'y',!a))||'0'} = ${n(c)}`;
+const rt=(k,m)=>m===1?n(k):(k===1?'':k===-1?M:n(k))+'√'+m;
+const deg=x=>x+'°';
+const frac=(a,b)=>`<span class="fr"><span>${a}</span><span>${b}</span></span>`;
+const sys=(a,b)=>`<span class="sys">${a}<br>${b}</span>`;
+const pt=(x,y)=>`(${n(x)}, ${n(y)})`;
+let POOLUSED=new Set();
+function pool(arr){return()=>{const free=arr.filter(x=>!POOLUSED.has(x));const x=pick(free.length?free:arr);POOLUSED.add(x);return finalize(x.q,x.o,x.e)}}
+const SQF=[2,3,5,6,7,10,11,13,14,15];
+const TRIPLES=[[3,4,5],[5,12,13],[8,15,17],[7,24,25],[6,8,10],[9,12,15],[12,16,20],[20,21,29]];
+function pickOther(gen,ok,need=3){const out=[];let guard=0;while(out.length<need&&guard++<500){const v=gen();if(!ok(v)&&!out.includes(v))out.push(v)}return out}
+
+/* ================= 代數與方程式島 ================= */
+const SEC_ALGEBRA=[
+ {id:'a3-1',vol:'七上',no:'3-1',ch:'一元一次方程式',title:'代數式的化簡',glyph:'3x+2',subs:[{id:'A31',title:'代數式的求值與化簡',pts:['用文字符號代表數，3x 表示 3 × x，x 前面的 1 可以省略。','求代數式的值：把數字代入文字符號，負數代入時記得加括號。','同類項才能合併：3x + 5x = 8x，但 3x + 5 不能合併。','分配律去括號：−2(x − 3) = −2x + 6，括號前是負號，括號內每一項都要變號。']}]},
+ {id:'a3-2',vol:'七上',no:'3-2',ch:'一元一次方程式',title:'一元一次方程式',glyph:'x = ?',subs:[{id:'A32',title:'解一元一次方程式',pts:['等量公理：等號兩邊同加、同減、同乘、同除以一個不為 0 的數，等式仍成立。','移項：把一項從等號一邊移到另一邊，要變號（+ 變 −，× 變 ÷）。','有括號先去括號；有分數先把兩邊乘以分母的最小公倍數。','算出答案後可以代回原式驗算。']}]},
+ {id:'a3-3',vol:'七上',no:'3-3',ch:'一元一次方程式',title:'應用問題',glyph:'設 x',subs:[{id:'A33',title:'列方程式解應用問題',pts:['步驟：設未知數 → 找等量關係列方程式 → 解方程式 → 檢查答案合不合理。','連續整數可以設成 x、x + 1、x + 2。','年齡問題：每過 1 年，每個人都多 1 歲，年齡差不變。']}]},
+ {id:'a7d1-1',vol:'七下',no:'1-1',ch:'二元一次聯立方程式',title:'二元一次方程式',glyph:'x,y',subs:[{id:'A41',title:'二元一次方程式與它的解',pts:['含有兩個未知數，且未知數的次數都是 1 的方程式，叫二元一次方程式，例如 2x + y = 7。','使方程式成立的一組 (x, y) 叫做它的一組解。','一個二元一次方程式有無限多組解。']}]},
+ {id:'a7d1-2',vol:'七下',no:'1-2',ch:'二元一次聯立方程式',title:'解二元一次聯立方程式',glyph:'{ }',subs:[{id:'A42',title:'代入消去法與加減消去法',pts:['代入消去法：把一式改寫成 y = …（或 x = …），代入另一式。','加減消去法：讓某個未知數的係數相同或相反，兩式相減或相加。','同時滿足兩個方程式的 (x, y)，才是聯立方程式的解。']}]},
+ {id:'a7d1-3',vol:'七下',no:'1-3',ch:'二元一次聯立方程式',title:'應用問題',glyph:'雞兔',subs:[{id:'A43',title:'聯立方程式的應用',pts:['題目有兩個未知量時，設兩個未知數 x、y。','找出兩個等量關係，列成兩個方程式。','雞兔同籠：頭數一式、腳數一式。']}]},
+ {id:'a7d4-1',vol:'七下',no:'4-1',ch:'一元一次不等式',title:'認識一元一次不等式',glyph:'x > 3',subs:[{id:'A51',title:'不等式的意義與數線表示',pts:['「至少」「不小於」用 ≥；「不超過」「最多」用 ≤。','「大於」「超過」用 >；「小於」「未滿」用 <。','數線上：有等號畫實心點，沒有等號畫空心點。']}]},
+ {id:'a7d4-2',vol:'七下',no:'4-2',ch:'一元一次不等式',title:'解一元一次不等式',glyph:'≥ ≤',subs:[{id:'A52',title:'解不等式',pts:['移項和解方程式一樣要變號。','兩邊同乘或同除以正數，不等號方向不變。','兩邊同乘或同除以負數，不等號方向要改變：−2x > 6 → x < −3。']}]},
+ {id:'a8u1-1',vol:'八上',no:'1-1',ch:'乘法公式與多項式',title:'乘法公式',glyph:'(a+b)²',subs:[{id:'A61',title:'和、差的平方與平方差',pts:['(a + b)² = a² + 2ab + b²','(a − b)² = a² − 2ab + b²','(a + b)(a − b) = a² − b²','速算：99² = (100 − 1)² = 10000 − 200 + 1 = 9801。']}]},
+ {id:'a8u1-2',vol:'八上',no:'1-2',ch:'乘法公式與多項式',title:'多項式與其加減運算',glyph:'ax²',subs:[{id:'A62',title:'多項式的名詞與加減',pts:['多項式的次數是最高次項的次數；不含文字的項叫常數項。','由高次到低次排列叫降冪排列。','多項式加減就是合併同類項；減一個多項式，括號內每一項都要變號。']}]},
+ {id:'a8u1-3',vol:'八上',no:'1-3',ch:'乘法公式與多項式',title:'多項式的乘除運算',glyph:'÷',subs:[{id:'A63',title:'多項式的乘法與除法',pts:['(ax + b)(cx + d) = acx² + (ad + bc)x + bd。','多項式除法可用長除法。','被除式 = 除式 × 商式 + 餘式，餘式的次數要比除式低。']}]},
+ {id:'a8u2-1',vol:'八上',no:'2-1',ch:'平方根與畢氏定理',title:'平方根與近似值',glyph:'√',subs:[{id:'A71',title:'平方根',pts:['若 a² = b，則 a 是 b 的平方根；正數有兩個平方根 ±√b，0 的平方根是 0，負數沒有平方根。','√b 表示 b 的正平方根，例如 √49 = 7。','√(a²) = |a|，例如 √((−3)²) = 3。','估算：因為 4² = 16 < 20 < 25 = 5²，所以 √20 介於 4 和 5 之間。']}]},
+ {id:'a8u2-2',vol:'八上',no:'2-2',ch:'平方根與畢氏定理',title:'根式的運算',glyph:'2√3',subs:[{id:'A72',title:'根式的化簡與運算',pts:['√a × √b = √(ab)（a、b ≥ 0）。','化成最簡根式：√12 = √(4 × 3) = 2√3。','只有同類方根才能合併：2√3 + 5√3 = 7√3，但 √2 + √3 不能合併。']}]},
+ {id:'a8u3-1',vol:'八上',no:'3-1',ch:'因式分解',title:'提公因式與乘法公式',glyph:'(  )(  )',subs:[{id:'A81',title:'提公因式與乘法公式分解',pts:['提公因式：ax + ay = a(x + y)，公因式要提完整（數字和文字都要提）。','平方差：a² − b² = (a + b)(a − b)。','完全平方：a² + 2ab + b² = (a + b)²，a² − 2ab + b² = (a − b)²。']}]},
+ {id:'a8u3-2',vol:'八上',no:'3-2',ch:'因式分解',title:'十字交乘法',glyph:'╳',subs:[{id:'A82',title:'十字交乘法',pts:['x² + (p + q)x + pq = (x + p)(x + q)。','找兩個數：相乘等於常數項，相加等於一次項係數。','分解完可以把括號乘開檢查。']}]},
+ {id:'a8u4-1',vol:'八上',no:'4-1',ch:'一元二次方程式',title:'因式分解解一元二次方程式',glyph:'AB=0',subs:[{id:'A91',title:'因式分解法',pts:['先把方程式整理成「□ = 0」。','若 A × B = 0，則 A = 0 或 B = 0。','x² = 3x 不能直接兩邊除以 x，會漏掉 x = 0 這個解。']}]},
+ {id:'a8u4-2',vol:'八上',no:'4-2',ch:'一元二次方程式',title:'配方法與公式解',glyph:'b²−4ac',subs:[{id:'A92',title:'配方法、公式解與判別式',pts:['配方：x² + bx 加上 ([b/2])² 就成為完全平方。','公式解：ax² + bx + c = 0 的解為 x = [(−b ± √(b² − 4ac))/2a]。','判別式 D = b² − 4ac：D > 0 有兩個相異解，D = 0 有兩個相等的解（重根），D < 0 沒有解。']}]},
+ {id:'a8u4-3',vol:'八上',no:'4-3',ch:'一元二次方程式',title:'應用問題',glyph:'x(x+1)',subs:[{id:'A93',title:'一元二次方程式的應用',pts:['列出一元二次方程式後解出兩個解。','檢查兩個解是否都合理：長度、人數、年齡不能是負數。']}]},
+];
+Object.assign(GEN,{
+'A31':[
+ ()=>{const a=rnz(-9,9),b=rnz(-12,12),k=rnz(-6,6);const v=a*k+b;return numQ(`當 x = ${n(k)} 時，${lin(a,b)} 的值是多少？`,v,[a*k-b,-v,a+k+b],`把 x = ${n(k)} 代入：${n(a)} × ${p(k)} ${b<0?'−':'+'} ${Math.abs(b)} = ${n(a*k)} ${b<0?'−':'+'} ${Math.abs(b)} = ${n(v)}。`)},
+ ()=>{const a=rnz(-9,9),b=rnz(-9,9),c=rnz(-9,9),d=rnz(-9,9);if(a+c===0)return GEN.A31[0]();return strQ(`化簡 (${lin(a,b)}) + (${lin(c,d)}) = ?`,lin(a+c,b+d),[lin(a+c,b-d),lin(a-c,b+d),lin(a+c+b+d,0)],[lin(a+c+1,b+d),lin(a+c,b+d+1)],`x 項和 x 項合併：${n(a)} + ${p(c)} = ${n(a+c)}；常數項合併：${n(b)} + ${p(d)} = ${n(b+d)}。`)},
+ ()=>{const k=pick([2,3,4,5,-2,-3]),a=rnz(-5,5),b=rnz(-6,6),c=rnz(-6,6),d=rnz(-6,6);const A=k*a-c,B=k*b-d;if(!A)return GEN.A31[0]();
+   return strQ(`化簡 ${n(k)}(${lin(a,b)}) − (${lin(c,d)}) = ?`,lin(A,B),[lin(A,k*b+d),lin(k*a+c,B),lin(A,b-d)],[lin(A+1,B),lin(A,B+1)],`先去括號：${n(k)}(${lin(a,b)}) = ${lin(k*a,k*b)}，−(${lin(c,d)}) = ${lin(-c,-d)}，再合併同類項得 ${lin(A,B)}。`)},
+],
+'A32':[
+ ()=>{const x=rnz(-9,9),a=rnz(-7,7),b=rnz(-15,15);const c=a*x+b;return numQ(`解方程式 ${lin(a,b)} = ${n(c)}，x = ?`,x,[(c+b)%a===0?(c+b)/a:null,-x,c-b],`移項：${n(a)}x = ${n(c)} ${b<0?'+':'−'} ${Math.abs(b)} = ${n(c-b)}，兩邊同除以 ${p(a)}，x = ${n(x)}。`)},
+ ()=>{let a,c;do{a=rnz(-5,5);c=rnz(-5,5)}while(a===c);const x=rnz(-8,8),b=rnz(-6,6);const d=a*(x+b)-c*x;
+   return numQ(`解方程式 ${n(a)}(${lin(1,b)}) = ${lin(c,d)}，x = ?`,x,[-x,(d-b)%(a-c)===0?(d-b)/(a-c):null,x+2],`去括號：${lin(a,a*b)} = ${lin(c,d)}，移項得 ${n(a-c)}x = ${n(d-a*b)}，所以 x = ${n(x)}。`)},
+ ()=>{const a=ri(2,6),x=a*rnz(-6,6),b=rnz(-9,9);const c=x/a+b;return numQ(`解方程式 ${frac('x',a)} ${b<0?'−':'+'} ${Math.abs(b)} = ${n(c)}，x = ?`,x,[c-b,(c+b)*a,x/a],`移項：${frac('x',a)} = ${n(c-b)}，兩邊同乘以 ${a}，x = ${n(x)}。`)},
+],
+'A33':[
+ ()=>{const m=ri(-20,40),S=3*m+3;return numQ(`三個連續整數的和是 ${n(S)}，最小的數是多少？`,m,[m+1,m-1,m+2],`設最小的數為 x，x + (x + 1) + (x + 2) = ${n(S)}，3x + 3 = ${n(S)}，x = ${n(m)}。`)},
+ ()=>{let a,b,x,k;do{b=ri(5,14);x=ri(2,12);k=pick([2,3]);a=k*(b+x)-x}while(a-b<20||a>60);return numQ(`今年父親 ${a} 歲，兒子 ${b} 歲。幾年後父親的年齡是兒子的 ${k} 倍？`,x,[x+1,x-1,a-b],`設 x 年後，${a} + x = ${k}(${b} + x)，${a} + x = ${k*b} + ${k}x，解得 x = ${x}。`)},
+ ()=>{let p,x,T,c;do{p=ri(5,15);x=ri(3,12);T=pick([100,200,500]);c=T-p*x}while(c<=0);return numQ(`每支筆 ${p} 元，小華付了 ${T} 元買筆，找回 ${c} 元。他買了幾支？`,x,[x+1,x-1,Math.round(c/p)],`設買了 x 支，${T} − ${p}x = ${c}，${p}x = ${T-c}，x = ${x}。`,v=>v+' 支')},
+],
+'A41':[
+ ()=>{const a=rnz(-5,5),b=rnz(-5,5),x=rnz(-6,6),y=rnz(-6,6);const c=a*x+b*y;const ok=([u,v])=>a*u+b*v===c;
+   const cand=[[y,x],[-x,y],[x,-y],[x+1,y],[x,y+1],[x-1,y+1]].filter(v=>!ok(v));const ds=[...new Set(cand.map(v=>pt(...v)))].slice(0,3);
+   return strQ(`下列哪一組 (x, y) 是 ${eq2(a,b,c)} 的解？`,pt(x,y),ds,[pt(x+2,y),pt(x,y-2)],`把 x = ${n(x)}、y = ${n(y)} 代入：${n(a)} × ${p(x)} + ${p(b)} × ${p(y)} = ${n(c)}，等式成立。`)},
+ ()=>{const a=rnz(-6,6),b=pick([1,2,3,-1,-2]),x=rnz(-6,6),y=rnz(-8,8);const c=a*x+b*y;return numQ(`在 ${eq2(a,b,c)} 中，若 x = ${n(x)}，則 y = ?`,y,[-y,c-a*x,c+a*x],`代入 x = ${n(x)}：${n(a*x)} + ${b===1?'':b===-1?M:n(b)}y = ${n(c)}，${b===1?'':b===-1?M:n(b)}y = ${n(c-a*x)}，y = ${n(y)}。`)},
+],
+'A42':[
+ ()=>{let a1,b1,a2,b2;do{a1=rnz(-4,4);b1=rnz(-4,4);a2=rnz(-4,4);b2=rnz(-4,4)}while(a1*b2-a2*b1===0);const x=rnz(-6,6),y=rnz(-6,6);
+   const ans=`x = ${n(x)}，y = ${n(y)}`,f=(u,v)=>`x = ${n(u)}，y = ${n(v)}`;
+   return strQ(`解聯立方程式 ${sys(eq2(a1,b1,a1*x+b1*y),eq2(a2,b2,a2*x+b2*y))}`,ans,[f(y,x),f(-x,y),f(x,-y)],[f(x+1,y),f(x,y+1)],`用加減消去法或代入消去法，可得 x = ${n(x)}、y = ${n(y)}；代回兩式都成立。`)},
+ ()=>{let a1,b1,a2,b2;do{a1=rnz(-4,4);b1=rnz(-4,4);a2=rnz(-4,4);b2=rnz(-4,4)}while(a1*b2-a2*b1===0);const x=rnz(-6,6),y=rnz(-6,6);
+   return numQ(`若 (x, y) 是聯立方程式 ${sys(eq2(a1,b1,a1*x+b1*y),eq2(a2,b2,a2*x+b2*y))} 的解，則 x + y = ?`,x+y,[x-y,y-x,-(x+y)],`解得 x = ${n(x)}、y = ${n(y)}，所以 x + y = ${n(x+y)}。`)},
+],
+'A43':[
+ ()=>{const r=ri(3,20),c=ri(3,20);const H=r+c,L=2*c+4*r;return numQ(`籠子裡有雞和兔共 ${H} 隻，腳共 ${L} 隻。兔子有幾隻？`,r,[c,L/2-H,r+1],`設雞 x 隻、兔 y 隻：x + y = ${H}，2x + 4y = ${L}。第二式除以 2 減第一式：y = ${L/2} − ${H} = ${r}。`,v=>v+' 隻')},
+ ()=>{const P=pick([250,300,350]),Q=pick([100,150,200]),A=ri(2,12),C=ri(2,12);const N=A+C,Mo=A*P+C*Q;return numQ(`全票每張 ${P} 元、半票每張 ${Q} 元。共買了 ${N} 張票，花了 ${Mo} 元。全票買了幾張？`,A,[C,A+1,A-1],`設全票 x 張、半票 y 張：x + y = ${N}，${P}x + ${Q}y = ${Mo}，解得 x = ${A}、y = ${C}。`,v=>v+' 張')},
+],
+'A51':[
+ ()=>{const [ph,ans]=pick([['至少是','≥'],['不超過','≤'],['大於','>'],['小於','<'],['不小於','≥'],['未滿','<'],['最多是','≤'],['超過','>']]);const a=rnz(-9,20);const all=['≥','≤','>','<'];
+   return finalize(`「x ${ph} ${n(a)}」可以寫成哪一個不等式？`,[ans,...all.filter(s=>s!==ans)].map(s=>`x ${s} ${n(a)}`),`「${ph}」用「${ans}」表示，所以是 x ${ans} ${n(a)}。`)},
+ ()=>{const a=rnz(-4,5),b=rnz(-9,9),c=rnz(-9,12);const ok=x=>a*x+b>c;const sat=[],un=[];for(let x=-10;x<=10;x++)(ok(x)?sat:un).push(x);if(!sat.length||un.length<3)return GEN.A51[0]();
+   const ans=pick(sat);const ds=shuffle(un).slice(0,3);return numQ(`下列哪一個 x 值滿足不等式 ${lin(a,b)} > ${n(c)}？`,ans,ds,`把 x = ${n(ans)} 代入：${n(a*ans+b)} > ${n(c)}，成立；其他選項代入後都不成立。`)},
+ ()=>{const k=rnz(-8,8);const solid=Math.random()<.5,right=Math.random()<.5;const ans=`x ${right?(solid?'≥':'>'):(solid?'≤':'<')} ${n(k)}`;
+   return finalize(`數線上在 ${n(k)} 的位置畫${solid?'實心':'空心'}點，並向${right?'右':'左'}畫箭頭，表示哪一個不等式？`,[ans,...['≥','>','≤','<'].map(s=>`x ${s} ${n(k)}`).filter(s=>s!==ans)],`${solid?'實心點表示包含這個數（有等號）':'空心點表示不包含這個數（沒有等號）'}，向${right?'右表示比它大':'左表示比它小'}，所以是 ${ans}。`)},
+],
+'A52':[
+ ()=>{const x=rnz(-8,8),a=rnz(-6,6),b=rnz(-9,9),c=a*x+b;const rel=pick(['>','<','≥','≤']);const flip={'>':'<','<':'>','≥':'≤','≤':'≥'};const r2=a<0?flip[rel]:rel;const ans=`x ${r2} ${n(x)}`;
+   return finalize(`解不等式 ${lin(a,b)} ${rel} ${n(c)}`,[ans,...['>','<','≥','≤'].filter(s=>s!==r2).map(s=>`x ${s} ${n(x)}`)],`移項：${n(a)}x ${rel} ${n(c-b)}，兩邊同除以 ${p(a)}${a<0?'，除以負數不等號要變向':''}，得 ${ans}。`)},
+ ()=>{const a=ri(2,5),b=rnz(-9,9),c=rnz(-10,20);const bound=(c-b)/a,ans=Math.floor(bound);return numQ(`滿足 ${lin(a,b)} ≤ ${n(c)} 的最大整數 x 是多少？`,ans,[ans+1,ans-1,c-b],`${n(a)}x ≤ ${n(c-b)}，x ≤ ${Number.isInteger(bound)?n(bound):frRaw(c-b,a)}，最大的整數是 ${n(ans)}。`)},
+],
+'A61':[
+ ()=>{const k=rnz(-9,9);return strQ(`展開 (${lin(1,k)})² = ?`,poly([1,2*k,k*k]),[poly([1,0,k*k]),poly([1,-2*k,k*k]),poly([1,k,k*k])],[poly([1,2*k,-k*k])],`(a ${k<0?'−':'+'} b)² = a² ${k<0?'−':'+'} 2ab + b²：x² ${k<0?'−':'+'} 2 × ${Math.abs(k)}x + ${k*k} = ${poly([1,2*k,k*k])}。`)},
+ ()=>{const a=ri(1,5),b=ri(1,9);return strQ(`(${lin(a,b)})(${lin(a,-b)}) = ?`,poly([a*a,0,-b*b]),[poly([a*a,0,b*b]),poly([a*a,-2*a*b,-b*b]),poly([a,0,-b])],[poly([a*a,2*a*b,-b*b])],`平方差公式 (A + B)(A − B) = A² − B²，A = ${a===1?'':a}x、B = ${b}，所以是 ${poly([a*a,0,-b*b])}。`)},
+ ()=>{const d=ri(1,9);if(Math.random()<.5){return numQ(`利用乘法公式計算 ${100+d} × ${100-d} = ?`,10000-d*d,[10000+d*d,10000-2*d,10000-d],`(100 + ${d})(100 − ${d}) = 100² − ${d}² = 10000 − ${d*d} = ${10000-d*d}。`)}
+   const v=(100-d)**2;return numQ(`利用乘法公式計算 ${100-d}² = ?`,v,[10000-d*d,10000-200*d-d*d,10000-100*d+d*d],`(100 − ${d})² = 10000 − 2 × 100 × ${d} + ${d}² = 10000 − ${200*d} + ${d*d} = ${v}。`)},
+],
+'A62':[
+ ()=>{const top=pick([2,3]);const cs=Array(top+1).fill(0);cs[0]=rnz(-6,6);cs[top-1]=rnz(-9,9);cs[top]=rnz(-9,9);const shown=shuffle([[cs[top],0],[cs[top-1],1],[cs[0],top]]);let s='';shown.forEach(([c,pw_],i)=>s+=term(c,pw_,'x',i===0));
+   if(Math.random()<.5)return numQ(`多項式 ${s} 的次數是多少？`,top,[top+1,3===top?2:3,1],`最高次項是 ${term(cs[0],top,'x',true)}，所以是 ${top} 次多項式。`);
+   return numQ(`多項式 ${s} 中，x 項的係數是多少？`,cs[top-1],[cs[top],cs[0],-cs[top-1]],`x 項是 ${term(cs[top-1],1,'x',true)}，係數是 ${n(cs[top-1])}。`)},
+ ()=>{const P=[rnz(-6,6),rnz(-9,9),rnz(-9,9)],Q=[rnz(-6,6),rnz(-9,9),rnz(-9,9)];const minus=Math.random()<.6;const R=P.map((v,i)=>minus?v-Q[i]:v+Q[i]);
+   const wrong=minus?[P[0]-Q[0],P[1]+Q[1],P[2]+Q[2]]:[P[0]+Q[0],P[1]-Q[1],P[2]+Q[2]];
+   return strQ(`(${poly(P)}) ${minus?'−':'+'} (${poly(Q)}) = ?`,poly(R),[poly(wrong),poly(minus?P.map((v,i)=>v+Q[i]):P.map((v,i)=>v-Q[i])),poly(R.map(v=>-v))],[poly([R[0],R[1],R[2]+1])],`${minus?'減去多項式時括號內每一項都要變號，再':''}合併同類項：${poly(R)}。`)},
+],
+'A63':[
+ ()=>{const a=rnz(-4,4),b=rnz(-7,7),c=rnz(-4,4),d=rnz(-7,7);const R=[a*c,a*d+b*c,b*d];return strQ(`(${lin(a,b)})(${lin(c,d)}) = ?`,poly(R),[poly([a*c,0,b*d]),poly([a*c,a*d-b*c,b*d]),poly([a*c,a*d+b*c,-b*d])],[poly([a*c,a*d,b*d])],`用分配律逐項相乘：${term(a*c,2,'x',true)}${term(a*d,1,'x',false)}${term(b*c,1,'x',false)}${term(b*d,0,'x',false)} = ${poly(R)}。`)},
+ ()=>{const pp=rnz(-8,8),q=rnz(-9,9),r=rnz(-5,5);const qt=pp-r,rem=q-r*qt;
+   if(Math.random()<.5)return strQ(`(${poly([1,pp,q])}) ÷ (${lin(1,r)}) 的商式是？`,lin(1,qt),[lin(1,pp+r),lin(1,r-pp),lin(1,pp)],[lin(1,qt+1),lin(1,qt-1),lin(1,qt+2),lin(1,qt-2)],`長除法：x² ÷ x = x，再算 ${n(qt)}，商式是 ${lin(1,qt)}，餘式是 ${n(rem)}。`);
+   return numQ(`(${poly([1,pp,q])}) ÷ (${lin(1,r)}) 的餘式是多少？`,rem,[q+r*qt,q-r*(pp+r),q],`商式是 ${lin(1,qt)}，被除式 = 除式 × 商式 + 餘式，所以餘式 = ${n(q)} − ${p(r)} × ${p(qt)} = ${n(rem)}。`)},
+],
+'A71':[
+ ()=>{const k=ri(2,20),N=k*k;return Math.random()<.5?strQ(`${N} 的平方根是？`,`±${k}`,[`${k}`,`${M}${k}`,`±${N}`],[`±${k+1}`],`(${k})² = (${M}${k})² = ${N}，所以 ${N} 的平方根是 ±${k}。`):numQ(`√${N} = ?`,k,[-k,Math.round(N/2),2*k],`√${N} 表示 ${N} 的正平方根，${k}² = ${N}，所以 √${N} = ${k}。`)},
+ ()=>{let N;do{N=ri(2,200)}while(Number.isInteger(Math.sqrt(N)));const f=Math.floor(Math.sqrt(N));const o=(a)=>`${a} 和 ${a+1}`;return strQ(`√${N} 介於哪兩個連續整數之間？`,o(f),[o(f-1),o(f+1),o(Math.floor(N/2))],[o(f+2),o(f+3)],`${f}² = ${f*f} < ${N} < ${(f+1)**2} = ${f+1}²，所以 ${f} < √${N} < ${f+1}。`)},
+ ()=>{const a=ri(2,15);return strQ(`√((${M}${a})²) = ?`,`${a}`,[`${M}${a}`,`±${a}`,`${a*a}`],[],`(${M}${a})² = ${a*a}，√${a*a} = ${a}。√ 的結果不會是負數。`)},
+],
+'A72':[
+ ()=>{let k,m,N;do{k=ri(2,6);m=pick(SQF);N=k*k*m}while(N>300);return strQ(`把 √${N} 化成最簡根式：`,rt(k,m),[`${m}√${k}`,rt(k*k,m),`√${k*m}`],[rt(k+1,m)],`√${N} = √(${k*k} × ${m}) = ${rt(k,m)}。`)},
+ ()=>{const m=pick([2,3,5,7]),a=ri(1,9),b=ri(1,9),c=ri(1,9);const r=a+b-c;const show=v=>v===0?'0':rt(v,m);return strQ(`${rt(a,m)} + ${rt(b,m)} − ${rt(c,m)} = ?`,show(r),[r===0?`√${m}`:rt(r,3*m),show(a+b+c),r===0?'1':n(r)],[show(r+1),show(r-1)],`同類方根直接合併係數：(${a} + ${b} − ${c})√${m} = ${show(r)}。`)},
+ ()=>{let x,y;do{x=ri(2,20);y=ri(2,20)}while(Number.isInteger(Math.sqrt(x))||Number.isInteger(Math.sqrt(y))||x===y);const P=x*y;let k=1,s=P;for(let d=2;d*d<=s;d++)while(s%(d*d)===0){s/=d*d;k*=d}
+   return strQ(`√${x} × √${y} = ?（化成最簡）`,rt(k,s),[`√${x+y}`,rt(k+1,s),rt(k,2*s)],[`${P}`,rt(k+2,s)],`√${x} × √${y} = √${P} = ${rt(k,s)}。`)},
+],
+'A81':[
+ ()=>{const k=ri(1,12);return strQ(`因式分解 x² − ${k*k} = ?`,`(x + ${k})(x − ${k})`,[`(x − ${k})²`,`(x + ${k})²`,`(x − ${k*k})(x + 1)`],[],`平方差：x² − ${k}² = (x + ${k})(x − ${k})。`)},
+ ()=>{const k=rnz(-9,9),s=k<0?'−':'+',a=Math.abs(k);return strQ(`因式分解 ${poly([1,2*k,k*k])} = ?`,`(x ${s} ${a})²`,[`(x ${k<0?'+':'−'} ${a})²`,`(x + ${a})(x − ${a})`,`(x ${s} ${2*a})²`],[],`${poly([1,2*k,k*k])} = x² ${s} 2 × ${a} × x + ${a}²，是完全平方式 (x ${s} ${a})²。`)},
+ ()=>{let a,b;do{a=ri(1,6);b=rnz(-9,9)}while(gcd(a,b)!==1);const g=ri(2,7);return strQ(`因式分解 ${poly([g*a,g*b,0])} = ?`,`${g}x(${lin(a,b)})`,[`${g}x(${lin(a,-b)})`,`x(${lin(g*a,b)})`,`${g}x²(${lin(a,b)})`],[],`公因式是 ${g}x，提出後得 ${g}x(${lin(a,b)})。`)},
+],
+'A82':[
+ ()=>{let p_,q;do{p_=rnz(-9,9);q=rnz(-9,9)}while(p_===q||p_+q===0);const f=(a,b)=>`(${lin(1,a)})(${lin(1,b)})`;return strQ(`因式分解 ${poly([1,p_+q,p_*q])} = ?`,f(p_,q),[f(-p_,-q),f(p_,-q),f(-p_,q)],[f(p_+q,1),f(p_*q,1)],`找兩數相乘 ${n(p_*q)}、相加 ${n(p_+q)}：${n(p_)} 和 ${n(q)}，所以是 ${f(p_,q)}。`)},
+ ()=>{const a=pick([2,3]);let p_,q;do{p_=rnz(-7,7);q=rnz(-7,7)}while(gcd(a,p_)!==1||a*q+p_===0);const f=(u,v)=>`(${lin(a,u)})(${lin(1,v)})`;return strQ(`因式分解 ${poly([a,a*q+p_,p_*q])} = ?`,f(p_,q),[f(-p_,-q),f(q,p_),f(p_,-q)],[f(-q,-p_),f(-p_,q),f(p_+1,q),f(p_,q+1)],`十字交乘：${a}x × x 得 ${a}x²，${p(p_)} × ${p(q)} = ${n(p_*q)}，交叉相加 ${a} × ${p(q)} + ${p(p_)} = ${n(a*q+p_)}。`)},
+],
+'A91':[
+ ()=>{let p_,q;do{p_=rnz(-9,9);q=rnz(-9,9)}while(p_===q);const [s,t]=[Math.min(p_,q),Math.max(p_,q)];const f=(a,b)=>`x = ${n(a)} 或 x = ${n(b)}`;return strQ(`解方程式 ${poly([1,-(p_+q),p_*q])} = 0`,f(s,t),[f(-t,-s),f(s,-t),f(-s,t)],[f(s+1,t)],`因式分解：(${lin(1,-p_)})(${lin(1,-q)}) = 0，所以 x = ${n(p_)} 或 x = ${n(q)}。`)},
+ ()=>{const k=rnz(-9,9);return strQ(`解方程式 x² = ${term(k,1,'x',true)}`,`x = 0 或 x = ${n(k)}`,[`x = ${n(k)}`,`x = 0`,`x = 0 或 x = ${n(-k)}`],[],`移項：x² − ${p(k)}x = 0，x(x − ${p(k)}) = 0，所以 x = 0 或 x = ${n(k)}。不能直接除以 x，會漏掉 x = 0。`)},
+],
+'A92':[
+ ()=>{const t=ri(0,2);let a,b,c;if(t===0){a=ri(1,3);const k=rnz(-4,4);b=2*a*k;c=a*k*k}else if(t===1){a=1;const r1=rnz(-6,6);let r2;do{r2=rnz(-6,6)}while(r2===r1);b=-(r1+r2);c=r1*r2}else{a=1;b=rnz(-6,6);c=Math.floor(b*b/4)+ri(1,6)}const D=b*b-4*a*c;
+   const ans=D>0?'兩個相異的解':D===0?'兩個相等的解（重根）':'沒有解';return finalize(`方程式 ${poly([a,b,c])} = 0 的解的情形是？`,[ans,...['兩個相異的解','兩個相等的解（重根）','沒有解','無限多個解'].filter(s=>s!==ans)],`判別式 D = b² − 4ac = ${n(b*b)} − ${n(4*a*c)} = ${n(D)}，D ${D>0?'> 0':D===0?'= 0':'< 0'}，所以${ans}。`)},
+ ()=>{const h=rnz(-9,9),b=2*h;return numQ(`x² ${b<0?'−':'+'} ${Math.abs(b)}x + □ 要成為完全平方式，□ 應填多少？`,h*h,[b*b,Math.abs(b),Math.abs(h)],`一次項係數的一半是 ${n(h)}，平方是 ${h*h}：${poly([1,b,h*h])} = (${lin(1,h)})²。`)},
+ ()=>{const h=rnz(-6,6),k=ri(1,7);const f=(a,b)=>`x = ${n(Math.max(a,b))} 或 x = ${n(Math.min(a,b))}`;return strQ(`解方程式 (${lin(1,h)})² = ${k*k}`,f(-h+k,-h-k),[f(h+k,h-k),`x = ${n(k-h)}`,f(-h+k*k,-h-k*k)],[f(-h+k+1,-h-k)],`開平方：${lin(1,h)} = ±${k}，所以 x = ${n(-h)} ± ${k}，即 ${f(-h+k,-h-k)}。`)},
+],
+'A93':[
+ ()=>{const m=ri(4,20),P=m*(m+1);return numQ(`兩個連續正整數的乘積是 ${P}，較小的數是多少？`,m,[m+1,m-1,Math.round(P/2)],`設較小的數為 x，x(x + 1) = ${P}，x² + x − ${P} = 0，(x − ${m})(x + ${m+1}) = 0，x = ${m}（負數不合）。`)},
+ ()=>{const w=ri(3,15),d=ri(2,8),A=w*(w+d);return numQ(`長方形的長比寬多 ${d} 公分，面積是 ${A} 平方公分。寬是幾公分？`,w,[w+d,w-1,Math.round(A/d)],`設寬 x 公分，x(x + ${d}) = ${A}，解得 x = ${w} 或 x = ${-w-d}（負數不合），寬是 ${w} 公分。`,v=>v+' 公分')},
+ ()=>{const s=ri(3,15),d=ri(1,6),A=(s+d)**2;return numQ(`一個正方形的邊長增加 ${d} 公分後，面積變成 ${A} 平方公分。原來的邊長是幾公分？`,s,[s+d,s+2*d,s-1],`設原邊長 x，(x + ${d})² = ${A}，x + ${d} = ${s+d}（負的不合），x = ${s}。`,v=>v+' 公分')},
+],
+});
+const EX_ALGEBRA=[
+ {key:'algebra-1',title:'方程式與不等式',qs:[
+  {q:'某數的 3 倍減 7 等於該數加 9，某數是多少？',o:['8','4','−1','16'],e:'設某數為 x，3x − 7 = x + 9，2x = 16，x = 8。'},
+  {q:'雞兔同籠，共 20 個頭、56 隻腳。兔子有幾隻？',o:['8 隻','12 隻','6 隻','14 隻'],e:'設雞 x、兔 y：x + y = 20，2x + 4y = 56，解得 y = 8。'},
+  {q:'解聯立方程式 '+sys('x + y = 7','x − y = 3')+'，x × y = ?',o:['10','21','4','12'],e:'兩式相加：2x = 10，x = 5；y = 2，所以 xy = 10。'},
+  {q:'不等式 −3x + 4 > 10 的解是？',o:['x < −2','x > −2','x < 2','x > 2'],e:'−3x > 6，兩邊同除以 −3 要變向：x < −2。'},
+  {q:'小明有 500 元，買了 3 本相同的筆記本後，剩下的錢至少 140 元。每本筆記本最多幾元？',o:['120 元','125 元','110 元','130 元'],e:'設每本 x 元：500 − 3x ≥ 140，3x ≤ 360，x ≤ 120。'},
+  {q:'若 x = 2 是方程式 ax − 3 = 2x + 1 的解，則 a = ?',o:['4','2','3','−4'],e:'代入 x = 2：2a − 3 = 5，2a = 8，a = 4。'},
+ ]},
+ {key:'algebra-2',title:'多項式與一元二次方程式',qs:[
+  {q:'下列哪一個是 x² − 5x − 14 的因式？',o:['x − 7','x + 7','x − 2','x + 14'],e:'x² − 5x − 14 = (x − 7)(x + 2)，所以 x − 7 是因式。'},
+  {q:'計算 1001² − 999² = ?',o:['4000','2000','4','2'],e:'平方差：(1001 + 999)(1001 − 999) = 2000 × 2 = 4000。'},
+  {q:'方程式 2x² − 8 = 0 的解是？',o:['x = 2 或 x = −2','x = 2','x = 4 或 x = −4','x = √2'],e:'2x² = 8，x² = 4，x = ±2。'},
+  {q:'若方程式 x² + 6x + k = 0 有兩個相等的解，則 k = ?',o:['9','36','3','−9'],e:'判別式 6² − 4k = 0，k = 9。'},
+  {q:'√18 + √8 = ?',o:['5√2','√26','2√13','7√2'],e:'√18 = 3√2，√8 = 2√2，相加得 5√2。'},
+  {q:'一個正方形花圃，四周各加寬 2 公尺後面積變為 100 平方公尺。原來的邊長是幾公尺？',o:['6 公尺','8 公尺','10 公尺','4 公尺'],e:'設原邊長 x：(x + 4)² = 100，x + 4 = 10，x = 6。'},
+ ]},
+];
+/* ================= 坐標與函數島 ================= */
+const SEC_FUNCTION=[
+ {id:'f7d2-1',vol:'七下',no:'2-1',ch:'直角坐標與二元一次方程式的圖形',title:'直角坐標平面',glyph:'(x,y)',subs:[{id:'F21',title:'坐標、象限與對稱點',pts:['點的坐標寫成 (x, y)，先寫 x 坐標再寫 y 坐標。','四個象限的符號：第一 (+, +)、第二 (−, +)、第三 (−, −)、第四 (+, −)；坐標軸上的點不屬於任何象限。','點 (a, b) 到 x 軸的距離是 |b|，到 y 軸的距離是 |a|。','對稱點：對 x 軸 (a, −b)、對 y 軸 (−a, b)、對原點 (−a, −b)。']}]},
+ {id:'f7d2-2',vol:'七下',no:'2-2',ch:'直角坐標與二元一次方程式的圖形',title:'二元一次方程式的圖形',glyph:'直線',subs:[{id:'F22',title:'方程式的圖形與截距',pts:['二元一次方程式 ax + by = c 的圖形是一條直線，線上每一點都是方程式的解。','和 x 軸的交點：令 y = 0；和 y 軸的交點：令 x = 0。','x = h 是通過 (h, 0) 的鉛垂線；y = k 是通過 (0, k) 的水平線。']}]},
+ {id:'f7d3-1',vol:'七下',no:'3-1',ch:'比與比例式',title:'比例式',glyph:'a:b',subs:[{id:'F31',title:'比、比值與比例式',pts:['a : b 的比值是 [a/b]（b ≠ 0）。','比例式 a : b = c : d，則 ad = bc（內項乘積 = 外項乘積）。','化成最簡整數比：前項、後項同除以最大公因數。']}]},
+ {id:'f7d3-2',vol:'七下',no:'3-2',ch:'比與比例式',title:'正比與反比',glyph:'y=kx',subs:[{id:'F32',title:'正比與反比',pts:['y 與 x 成正比：y = kx（k ≠ 0），[y/x] 固定，圖形是通過原點的直線。','y 與 x 成反比：xy = k（k ≠ 0），x 越大 y 越小。','y = x + 3 不是正比，因為 [y/x] 不固定。']}]},
+ {id:'f8d1-1',vol:'八下',no:'1-1',ch:'數列與級數',title:'等差數列',glyph:'+d',subs:[{id:'F41',title:'等差數列',pts:['相鄰兩項的差都相同，這個差叫公差 d。','第 n 項：aₙ = a₁ + (n − 1)d。','若 a、b、c 成等差數列，則 b 是等差中項：b = [(a + c)/2]。']}]},
+ {id:'f8d1-2',vol:'八下',no:'1-2',ch:'數列與級數',title:'等差級數',glyph:'Σ',subs:[{id:'F42',title:'等差級數求和',pts:['等差級數和：Sₙ = [n(a₁ + aₙ)/2]（首項加末項，乘項數，除以 2）。','也可以寫成 Sₙ = n × [2a₁ + (n − 1)d] ÷ 2。','1 + 2 + … + n = [n(n + 1)/2]；前 n 個正奇數的和是 n²。']}]},
+ {id:'f8d1-3',vol:'八下',no:'1-3',ch:'數列與級數',title:'等比數列',glyph:'×r',subs:[{id:'F43',title:'等比數列',pts:['相鄰兩項的比都相同（後項 ÷ 前項），這個比叫公比 r。','第 n 項：aₙ = a₁ × r<sup>n−1</sup>。','若 a、b、c 成等比數列，則 b² = ac，b = ±√(ac)。']}]},
+ {id:'f8d2-1',vol:'八下',no:'2-1',ch:'函數',title:'函數與函數圖形',glyph:'f(x)',subs:[{id:'F51',title:'線性函數與常數函數',pts:['每一個 x 都只對應到一個 y，y 就是 x 的函數。','線性函數 f(x) = ax + b，圖形是直線；常數函數 f(x) = b，圖形是水平線。','f(3) 表示 x = 3 時的函數值。']}]},
+ {id:'f9u1-1',vol:'九上',no:'1-1',ch:'相似形',title:'連比例',glyph:'a:b:c',subs:[{id:'F61',title:'連比與按比例分配',pts:['a : b : c 叫連比，可以同乘或同除以一個不為 0 的數。','合併兩個比：讓共同的項化成一樣的數，例如 a : b = 2 : 3、b : c = 4 : 5，則 a : b : c = 8 : 12 : 15。','按比例分配：總量 × [該部分的比/比的總和]。']}]},
+ {id:'f9d1-1',vol:'九下',no:'1-1',ch:'二次函數',title:'二次函數的圖形與最大值、最小值',glyph:'∪',subs:[{id:'F71',title:'二次函數 y = a(x − h)² + k',pts:['頂點是 (h, k)，對稱軸是 x = h。','a > 0 開口向上，有最小值 k；a < 0 開口向下，有最大值 k。','|a| 越大開口越小（越窄），|a| 越小開口越大。']}]},
+];
+const quad=(a,h,k)=>{const A=a===1?'':a===-1?M:n(a);const sq=h===0?'x²':`(${lin(1,-h)})²`;return `y = ${A}${sq}${k?` ${k<0?'−':'+'} ${Math.abs(k)}`:''}`};
+Object.assign(GEN,{
+'F21':[
+ ()=>{const a=rnz(-9,9),b=rnz(-9,9);const Q=a>0?(b>0?'第一':'第四'):(b>0?'第二':'第三');return finalize(`點 ${pt(a,b)} 在第幾象限？`,[Q+'象限',...['第一','第二','第三','第四'].filter(s=>s!==Q).map(s=>s+'象限')],`x 坐標 ${a>0?'為正':'為負'}、y 坐標 ${b>0?'為正':'為負'}，是 (${a>0?'+':'−'}, ${b>0?'+':'−'})，在${Q}象限。`)},
+ ()=>{const a=rnz(-12,12),b=rnz(-12,12);const toX=Math.random()<.5;const ans=toX?Math.abs(b):Math.abs(a);return numQ(`點 ${pt(a,b)} 到 ${toX?'x':'y'} 軸的距離是多少？`,ans,[toX?Math.abs(a):Math.abs(b),Math.abs(a)+Math.abs(b),-ans],`到 ${toX?'x 軸的距離看 y 坐標':'y 軸的距離看 x 坐標'}的絕對值：${ans}。`)},
+ ()=>{let a,b;do{a=rnz(-9,9);b=rnz(-9,9)}while(Math.abs(a)===Math.abs(b));const t=pick([['x 軸',[a,-b]],['y 軸',[-a,b]],['原點',[-a,-b]]]);const all=[[a,-b],[-a,b],[-a,-b],[b,a]].map(v=>pt(...v));const ans=pt(...t[1]);
+   return finalize(`點 ${pt(a,b)} 對${t[0]}的對稱點是？`,[ans,...all.filter(s=>s!==ans)].slice(0,4),`對 x 軸：y 變號；對 y 軸：x 變號；對原點：兩個都變號。所以是 ${ans}。`)},
+],
+'F22':[
+ ()=>{const a=rnz(-5,5),b=rnz(-5,5),x=rnz(-6,6),y=rnz(-6,6);const c=a*x+b*y;const ok=([u,v])=>a*u+b*v===c;const ds=[...new Set([[y,x],[-x,y],[x,-y],[x+1,y],[x,y+1]].filter(v=>!ok(v)).map(v=>pt(...v)))].slice(0,3);
+   return strQ(`下列哪一點在直線 ${eq2(a,b,c)} 上？`,pt(x,y),ds,[pt(x+2,y),pt(x,y+2)],`把 ${pt(x,y)} 代入：${n(a*x)} + ${p(b*y)} = ${n(c)}，等式成立，所以這點在直線上。`)},
+ ()=>{const a=rnz(-5,5),b=rnz(-5,5),t=rnz(-3,3);const c=a*b*t;const X=c/a,Y=c/b;const xa=Math.random()<.5;const ans=xa?pt(X,0):pt(0,Y);
+   return strQ(`直線 ${eq2(a,b,c)} 與 ${xa?'x':'y'} 軸的交點是？`,ans,[xa?pt(0,X):pt(Y,0),xa?pt(Y,0):pt(0,X),xa?pt(-X,0):pt(0,-Y)],[pt(X+1,0)],`和 ${xa?'x 軸相交時 y = 0：'+n(a)+'x = '+n(c)+'，x = '+n(X):'y 軸相交時 x = 0：'+n(b)+'y = '+n(c)+'，y = '+n(Y)}，交點是 ${ans}。`)},
+ ()=>{const h=rnz(-8,8);const vert=Math.random()<.5;const e=vert?`x = ${n(h)}`:`y = ${n(h)}`;const ans=vert?`通過 (${n(h)}, 0) 且垂直 x 軸的直線`:`通過 (0, ${n(h)}) 且平行 x 軸的直線`;
+   return finalize(`方程式 ${e} 的圖形是？`,[ans,vert?`通過 (0, ${n(h)}) 且平行 x 軸的直線`:`通過 (${n(h)}, 0) 且垂直 x 軸的直線`,'通過原點的斜直線','坐標平面上的一個點'],`${vert?'x 永遠等於 '+n(h)+'，y 可以是任何數，所以是鉛垂線':'y 永遠等於 '+n(h)+'，x 可以是任何數，所以是水平線'}。`)},
+],
+'F31':[
+ ()=>{let x,a,b,c;do{x=ri(2,30);c=ri(2,9);a=ri(2,12)}while((x*c)%a);b=x*c/a;return numQ(`比例式 x : ${a} = ${b} : ${c}，x = ?`,x,[Math.round(a*c/b)||x+3,b*c,x+1],`外項乘積 = 內項乘積：${c}x = ${a} × ${b} = ${a*b}，x = ${x}。`)},
+ ()=>{let g,x,y;do{g=ri(2,9);x=ri(1,9);y=ri(2,9)}while(x===y||gcd(x,y)!==1);return strQ(`把 ${g*x} : ${g*y} 化成最簡整數比：`,`${x} : ${y}`,[`${y} : ${x}`,`${x+1} : ${y+1}`,`${x} : ${y+1}`],[`${2*x} : ${y}`],`${g*x} 和 ${g*y} 的最大公因數是 ${g}，同除以 ${g} 得 ${x} : ${y}。`)},
+ ()=>{let m,nn;do{m=ri(1,8);nn=ri(2,9)}while(m===nn||gcd(m,nn)!==1);const k=ri(2,15),S=(m+nn)*k;return numQ(`甲、乙兩人的錢數比是 ${m} : ${nn}，兩人共有 ${S} 元。甲有多少元？`,m*k,[nn*k,Math.round(S/m),S-m],`甲占總和的 ${frac(m,m+nn)}：${S} × ${frac(m,m+nn)} = ${m*k}（元）。`,v=>v+' 元')},
+],
+'F32':[
+ ()=>{const k=ri(2,9),x1=ri(2,9),x2=ri(2,15);const y1=k*x1;return numQ(`y 與 x 成正比，當 x = ${x1} 時 y = ${y1}。當 x = ${x2} 時，y = ?`,k*x2,[Number.isInteger(x1*y1/x2)?x1*y1/x2:null,y1+x2-x1,k+x2],`y = kx，k = ${y1} ÷ ${x1} = ${k}，所以 y = ${k} × ${x2} = ${k*x2}。`)},
+ ()=>{const x1=ri(2,9),y1=ri(2,12);const K=x1*y1;const ds=divisors(K).filter(d=>d!==x1&&d>1&&d<K);if(!ds.length)return GEN.F32[0]();const x2=pick(ds);
+   return numQ(`y 與 x 成反比，當 x = ${x1} 時 y = ${y1}。當 x = ${x2} 時，y = ?`,K/x2,[Number.isInteger(y1*x2/x1)?y1*x2/x1:null,K,y1+x1-x2],`xy = k，k = ${x1} × ${y1} = ${K}，所以 y = ${K} ÷ ${x2} = ${K/x2}。`)},
+ ()=>{const k=ri(2,9);const inv=Math.random()<.5;const A=`y = ${k}x`,B=`y = ${frac(k,'x')}`;return finalize(`下列哪一個式子表示 y 與 x 成${inv?'反':'正'}比？`,[inv?B:A,inv?A:B,`y = x + ${k}`,`y = ${k}`],inv?`xy = ${k} 固定，所以 ${B} 是反比。`:`y ÷ x = ${k} 固定，所以 ${A} 是正比。`)},
+],
+'F41':[
+ ()=>{const a=rnz(-10,20),d=rnz(-6,6),k=ri(5,30);const an=a+(k-1)*d;return numQ(`等差數列首項是 ${n(a)}，公差是 ${n(d)}，第 ${k} 項是多少？`,an,[a+k*d,a+(k-2)*d,k*d],`a<sub>${k}</sub> = a<sub>1</sub> + (${k} − 1)d = ${n(a)} + ${k-1} × ${p(d)} = ${n(an)}。`)},
+ ()=>{const d=rnz(-7,7),a1=rnz(-10,10);const m=ri(2,5),k=m+ri(2,6);const am=a1+(m-1)*d,ak=a1+(k-1)*d;return numQ(`等差數列中，a<sub>${m}</sub> = ${n(am)}，a<sub>${k}</sub> = ${n(ak)}，公差是多少？`,d,[ak-am,-d,(ak-am)/(k-m+1)],`從第 ${m} 項到第 ${k} 項加了 ${k-m} 次公差：(${n(ak)} − ${p(am)}) ÷ ${k-m} = ${n(d)}。`)},
+ ()=>{let a,b;do{a=rnz(-15,25);b=rnz(-15,25)}while((a+b)%2||a===b);return numQ(`若 ${n(a)}、x、${n(b)} 三數成等差數列，則 x = ?`,(a+b)/2,[(b-a)/2,a+b,Math.round(Math.sqrt(Math.abs(a*b)))],`等差中項是前後兩項的平均：(${n(a)} + ${p(b)}) ÷ 2 = ${n((a+b)/2)}。`)},
+],
+'F42':[
+ ()=>{const a=rnz(-5,10),d=ri(1,6),k=ri(5,20);const an=a+(k-1)*d,S=k*(a+an)/2;return numQ(`等差數列首項 ${n(a)}、公差 ${d}，前 ${k} 項的和是多少？`,S,[k*(a+an),k*an,S+d],`末項 a<sub>${k}</sub> = ${n(a)} + ${k-1} × ${d} = ${n(an)}，和 = ${k} × (${n(a)} + ${p(an)}) ÷ 2 = ${n(S)}。`)},
+ ()=>{const k=ri(10,60);return Math.random()<.5?numQ(`1 + 2 + 3 + … + ${k} = ?`,k*(k+1)/2,[k*(k-1)/2,k*k,k*(k+1)],`(首項 + 末項) × 項數 ÷ 2 = (1 + ${k}) × ${k} ÷ 2 = ${k*(k+1)/2}。`):numQ(`1 + 3 + 5 + … + ${2*k-1} = ?`,k*k,[(2*k-1)*k,k*(k+1),(2*k-1)**2],`共有 ${k} 項，和 = (1 + ${2*k-1}) × ${k} ÷ 2 = ${k*k}。`)},
+],
+'F43':[
+ ()=>{let a,r,k,v;do{a=rnz(-5,5);r=pick([2,3,-2,-3]);k=ri(3,6);v=a*r**(k-1)}while(Math.abs(v)>2000);return numQ(`等比數列首項是 ${n(a)}，公比是 ${n(r)}，第 ${k} 項是多少？`,v,[a*r**k,a*r*(k-1),-v],`a<sub>${k}</sub> = ${n(a)} × ${p(r)}<sup>${k-1}</sup> = ${n(v)}。`)},
+ ()=>{const a=pick([48,64,96,80,162,243]);const r=pick(a%3===0&&a!==48?[new Fr(1,3),new Fr(-1,3)]:[new Fr(1,2),new Fr(-1,2)]);const t2=new Fr(a).mul(r),t3=t2.mul(r);return frQ(`等比數列 ${a}, ${fh(t2)}, ${fh(t3)}, … 的公比是多少？`,r,[r.neg(),new Fr(r.b,r.a),new Fr(t2.a-a,1)],`公比 = 後項 ÷ 前項 = ${fh(t2)} ÷ ${a} = ${fh(r)}。`)},
+ ()=>{let k,m,nn;do{k=ri(1,3);m=ri(1,5);nn=ri(1,5)}while(m===nn);const a=k*m*m,b=k*nn*nn,x=k*m*nn;return strQ(`若 ${a}、x、${b} 三數成等比數列，則 x = ?`,`±${x}`,[`${x}`,Number.isInteger((a+b)/2)?`${(a+b)/2}`:`±${a+b}`,`±${a*b}`],[`${M}${x}`],`等比中項：x² = ${a} × ${b} = ${a*b}，x = ±${x}。`)},
+],
+'F51':[
+ ()=>{const a=rnz(-6,6),b=rnz(-9,9),k=rnz(-6,6);return numQ(`若 f(x) = ${lin(a,b)}，則 f(${n(k)}) = ?`,a*k+b,[a*k-b,a+k+b,-(a*k+b)],`把 x = ${n(k)} 代入：${n(a)} × ${p(k)} ${b<0?'−':'+'} ${Math.abs(b)} = ${n(a*k+b)}。`)},
+ ()=>{const a=rnz(-4,4),b=rnz(-8,8),x1=rnz(-5,5);let x2;do{x2=rnz(-5,5)}while(x2===x1);const y1=a*x1+b,y2=a*x2+b;return strQ(`線性函數 y = f(x) 的圖形通過 ${pt(x1,y1)} 和 ${pt(x2,y2)}，f(x) = ?`,lin(a,b),[lin(-a,b),lin(a,-b),b?lin(b,a):lin(a,1)],[lin(a,b+1),lin(a+1,b)],`設 f(x) = ax + b，代入兩點解得 a = ${n(a)}、b = ${n(b)}，f(x) = ${lin(a,b)}。`)},
+ ()=>{const k=rnz(-9,9);return finalize('下列哪一個是常數函數？',[`f(x) = ${n(k)}`,`f(x) = ${n(k)}x`,`f(x) = ${lin(1,k)}`,`f(x) = ${n(k)}x²`],`常數函數的函數值不隨 x 改變，形如 f(x) = b。`)},
+],
+'F61':[
+ ()=>{let p_,q,r,s;do{p_=ri(1,7);q=ri(2,7);r=ri(2,7);s=ri(1,7)}while(q===r||gcd(p_,q)!==1||gcd(r,s)!==1);let A=p_*r,B=q*r,C=q*s;const g=gcd(gcd(A,B),C);A/=g;B/=g;C/=g;const f=(x,y,z)=>`${x} : ${y} : ${z}`;
+   return strQ(`若 a : b = ${p_} : ${q}，b : c = ${r} : ${s}，則 a : b : c = ?`,f(A,B,C),[f(p_,q,s),f(p_,q*r,s),f(p_*s,q*s,q*r)],[f(A+1,B,C),f(A,B,C+1)],`讓 b 相同：a : b = ${p_*r} : ${q*r}，b : c = ${q*r} : ${q*s}，所以 a : b : c = ${p_*r} : ${q*r} : ${q*s}${g>1?' = '+f(A,B,C):''}。`)},
+ ()=>{let a,b,c;do{a=ri(1,6);b=ri(1,6);c=ri(1,6)}while(a===b||b===c||a===c);const k=ri(3,20),S=(a+b+c)*k;const who=pick([['甲',a],['乙',b],['丙',c]]);return numQ(`把 ${S} 元依甲 : 乙 : 丙 = ${a} : ${b} : ${c} 分配，${who[0]}分到多少元？`,who[1]*k,[Math.round(S/who[1]),k,S-who[1]*k],`比的總和 ${a+b+c}，${S} × ${frac(who[1],a+b+c)} = ${who[1]*k}（元）。`,v=>v+' 元')},
+],
+'F71':[
+ ()=>{const a=pick([1,-1,2,-2,3,-3]),h=rnz(-6,6),k=rnz(-9,9);if(h===k||h===-k)return GEN.F71[1]();return strQ(`${quad(a,h,k)} 的頂點坐標是？`,pt(h,k),[pt(-h,k),pt(h,-k),pt(k,h)],[pt(-h,-k)],`y = a(x − h)² + k 的頂點是 (h, k)，所以頂點是 ${pt(h,k)}。`)},
+ ()=>{const a=pick([1,-1,2,-2,3,-3]),h=rnz(-6,6);let k;do{k=rnz(-9,9)}while(Math.abs(k)===Math.abs(h)||k===a);const up=a>0;const ans=`${up?'最小值':'最大值'} ${n(k)}`;return strQ(`二次函數 ${quad(a,h,k)} 有最大值還是最小值？是多少？`,ans,[`${up?'最大值':'最小值'} ${n(k)}`,h!==k?`${up?'最小值':'最大值'} ${n(h)}`:`${up?'最小值':'最大值'} ${n(-k)}`,`${up?'最大值':'最小值'} ${n(h)}`],[`${up?'最小值':'最大值'} ${n(a)}`,`${up?'最小值':'最大值'} ${n(k+1)}`],`a = ${n(a)} ${up?'> 0，開口向上，在頂點有最小值':'< 0，開口向下，在頂點有最大值'} ${n(k)}（當 x = ${n(h)}）。`)},
+ ()=>{const vals=shuffle([new Fr(3),new Fr(-2),new Fr(1,2),new Fr(-1,3),new Fr(4),new Fr(-5),new Fr(2,3)]).slice(0,4);const abs=f=>Math.abs(f.a/f.b);const wide=Math.random()<.5;const best=vals.reduce((m,f)=>wide?(abs(f)<abs(m)?f:m):(abs(f)>abs(m)?f:m));const show=f=>`y = ${f.a===1&&f.b===1?'':f.a===-1&&f.b===1?M:fh(f)}x²`;
+   return finalize(`下列哪一個二次函數的圖形開口${wide?'最大（最寬）':'最小（最窄）'}？`,[show(best),...vals.filter(f=>f!==best).map(show)],`開口大小看 |a|：|a| 越${wide?'小開口越大':'大開口越小'}，所以是 ${show(best)}。`)},
+],
+});
+const EX_FUNCTION=[
+ {key:'function-1',title:'坐標、比例與數列',qs:[
+  {q:'點 P(a, b) 在第二象限，則點 Q(b, a) 在第幾象限？',o:['第四象限','第一象限','第二象限','第三象限'],e:'P 在第二象限：a < 0、b > 0，所以 Q(b, a) 是 (+, −)，在第四象限。'},
+  {q:'地圖比例尺 1 : 50000，地圖上 6 公分代表實際多少公里？',o:['3 公里','30 公里','0.3 公里','300 公里'],e:'6 × 50000 = 300000 公分 = 3 公里。'},
+  {q:'一個等差數列的第 3 項是 11，第 7 項是 27，第 10 項是多少？',o:['39','35','43','40'],e:'公差 = (27 − 11) ÷ 4 = 4，第 10 項 = 27 + 3 × 4 = 39。'},
+  {q:'禮堂座位第一排 20 個，之後每排比前一排多 2 個，共 15 排。總共有幾個座位？',o:['510','300','480','540'],e:'末排 20 + 14 × 2 = 48，總和 = 15 × (20 + 48) ÷ 2 = 510。'},
+  {q:'若 y 與 x 成反比，當 x = 4 時 y = 6。當 y = 8 時，x = ?',o:['3','12','2','16'],e:'xy = 24，所以 x = 24 ÷ 8 = 3。'},
+  {q:'直線 2x − 3y = 12 與兩坐標軸圍成的三角形面積是多少？',o:['12','24','6','36'],e:'x 截距 6、y 截距 −4，面積 = 6 × 4 ÷ 2 = 12。'},
+ ]},
+ {key:'function-2',title:'函數與二次函數',qs:[
+  {q:'線性函數 f(x) = ax + 3，若 f(2) = 11，則 f(−1) = ?',o:['−1','7','−5','1'],e:'2a + 3 = 11，a = 4；f(−1) = −4 + 3 = −1。'},
+  {q:'二次函數 y = −2(x − 3)² + 5 的圖形，下列敘述何者正確？',o:['最大值是 5','最小值是 5','對稱軸是 x = −3','頂點是 (−3, 5)'],e:'a = −2 < 0 開口向下，頂點 (3, 5)，有最大值 5，對稱軸 x = 3。'},
+  {q:'把 y = x² 的圖形向右移 2、向上移 3，新圖形的函數是？',o:['y = (x − 2)² + 3','y = (x + 2)² + 3','y = (x − 3)² + 2','y = (x + 2)² − 3'],e:'向右移 h 用 (x − h)，向上移 k 加 k：y = (x − 2)² + 3。'},
+  {q:'把 24 公尺長的籬笆圍成長方形，面積最大是多少平方公尺？',o:['36','144','24','32'],e:'設長 x，寬 12 − x，面積 = x(12 − x) = −(x − 6)² + 36，最大值 36。'},
+  {q:'a : b = 3 : 4，b : c = 6 : 5，則 a : c = ?',o:['9 : 10','3 : 5','18 : 20 : 15','1 : 1'],e:'a : b : c = 9 : 12 : 10，所以 a : c = 9 : 10。'},
+  {q:'等比數列 3, 6, 12, … 的第 8 項是多少？',o:['384','768','192','24'],e:'a₈ = 3 × 2⁷ = 3 × 128 = 384。'},
+ ]},
+];
+/* ================= 幾何島 ================= */
+const SEC_GEOMETRY=[
+ {id:'g7d6-1',vol:'七下',no:'6-1',ch:'生活中的幾何',title:'垂直、線對稱與三視圖',glyph:'⟂',subs:[{id:'G11',title:'線對稱與三視圖',pts:['線對稱圖形沿對稱軸對摺會完全重合；對稱軸垂直平分對稱點的連線。','正 n 邊形有 n 條對稱軸；圓有無限多條對稱軸。','三視圖：前視圖（從前面看）、上視圖（從上面看）、右視圖（從右邊看）。']}]},
+ {id:'g8u2-3',vol:'八上',no:'2-3',ch:'平方根與畢氏定理',title:'畢氏定理',glyph:'a²+b²',subs:[{id:'G21',title:'畢氏定理',pts:['直角三角形兩股 a、b，斜邊 c：a² + b² = c²。','常見的整數邊長：3、4、5；5、12、13；8、15、17；7、24、25。','坐標平面上兩點距離：√((x₁ − x₂)² + (y₁ − y₂)²)。']}]},
+ {id:'g8d3-1',vol:'八下',no:'3-1',ch:'三角形的基本性質',title:'內角與外角',glyph:'180°',subs:[{id:'G31',title:'三角形與多邊形的內角、外角',pts:['三角形內角和 180°；外角等於不相鄰兩內角的和。','n 邊形內角和 = (n − 2) × 180°。','任何多邊形的外角和都是 360°；正 n 邊形每個外角 = 360° ÷ n。']}]},
+ {id:'g8d3-2',vol:'八下',no:'3-2',ch:'三角形的基本性質',title:'尺規作圖',glyph:'圓規',subs:[{id:'G32',title:'尺規作圖',pts:['只能用沒有刻度的直尺和圓規。','基本作圖：等線段、等角、中垂線、角平分線、過一點作垂線。','由正三角形可得 60°，再平分可得 30°；作垂線得 90°，再平分得 45°。']}]},
+ {id:'g8d3-3',vol:'八下',no:'3-3',ch:'三角形的基本性質',title:'三角形的全等性質',glyph:'≅',subs:[{id:'G33',title:'全等性質',pts:['全等性質：SSS、SAS、ASA、AAS、RHS。','SAS 的角必須是兩邊的夾角。','AAA 只能保證形狀相同（相似），SSA 不一定全等。']}]},
+ {id:'g8d3-4',vol:'八下',no:'3-4',ch:'三角形的基本性質',title:'中垂線與角平分線的性質',glyph:'⊥',subs:[{id:'G34',title:'中垂線與角平分線',pts:['中垂線上任一點到線段兩端點的距離相等。','角平分線上任一點到角的兩邊距離相等。','反過來：到兩端點等距的點在中垂線上；到兩邊等距（在角內部）的點在角平分線上。']}]},
+ {id:'g8d3-5',vol:'八下',no:'3-5',ch:'三角形的基本性質',title:'三角形的邊角關係',glyph:'a+b>c',subs:[{id:'G35',title:'三角形的邊角關係',pts:['任兩邊的和大於第三邊；任兩邊的差小於第三邊。','判斷三線段能否成三角形：兩短邊的和 > 最長邊。','大邊對大角，大角對大邊。']}]},
+ {id:'g8d4-1',vol:'八下',no:'4-1',ch:'平行與四邊形',title:'平行',glyph:'∥',subs:[{id:'G41',title:'平行線的截角性質',pts:['兩平行線被一直線所截：同位角相等。','內錯角相等。','同側內角互補（相加 180°）。']}]},
+ {id:'g8d4-2',vol:'八下',no:'4-2',ch:'平行與四邊形',title:'平行四邊形',glyph:'▱',subs:[{id:'G42',title:'平行四邊形的性質與判別',pts:['平行四邊形：兩組對邊分別平行且等長，兩組對角相等，鄰角互補。','兩條對角線互相平分。','判別：兩組對邊等長、兩組對角相等、對角線互相平分、一組對邊平行且等長，都可以確定是平行四邊形。']}]},
+ {id:'g8d4-3',vol:'八下',no:'4-3',ch:'平行與四邊形',title:'特殊四邊形',glyph:'◇',subs:[{id:'G43',title:'長方形、菱形、正方形與梯形',pts:['長方形：對角線等長且互相平分。','菱形：四邊等長，對角線互相垂直平分；面積 = 兩對角線乘積 ÷ 2。','正方形同時具有長方形和菱形的性質；等腰梯形兩腰等長、同底的兩底角相等。']}]},
+ {id:'g9u1-2',vol:'九上',no:'1-2',ch:'相似形',title:'比例線段',glyph:'DE∥BC',subs:[{id:'G51',title:'平行線截比例線段',pts:['△ABC 中，DE ∥ BC（D 在 AB 上、E 在 AC 上），則 AD : DB = AE : EC。','三角形兩邊中點的連線平行第三邊，且長度是第三邊的一半。','數條平行線截兩條直線，截出的線段成比例。']}]},
+ {id:'g9u1-3',vol:'九上',no:'1-3',ch:'相似形',title:'縮放與相似',glyph:'∼',subs:[{id:'G52',title:'相似形',pts:['相似多邊形：對應角相等、對應邊成比例。','三角形相似性質：AA、SAS、SSS。','邊長比 a : b，則周長比 a : b，面積比 a² : b²。']}]},
+ {id:'g9u1-4',vol:'九上',no:'1-4',ch:'相似形',title:'相似三角形的應用',glyph:'影長',subs:[{id:'G53',title:'相似的應用',pts:['同一時間，物高與影長成正比，可用相似三角形測高度。','比例尺 1 : N 表示圖上 1 單位代表實際 N 單位。','單位換算：1 公里 = 1000 公尺 = 100000 公分。']}]},
+ {id:'g9u2-1',vol:'九上',no:'2-1',ch:'圓',title:'點、直線與圓的關係',glyph:'⊙',subs:[{id:'G61',title:'點、直線與圓',pts:['點到圓心距離 d、半徑 r：d < r 在圓內，d = r 在圓上，d > r 在圓外。','圓心到直線距離 d：d < r 交於兩點，d = r 相切，d > r 不相交。','切線垂直於過切點的半徑；圓外一點到圓的兩條切線段等長。']}]},
+ {id:'g9u2-2',vol:'九上',no:'2-2',ch:'圓',title:'圓心角、圓周角與弧',glyph:'∠',subs:[{id:'G62',title:'圓心角、圓周角與弧',pts:['圓心角的度數等於它所對弧的度數。','圓周角的度數是所對弧度數的一半；半圓所對的圓周角是 90°。','圓內接四邊形的對角互補。','弧長 = 2πr × [θ/360]，扇形面積 = πr² × [θ/360]。']}]},
+ {id:'g9u3-1',vol:'九上',no:'3-1',ch:'幾何與證明',title:'證明與推理',glyph:'∴',subs:[{id:'G71',title:'證明與推理',pts:['敘述「若 p，則 q」的逆敘述是「若 q，則 p」；原敘述正確，逆敘述不一定正確。','要說明一個敘述是錯的，只要舉出一個反例。','證明時每一步都要有理由：已知條件、定義或已證明的性質。']}]},
+ {id:'g9u3-2',vol:'九上',no:'3-2',ch:'幾何與證明',title:'外心、內心與重心',glyph:'三心',subs:[{id:'G72',title:'三角形的三心',pts:['外心：三邊中垂線的交點，到三頂點等距；直角三角形的外心在斜邊中點。','內心：三內角平分線的交點，到三邊等距；∠BIC = 90° + [∠A/2]。','重心：三中線的交點，把每條中線分成 2 : 1（靠頂點的較長）。']}]},
+ {id:'g9d3-1',vol:'九下',no:'3-1',ch:'立體圖形',title:'空間中的線、平面與形體',glyph:'立體',subs:[{id:'G81',title:'柱體與錐體',pts:['n 角柱：n + 2 個面、3n 條邊、2n 個頂點；n 角錐：n + 1 個面、2n 條邊、n + 1 個頂點。','柱體體積 = 底面積 × 高；圓柱體積 = πr²h。','圓柱側面積 = 2πrh（展開是長方形）。']}]},
+];
+const piS=f=>{if(f.b===1)return(f.a===1?'':f.a===-1?M:n(f.a))+'π';return fh(f)+'π'};
+const tri=()=>{const [a,b,c]=pick(TRIPLES);const k=Math.max(...[a,b,c])>20?1:pick([1,1,2]);return[a*k,b*k,c*k]};
+Object.assign(GEN,{
+'G11':[
+ ()=>{const s=pick([['正三角形',3],['正方形',4],['長方形（不是正方形）',2],['等腰三角形（不是正三角形）',1],['正五邊形',5],['正六邊形',6],['菱形（不是正方形）',2],['一般的平行四邊形',0],['正八邊形',8]]);return numQ(`${s[0]}有幾條對稱軸？`,s[1],[s[1]+1,s[1]*2||2,s[1]?s[1]-1:3],`${s[0]}有 ${s[1]} 條對稱軸。${s[1]===0?'一般平行四邊形是點對稱，但不是線對稱圖形。':''}`,v=>v+' 條')},
+ pool([
+  {q:'線對稱圖形中，兩個對稱點的連線和對稱軸的關係是？',o:['對稱軸垂直平分這條連線','對稱軸和連線平行','連線的長度等於對稱軸','沒有固定關係'],e:'對稱軸會垂直平分任意一組對稱點的連線。'},
+  {q:'一個直立放置的圓柱，從正上方看（上視圖）是什麼形狀？',o:['圓形','長方形','三角形','正方形'],e:'從上面看到的是圓柱的底面，是圓形。'},
+  {q:'一個直立放置的圓柱，從正前方看（前視圖）是什麼形狀？',o:['長方形','圓形','三角形','梯形'],e:'從前面看，圓柱的輪廓是長方形。'},
+  {q:'一個直立放置的圓錐，前視圖是什麼形狀？',o:['等腰三角形','圓形','長方形','正方形'],e:'從前面看，圓錐的輪廓是等腰三角形。'},
+  {q:'哪一個立體的三視圖都是圓形？',o:['球','圓柱','圓錐','正立方體'],e:'球從任何方向看都是圓形。'},
+  {q:'正立方體的前視圖是什麼形狀？',o:['正方形','長方形（不是正方形）','三角形','六邊形'],e:'正立方體每一面都是正方形。'},
+  {q:'下列哪一個圖形不是線對稱圖形？',o:['一般的平行四邊形','等腰梯形','箏形','圓'],e:'一般平行四邊形找不到對摺後完全重合的對稱軸。'},
+ ]),
+],
+'G21':[
+ ()=>{const [a,b,c]=tri();return numQ(`直角三角形兩股長是 ${a} 和 ${b}，斜邊長是多少？`,c,[a+b,c+1,Math.round(Math.sqrt(a*a+b*b)/2)||c-1],`斜邊² = ${a}² + ${b}² = ${a*a} + ${b*b} = ${c*c}，斜邊 = ${c}。`)},
+ ()=>{const [a,b,c]=tri();return numQ(`直角三角形斜邊長 ${c}，一股長 ${a}，另一股長是多少？`,b,[c-a,Math.round(Math.sqrt(c*c+a*a)),b+1],`另一股² = ${c}² − ${a}² = ${c*c} − ${a*a} = ${b*b}，另一股 = ${b}。`)},
+ ()=>{const [a,b,c]=tri();const x1=rnz(-6,6),y1=rnz(-6,6);const sx=pick([1,-1]),sy=pick([1,-1]);const x2=x1+sx*a,y2=y1+sy*b;return numQ(`坐標平面上 A${pt(x1,y1)}、B${pt(x2,y2)}，AB 的長是多少？`,c,[a+b,Math.abs(x2-x1)+Math.abs(y2-y1)-1,c+2],`水平差 ${a}、鉛直差 ${b}，AB = √(${a}² + ${b}²) = √${c*c} = ${c}。`)},
+ ()=>{const [a,b,c]=tri();const bad=[[a,b,c+1],[a+1,b,c],[a,b+2,c],[2,3,4],[4,5,6],[5,6,8]].filter(([x,y,z])=>x*x+y*y!==z*z).map(t=>t.join('、'));return strQ('下列哪一組數可以是直角三角形的三邊長？',[a,b,c].join('、'),shuffle(bad),[],`${a}² + ${b}² = ${a*a+b*b} = ${c}²，符合畢氏定理。`)},
+],
+'G31':[
+ ()=>{const A=ri(20,100),B=ri(20,150-A);return numQ(`△ABC 中，∠A = ${A}°，∠B = ${B}°，∠C = ?`,180-A-B,[180-A,A+B,360-A-B],`∠C = 180° − ${A}° − ${B}° = ${180-A-B}°。`,deg)},
+ ()=>{const A=ri(25,85),B=ri(25,85);return numQ(`△ABC 中，∠A = ${A}°，∠B = ${B}°，∠C 的外角是多少度？`,A+B,[180-A-B,180-A,Math.abs(A-B)],`外角等於不相鄰兩內角的和：${A}° + ${B}° = ${A+B}°。`,deg)},
+ ()=>{const k=ri(5,12);return numQ(`${k} 邊形的內角和是多少度？`,(k-2)*180,[k*180,(k-1)*180,360],`(${k} − 2) × 180° = ${(k-2)*180}°。`,deg)},
+ ()=>{const k=pick([5,6,8,9,10,12]);const ext=360/k;return Math.random()<.5?numQ(`正 ${k} 邊形的每一個內角是多少度？`,180-ext,[ext,(k-2)*180,180-ext+10],`每個外角 360° ÷ ${k} = ${ext}°，內角 = 180° − ${ext}° = ${180-ext}°。`,deg):numQ(`一個正多邊形的每個外角都是 ${ext}°，它是正幾邊形？`,k,[k+1,k-1,k+2],`外角和 360°，360° ÷ ${ext}° = ${k}，是正 ${k} 邊形。`,v=>'正 '+v+' 邊形')},
+],
+'G32':[pool([
+  {q:'尺規作圖可以使用哪些工具？',o:['沒有刻度的直尺和圓規','有刻度的直尺和量角器','量角器和圓規','三角板和量角器'],e:'尺規作圖只能用沒有刻度的直尺和圓規。'},
+  {q:'下列哪一個角度無法只用尺規作出？',o:['20°','60°','30°','45°'],e:'60° 由正三角形得到，30° 是它的一半，45° 是直角的一半；20° 無法用尺規作出。'},
+  {q:'作線段 AB 的中垂線時，分別以 A、B 為圓心畫弧，半徑要怎麼取？',o:['兩次半徑相同，且大於 AB 的一半','半徑等於 AB 的一半','兩次半徑可以不同','半徑要小於 AB 的一半'],e:'半徑相同且大於 AB 的一半，兩弧才會交於兩點。'},
+  {q:'作 ∠ABC 的角平分線，第一步通常是？',o:['以 B 為圓心畫弧，交角的兩邊於兩點','連接 A、C 兩點','用量角器量出角度','以 A 為圓心畫一個圓'],e:'先以頂點 B 為圓心畫弧，在兩邊上取等距的兩點。'},
+  {q:'利用尺規作出正三角形，可以直接得到幾度的角？',o:['60°','90°','45°','30°'],e:'正三角形每個內角都是 60°。'},
+  {q:'把 90° 角用尺規平分，可以得到幾度的角？',o:['45°','30°','60°','22.5°'],e:'90° ÷ 2 = 45°。'},
+  {q:'下列哪一個不是基本的尺規作圖？',o:['把任意角三等分','作線段的中垂線','作角的平分線','作一個角等於已知角'],e:'任意角三等分無法用尺規完成。'},
+  {q:'用尺規「過直線外一點作垂線」，是利用哪一個性質？',o:['到線段兩端點等距的點在中垂線上','三角形內角和 180°','畢氏定理','平行線的同位角相等'],e:'在直線上取兩點與該點等距，再作中垂線。'},
+ ])],
+'G33':[
+ pool([
+  {q:'△ABC 和 △DEF 中，AB = DE、BC = EF、CA = FD，可以用哪一個性質說明全等？',o:['SSS','SAS','ASA','RHS'],e:'三邊對應相等，用 SSS 全等。'},
+  {q:'△ABC 和 △DEF 中，AB = DE、∠B = ∠E、BC = EF，可以用哪一個性質說明全等？',o:['SAS','SSS','AAS','RHS'],e:'兩邊和它們的夾角對應相等，用 SAS 全等。'},
+  {q:'△ABC 和 △DEF 中，∠A = ∠D、AB = DE、∠B = ∠E，可以用哪一個性質說明全等？',o:['ASA','SAS','AAS','SSS'],e:'兩角和它們的夾邊對應相等，用 ASA 全等。'},
+  {q:'△ABC 和 △DEF 中，∠A = ∠D、∠B = ∠E、BC = EF，可以用哪一個性質說明全等？',o:['AAS','ASA','SAS','RHS'],e:'兩角和其中一角的對邊對應相等，用 AAS 全等。'},
+  {q:'兩個直角三角形中，∠C = ∠F = 90°、斜邊 AB = DE、一股 AC = DF，可以用哪一個性質說明全等？',o:['RHS','SAS','SSS','ASA'],e:'直角、斜邊和一股對應相等，用 RHS 全等。'},
+  {q:'下列哪一個條件不能保證兩個三角形全等？',o:['三個角對應相等（AAA）','三邊對應相等（SSS）','兩角及其夾邊對應相等（ASA）','兩邊及其夾角對應相等（SAS）'],e:'三角對應相等只能說明形狀相同，大小可以不同。'},
+  {q:'下列哪一個條件不能保證兩個三角形全等？',o:['兩邊及其中一邊的對角對應相等（SSA）','直角、斜邊與一股對應相等（RHS）','兩角及其中一角的對邊對應相等（AAS）','三邊對應相等（SSS）'],e:'SSA 可能畫出兩種不同的三角形，不能保證全等。'},
+  {q:'若 △ABC ≅ △DEF，下列何者一定正確？',o:['BC = EF','AB = EF','∠A = ∠E','AC = DE'],e:'全等時對應邊相等，A↔D、B↔E、C↔F，所以 BC = EF。'},
+ ])],
+'G34':[
+ ()=>{const k=ri(3,20);return numQ(`P 點在線段 AB 的中垂線上，PA = ${k}，則 PB = ?`,k,[2*k,Math.round(k/2)||k+1,k+1],`中垂線上的點到兩端點等距，所以 PB = PA = ${k}。`)},
+ ()=>{const d=ri(2,15);return numQ(`P 點在 ∠ABC 的角平分線上，P 到 BA 的距離是 ${d}，則 P 到 BC 的距離是多少？`,d,[2*d,d+2,Math.round(d/2)||d+1],`角平分線上的點到角的兩邊等距，所以也是 ${d}。`)},
+ pool([
+  {q:'到線段 AB 兩端點距離相等的點，都在哪裡？',o:['AB 的中垂線上','AB 的中點上','以 A 為圓心的圓上','AB 的延長線上'],e:'到兩端點等距的點都在中垂線上。'},
+  {q:'在角的內部，到角的兩邊距離相等的點，都在哪裡？',o:['角平分線上','角的一邊上','頂點上','角的外部'],e:'到角兩邊等距的點在角平分線上。'},
+  {q:'等腰三角形頂角的平分線和底邊的關係是？',o:['垂直平分底邊','和底邊平行','長度等於底邊','沒有關係'],e:'等腰三角形頂角平分線就是底邊的中垂線。'},
+ ]),
+],
+'G35':[
+ ()=>{let a,b,c;do{a=ri(2,12);b=ri(2,12);c=ri(2,12)}while(!(a+b>c&&a+c>b&&b+c>a)||a===b&&b===c);const bad=[];while(bad.length<3){const x=ri(1,10),y=ri(1,10),z=x+y+ri(0,3);const s=shuffle([x,y,z]).join('、');if(!bad.includes(s))bad.push(s)}
+   const sorted=[a,b,c].sort((u,v)=>u-v);return strQ('下列哪一組線段長可以構成三角形？',[a,b,c].join('、'),bad,[],`最短的兩邊 ${sorted[0]} + ${sorted[1]} = ${sorted[0]+sorted[1]} > ${sorted[2]}，可以構成三角形；其他各組兩短邊的和都不大於最長邊。`)},
+ ()=>{const a=ri(3,15),b=ri(3,15);const lo=Math.abs(a-b),hi=a+b;if(hi-lo<3)return GEN.G35[0]();const ok=ri(lo+1,hi-1);return numQ(`三角形兩邊長是 ${a} 和 ${b}，第三邊可能是多少？`,ok,[hi,lo||hi+1,hi+2],`第三邊要大於 ${lo}、小於 ${hi}，只有 ${ok} 符合。`)},
+ ()=>{const s=shuffle([ri(4,8),ri(9,13),ri(14,18)]);const names=['BC','CA','AB'],opp=['∠A','∠B','∠C'];const i=s.indexOf(Math.max(...s));return finalize(`△ABC 中，BC = ${s[0]}、CA = ${s[1]}、AB = ${s[2]}，哪一個角最大？`,[opp[i],...opp.filter((_,j)=>j!==i),'三個角一樣大'].slice(0,4),`大邊對大角：最長的邊是 ${names[i]}，它對面的角是 ${opp[i]}。`)},
+],
+'G41':[
+ ()=>{const x=ri(35,145);const t=pick([['同位角',x],['內錯角',x],['同側內角',180-x]]);return numQ(`L₁ ∥ L₂，被一條直線所截。∠1 = ${x}°，∠1 與 ∠2 是${t[0]}，∠2 = ?`,t[1],[t[0]==='同側內角'?x:180-x,90-x>0?90-x:x+10,360-x],`兩平行線被截：同位角相等、內錯角相等、同側內角互補，所以 ∠2 = ${t[1]}°。`,deg)},
+ ()=>{const k=ri(10,30),a=pick([2,3,4]),b=a+pick([1,2]);const c=ri(5,40);const d=(b-a)*k-c>0?(b-a)*k-c:null;if(d===null||a*k+c>170)return GEN.G41[0]();const ang=a*k+c;
+   return numQ(`L₁ ∥ L₂，一組內錯角分別是 (${a}x + ${c})° 和 (${b}x − ${d})°，這個角是多少度？`,ang,[180-ang,k,b*k],`內錯角相等：${a}x + ${c} = ${b}x − ${d}，x = ${k}，角度 = ${a} × ${k} + ${c} = ${ang}°。`,deg)},
+],
+'G42':[
+ ()=>{const x=ri(40,140);if(x===90)return GEN.G42[1]();const askB=Math.random()<.5;return numQ(`平行四邊形 ABCD 中，∠A = ${x}°，∠${askB?'B':'C'} = ?`,askB?180-x:x,[askB?x:180-x,360-x,90],askB?`鄰角互補：∠B = 180° − ${x}° = ${180-x}°。`:`對角相等：∠C = ∠A = ${x}°。`,deg)},
+ ()=>{const a=ri(3,15);return numQ(`平行四邊形 ABCD 的對角線交於 O，AC = ${2*a}，AO = ?`,a,[2*a,Math.round(a/2)||a+1,a+2],`平行四邊形的對角線互相平分，AO = ${2*a} ÷ 2 = ${a}。`)},
+ pool([
+  {q:'下列哪一個條件可以確定四邊形是平行四邊形？',o:['兩組對邊分別等長','一組對邊平行，另一組對邊等長','兩條對角線等長','兩條對角線互相垂直'],e:'兩組對邊分別等長的四邊形是平行四邊形；「一組平行、一組等長」可能是等腰梯形。'},
+  {q:'下列哪一個條件可以確定四邊形是平行四邊形？',o:['兩條對角線互相平分','兩條對角線等長','一組對角相等','一組鄰邊相等'],e:'對角線互相平分的四邊形是平行四邊形。'},
+  {q:'下列哪一個條件可以確定四邊形是平行四邊形？',o:['一組對邊平行且等長','一組對邊平行','一組對邊等長','兩條對角線互相垂直'],e:'一組對邊平行且等長的四邊形是平行四邊形。'},
+ ]),
+],
+'G43':[
+ ()=>{const [a,b,c]=pick(TRIPLES.slice(0,5));return Math.random()<.5?numQ(`菱形的兩條對角線長是 ${2*a} 和 ${2*b}，面積是多少？`,2*a*b,[4*a*b,a*b,2*(a+b)],`菱形面積 = 對角線乘積 ÷ 2 = ${2*a} × ${2*b} ÷ 2 = ${2*a*b}。`):numQ(`菱形的兩條對角線長是 ${2*a} 和 ${2*b}，邊長是多少？`,c,[a+b,2*c,c+1],`對角線互相垂直平分，邊長 = √(${a}² + ${b}²) = ${c}。`)},
+ ()=>{const [a,b,c]=tri();return numQ(`長方形的長是 ${a}、寬是 ${b}，對角線長是多少？`,c,[a+b,2*c,c-1],`對角線 = √(${a}² + ${b}²) = ${c}。`)},
+ pool([
+  {q:'對角線等長的平行四邊形一定是？',o:['長方形','菱形','梯形','箏形'],e:'平行四邊形加上對角線等長，就是長方形。'},
+  {q:'對角線互相垂直的平行四邊形一定是？',o:['菱形','長方形','梯形','一般四邊形'],e:'平行四邊形加上對角線互相垂直，就是菱形。'},
+  {q:'下列哪一個是等腰梯形的性質？',o:['同一底上的兩個底角相等','兩條對角線互相垂直','四個角都是直角','兩組對邊分別平行'],e:'等腰梯形同底的兩底角相等、兩條對角線等長。'},
+  {q:'正方形具有下列哪一個性質？',o:['對角線等長且互相垂直平分','只有一組對邊平行','對角線不一定等長','只有一條對稱軸'],e:'正方形同時具有長方形和菱形的所有性質。'},
+ ]),
+],
+'G51':[
+ ()=>{const m=ri(1,5),nn=ri(1,5),t=ri(1,4),u=ri(1,4);return numQ(`△ABC 中，D 在 AB 上、E 在 AC 上，DE ∥ BC。若 AD = ${m*t}、DB = ${nn*t}、AE = ${m*u}，則 EC = ?`,nn*u,[m*u+nn*t,nn*t,(m+nn)*u],`AD : DB = AE : EC，${m*t} : ${nn*t} = ${m*u} : EC，EC = ${nn*u}。`)},
+ ()=>{const k=ri(3,20);return Math.random()<.5?numQ(`△ABC 中，D、E 分別是 AB、AC 的中點，BC = ${2*k}，DE = ?`,k,[2*k,4*k,k+2],`兩邊中點連線等於第三邊的一半：DE = ${2*k} ÷ 2 = ${k}。`):numQ(`△ABC 中，D、E 分別是 AB、AC 的中點，DE = ${k}，BC = ?`,2*k,[k,Math.round(k/2)||k+3,3*k],`BC = 2 × DE = ${2*k}。`)},
+ ()=>{const m=ri(2,6),nn=ri(2,6),t=ri(2,4);return numQ(`三條平行線截兩條直線，在第一條上截出 AB = ${m}、BC = ${nn}，在第二條上截出 DE = ${m*t}，則 EF = ?`,nn*t,[m*t,nn+t,(m+nn)*t],`平行線截比例線段：AB : BC = DE : EF，${m} : ${nn} = ${m*t} : EF，EF = ${nn*t}。`)},
+],
+'G52':[
+ ()=>{const r=pick([2,3,4]),a=ri(2,9),b=ri(2,9);return numQ(`△ABC ∼ △DEF，AB = ${a}、DE = ${a*r}，BC = ${b}，EF = ?`,b*r,[b+a*r-a,b*r*r,Math.round(b/r)||b+1],`相似比 ${a} : ${a*r} = 1 : ${r}，EF = ${b} × ${r} = ${b*r}。`)},
+ ()=>{const p_=ri(1,5),q=ri(2,6);if(p_===q)return GEN.G52[0]();return strQ(`兩個相似三角形的對應邊長比是 ${p_} : ${q}，面積比是？`,`${p_*p_} : ${q*q}`,[`${p_} : ${q}`,`${2*p_} : ${2*q}`,`${p_**3} : ${q**3}`],[],`面積比 = 邊長比的平方 = ${p_}² : ${q}² = ${p_*p_} : ${q*q}。`)},
+ pool([
+  {q:'下列哪一個不是三角形的相似性質？',o:['SSA','AA','SAS','SSS'],e:'三角形相似性質有 AA、SAS、SSS。'},
+  {q:'兩個全等的三角形，一定相似嗎？',o:['一定相似，相似比是 1 : 1','一定不相似','不一定','只有直角三角形才相似'],e:'全等是相似比為 1 的特例。'},
+  {q:'兩個正方形一定相似嗎？',o:['一定相似','一定不相似','邊長相同才相似','面積相同才相似'],e:'正方形的角都是 90°，邊長比都相同，一定相似。'},
+ ]),
+],
+'G53':[
+ ()=>{const h=pick([1,1.5,2]),s=pick([2,3,4]);const k=ri(3,8);const S=s*k,H=h*k;return numQ(`同一時間，${h} 公尺的竿子影長 ${s} 公尺，旁邊一棵樹的影長 ${S} 公尺。樹高幾公尺？`,H,[S*s/h,H+h,S],`物高和影長成正比：${h} : ${s} = 樹高 : ${S}，樹高 = ${H} 公尺。`,v=>v+' 公尺')},
+ ()=>{const N=pick([10000,20000,25000,50000,100000]),d=ri(2,12);const km=d*N/100000;return numQ(`地圖比例尺 1 : ${N.toLocaleString('en-US')}，圖上 ${d} 公分代表實際幾公里？`,km,[km*10,km/10,d*N/1000],`${d} × ${N} = ${d*N} 公分 = ${km} 公里。`,v=>v+' 公里')},
+],
+'G61':[
+ ()=>{const r=ri(3,12),t=ri(0,2);const d=t===0?r-ri(1,r-1):t===1?r:r+ri(1,6);const ans=['在圓內','在圓上','在圓外'][t];return finalize(`圓 O 的半徑是 ${r}，P 點到圓心 O 的距離是 ${d}，P 點的位置是？`,[ans,...['在圓內','在圓上','在圓外','無法判斷'].filter(s=>s!==ans)],`d = ${d}，r = ${r}：d ${t===0?'<':t===1?'=':'>'} r，所以 P ${ans}。`)},
+ ()=>{const r=ri(3,12),t=ri(0,2);const d=t===0?r-ri(1,r-1):t===1?r:r+ri(1,6);const ans=['和圓交於兩點','和圓相切','和圓不相交'][t];return finalize(`圓 O 的半徑是 ${r}，圓心到直線 L 的距離是 ${d}，直線 L 和圓的關係是？`,[ans,...['和圓交於兩點','和圓相切','和圓不相交','和圓交於三點'].filter(s=>s!==ans)],`d ${t===0?'< r，交於兩點':t===1?'= r，相切':'> r，不相交'}。`)},
+ ()=>{const [a,b,c]=tri();return numQ(`圓 O 半徑是 ${a}，P 在圓外且 OP = ${c}，從 P 作切線切圓於 A，PA = ?`,b,[c-a,c+a,b+1],`切線垂直半徑，△OAP 是直角三角形：PA = √(${c}² − ${a}²) = ${b}。`)},
+],
+'G62':[
+ ()=>{const x=2*ri(20,85);return Math.random()<.5?numQ(`圓 O 中，弧 AB 所對的圓心角是 ${x}°，它所對的圓周角是多少度？`,x/2,[x,2*x,180-x],`圓周角是所對弧度數的一半：${x}° ÷ 2 = ${x/2}°。`,deg):numQ(`圓周角 ∠ACB = ${x/2}°，它所對弧 AB 的圓心角 ∠AOB 是多少度？`,x,[x/2,180-x/2,x+x/2],`圓心角 = 2 × 圓周角 = ${x}°。`,deg)},
+ ()=>{const x=ri(50,130);return numQ(`四邊形 ABCD 內接於圓，∠A = ${x}°，∠C = ?`,180-x,[x,360-x,90],`圓內接四邊形對角互補：∠C = 180° − ${x}° = ${180-x}°。`,deg)},
+ ()=>{const r=ri(2,9),th=pick([45,60,90,120,180,30]);const L=new Fr(2*r*th,360),A=new Fr(r*r*th,360);const askL=Math.random()<.5;
+   return strQ(`半徑 ${r}、圓心角 ${th}° 的扇形，${askL?'弧長':'面積'}是多少？`,piS(askL?L:A),[piS(askL?A:L),piS((askL?L:A).mul(new Fr(2))),piS((askL?L:A).mul(new Fr(1,2)))],[piS((askL?L:A).add(new Fr(1))),piS((askL?L:A).mul(new Fr(3))),piS((askL?L:A).mul(new Fr(4)))],askL?`弧長 = 2π × ${r} × ${frac(th,360)} = ${piS(L)}。`:`面積 = π × ${r}² × ${frac(th,360)} = ${piS(A)}。`)},
+],
+'G71':[pool([
+  {q:'「若 a > 0 且 b > 0，則 ab > 0」的逆敘述是？',o:['若 ab > 0，則 a > 0 且 b > 0','若 ab ≤ 0，則 a ≤ 0 或 b ≤ 0','若 a ≤ 0 且 b ≤ 0，則 ab ≤ 0','若 a > 0，則 ab > 0'],e:'逆敘述是把條件和結論交換。這個逆敘述是錯的，例如 a = b = −1。'},
+  {q:'要說明「所有質數都是奇數」是錯的，可以舉哪一個反例？',o:['2','3','9','15'],e:'2 是質數，但不是奇數。'},
+  {q:'要說明「所有數都有 x² > x」是錯的，下列哪一個是反例？',o:[frac(1,2),'2','−1','3'],e:'(1/2)² = 1/4，比 1/2 小，所以不成立。'},
+  {q:'下列敘述何者正確？',o:['對頂角一定相等','相等的兩個角一定是對頂角','互補的兩個角一定相鄰','兩個銳角的和一定是鈍角'],e:'對頂角相等；但相等的角不一定是對頂角。'},
+  {q:'「若 x = 3，則 x² = 9」的逆敘述正確嗎？',o:['不正確，x 也可能是 −3','正確','不正確，x² 不會是 9','無法判斷'],e:'逆敘述「若 x² = 9，則 x = 3」是錯的，因為 x = −3 也成立。'},
+  {q:'幾何證明中，下列哪一個可以當作理由？',o:['已知條件、定義和已證明的性質','圖形看起來相等','用尺量出來的長度','多數同學的看法'],e:'證明不能靠看或量，要用已知、定義和性質。'},
+  {q:'「等腰三角形兩底角相等」的逆敘述是「兩角相等的三角形是等腰三角形」，這個逆敘述？',o:['正確','錯誤','只有直角三角形才正確','只有正三角形才正確'],e:'兩角相等的三角形是等腰三角形，這個逆敘述是正確的。'},
+ ])],
+'G72':[
+ ()=>{const A=2*ri(15,60);return numQ(`I 是 △ABC 的內心，∠A = ${A}°，∠BIC = ?`,90+A/2,[2*A,180-A/2,90-A/2],`∠BIC = 90° + ∠A ÷ 2 = 90° + ${A/2}° = ${90+A/2}°。`,deg)},
+ ()=>{const A=ri(25,85);return numQ(`O 是銳角 △ABC 的外心，∠A = ${A}°，∠BOC = ?`,2*A,[A,90+A/2,180-A],`∠BOC 是 BC 弧的圓心角，∠A 是同弧的圓周角，所以 ∠BOC = 2 × ${A}° = ${2*A}°。`,deg)},
+ ()=>{let a,b,c;do{[a,b,c]=tri()}while(c%2);return numQ(`直角三角形兩股長 ${a}、${b}，它的外接圓半徑是多少？`,c/2,[c,(a+b)/2,c/2+1],`斜邊 = ${c}，直角三角形外心在斜邊中點，外接圓半徑 = ${c} ÷ 2 = ${c/2}。`)},
+ ()=>{const m=3*ri(2,12);return numQ(`G 是 △ABC 的重心，AD 是中線，AD = ${m}，AG = ?`,2*m/3,[m/3,m/2,m],`重心把中線分成 2 : 1，AG = ${m} × ${frac(2,3)} = ${2*m/3}。`)},
+ pool([
+  {q:'到三角形三個頂點距離相等的點是？',o:['外心','內心','重心','垂心'],e:'外心是三邊中垂線的交點，到三頂點等距。'},
+  {q:'到三角形三邊距離相等的點是？',o:['內心','外心','重心','頂點'],e:'內心是三內角平分線的交點，到三邊等距。'},
+  {q:'鈍角三角形的外心在哪裡？',o:['三角形外部','三角形內部','最長邊的中點','鈍角的頂點'],e:'銳角在內部、直角在斜邊中點、鈍角在外部。'},
+  {q:'三角形三條中線的交點是？',o:['重心','外心','內心','垂心'],e:'三條中線交於重心。'},
+ ]),
+],
+'G81':[
+ ()=>{const k=ri(3,8),prism=Math.random()<.5,what=pick(['面','邊','頂點']);const v=prism?{面:k+2,邊:3*k,頂點:2*k}[what]:{面:k+1,邊:2*k,頂點:k+1}[what];return numQ(`${k} 角${prism?'柱':'錐'}有幾個${what}？`,v,prism?[{面:k+1,邊:2*k,頂點:k+1}[what],v+1,v+2]:[{面:k+2,邊:3*k,頂點:2*k}[what],v+1,v-1],prism?`${k} 角柱：${k+2} 個面、${3*k} 條邊、${2*k} 個頂點。`:`${k} 角錐：${k+1} 個面、${2*k} 條邊、${k+1} 個頂點。`,x=>x+' 個')},
+ ()=>{const r=ri(2,7),h=ri(3,12);return strQ(`底面半徑 ${r}、高 ${h} 的圓柱，體積是多少？`,piS(new Fr(r*r*h)),[piS(new Fr(2*r*h)),piS(new Fr(r*h)),piS(new Fr(2*r*r*h))],[piS(new Fr(r*r*h+1))],`圓柱體積 = πr²h = π × ${r}² × ${h} = ${piS(new Fr(r*r*h))}。`)},
+ ()=>{const a=ri(2,9),b=ri(2,9),c=ri(2,9);return Math.random()<.5?numQ(`長方體的長、寬、高是 ${a}、${b}、${c}，體積是多少？`,a*b*c,[2*(a*b+b*c+c*a),a+b+c,a*b*c+a],`體積 = ${a} × ${b} × ${c} = ${a*b*c}。`):numQ(`長方體的長、寬、高是 ${a}、${b}、${c}，表面積是多少？`,2*(a*b+b*c+c*a),[a*b+b*c+c*a,a*b*c,4*(a+b+c)],`表面積 = 2 × (${a*b} + ${b*c} + ${c*a}) = ${2*(a*b+b*c+c*a)}。`)},
+],
+});
+const EX_GEOMETRY=[
+ {key:'geometry-1',title:'三角形與四邊形',qs:[
+  {q:'一個正多邊形的每個內角是 144°，它是正幾邊形？',o:['正十邊形','正八邊形','正九邊形','正十二邊形'],e:'每個外角 = 180° − 144° = 36°，360° ÷ 36° = 10。'},
+  {q:'梯子長 13 公尺，靠在牆上，梯腳離牆 5 公尺。梯子頂端離地面幾公尺？',o:['12 公尺','8 公尺','18 公尺','√194 公尺'],e:'√(13² − 5²) = √144 = 12。'},
+  {q:'等腰三角形兩邊長是 4 和 9，周長是多少？',o:['22','17','17 或 22','13'],e:'若腰是 4：4 + 4 < 9 不能成三角形；所以腰是 9，周長 9 + 9 + 4 = 22。'},
+  {q:'平行四邊形 ABCD 中，∠A 比 ∠B 大 40°，∠C = ?',o:['110°','70°','40°','140°'],e:'∠A + ∠B = 180°，∠A = 110°，∠C = ∠A = 110°。'},
+  {q:'菱形的周長是 40，一條對角線長 12，另一條對角線長多少？',o:['16','8','20','10'],e:'邊長 10，半對角線 6，另一半 = √(10² − 6²) = 8，對角線長 16。'},
+  {q:'△ABC 中，∠A : ∠B : ∠C = 2 : 3 : 4，最大的角是多少度？',o:['80°','60°','90°','40°'],e:'180° × 4/9 = 80°。'},
+ ]},
+ {key:'geometry-2',title:'相似、圓與三心',qs:[
+  {q:'身高 160 公分的小明影長 2 公尺，同時旗竿影長 10 公尺，旗竿高幾公尺？',o:['8 公尺','12.5 公尺','6.4 公尺','16 公尺'],e:'1.6 : 2 = 旗竿 : 10，旗竿 = 8 公尺。'},
+  {q:'兩個相似三角形的周長比是 2 : 3，小三角形面積 12，大三角形面積是多少？',o:['27','18','36','8'],e:'面積比 4 : 9，12 × 9/4 = 27。'},
+  {q:'AB 是圓 O 的直徑，C 在圓上（不同於 A、B），∠CAB = 35°，∠CBA = ?',o:['55°','35°','145°','70°'],e:'直徑所對的圓周角 ∠ACB = 90°，∠CBA = 90° − 35° = 55°。'},
+  {q:'P 在圓外，PA、PB 分別切圓於 A、B，若 ∠APB = 50°，則 ∠AOB = ?',o:['130°','50°','100°','25°'],e:'四邊形 PAOB 中 ∠PAO = ∠PBO = 90°，∠AOB = 360° − 180° − 50° = 130°。'},
+  {q:'△ABC 的重心 G 到 BC 中點 D 的距離是 4，中線 AD 長是多少？',o:['12','8','6','16'],e:'GD 占中線的 1/3，AD = 4 × 3 = 12。'},
+  {q:'直角三角形兩股長 6 和 8，內切圓半徑是多少？',o:['2','5','4','3'],e:'直角三角形內切圓半徑 = (兩股和 − 斜邊) ÷ 2 = (6 + 8 − 10) ÷ 2 = 2。'},
+ ]},
+];
+/* ================= 統計與機率島 ================= */
+const SEC_STATS=[
+ {id:'s7d5-1',vol:'七下',no:'5-1',ch:'統計',title:'統計圖表與資料分析',glyph:'▥',subs:[
+  {id:'S11',title:'統計圖表',pts:['長條圖：比較各類別的數量多寡。','折線圖：看出一段時間的變化趨勢。','圓形圖：看出各部分占全體的比例；扇形圓心角 = 百分率 × 360°。']},
+  {id:'S12',title:'平均數',pts:['算術平均數 = 資料總和 ÷ 資料個數。','知道平均和個數，可以反推總和：總和 = 平均 × 個數。','平均數容易受到極端值影響。']}]},
+ {id:'s8u5-1',vol:'八上',no:'5-1',ch:'統計資料處理',title:'資料整理與統計圖表',glyph:'表',subs:[
+  {id:'S21',title:'次數與相對次數',pts:['次數分配表把資料分組並記錄每組的次數。','相對次數 = 該組次數 ÷ 總次數，常寫成百分率。','所有組的相對次數加起來是 100%。']},
+  {id:'S22',title:'累積次數與累積相對次數',pts:['以下累積次數：從第一組加到該組的次數總和。','最後一組的累積次數等於總次數。','累積相對次數 = 累積次數 ÷ 總次數，最後一組是 100%。']}]},
+ {id:'s9d2-1',vol:'九下',no:'2-1',ch:'統計與機率',title:'資料的分析',glyph:'Q₁Q₃',subs:[
+  {id:'S31',title:'中位數、眾數與全距',pts:['中位數：資料由小到大排列後最中間的數；個數是偶數時，取中間兩個數的平均。','眾數：出現次數最多的數。','全距 = 最大值 − 最小值。']},
+  {id:'S32',title:'四分位數與盒狀圖',pts:['第 2 四分位數 Q₂ 就是中位數。','資料分成前、後兩半，前半的中位數是 Q₁，後半的中位數是 Q₃。','四分位距 = Q₃ − Q₁；盒狀圖用最小值、Q₁、Q₂、Q₃、最大值畫成。']}]},
+ {id:'s9d2-2',vol:'九下',no:'2-2',ch:'統計與機率',title:'機率',glyph:'P(A)',subs:[
+  {id:'S41',title:'簡單事件的機率',pts:['每種結果出現的機會相等時：機率 = 有利結果數 ÷ 所有可能結果數。','機率介於 0 和 1 之間；不可能發生的事件機率是 0，一定發生的是 1。','某事件不發生的機率 = 1 − 發生的機率。']},
+  {id:'S42',title:'樹狀圖與擲骰子',pts:['用樹狀圖或表格列出所有可能的結果，不重複、不遺漏。','擲兩顆骰子共有 6 × 6 = 36 種結果。','擲 n 枚硬幣共有 2<sup>n</sup> 種結果。']}]},
+];
+const tbl=(rows,head)=>`<table class="tbl"><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`;
+function freqTable(){const N=pick([20,25,40,50]);let c;do{const a=ri(1,N-3),b=ri(1,N-a-2),d=ri(1,N-a-b-1);c=[a,b,d,N-a-b-d]}while(c.some(x=>x<1)||c.some(x=>(x*100)%N));const lo=pick([40,50,60]),w=10;const lab=c.map((_,i)=>`${lo+i*w} ~ ${lo+(i+1)*w}`);return{N,c,lab}}
+const pct=v=>(Math.round(v*10)/10)+'%';
+function median(a){const s=a.slice().sort((x,y)=>x-y),k=s.length;return k%2?s[(k-1)/2]:(s[k/2-1]+s[k/2])/2}
+Object.assign(GEN,{
+'S11':[
+ ()=>{const P=pick([10,15,20,25,30,35,40,45,60]);return numQ(`圓形圖中，某一部分占全體的 ${P}%，它的扇形圓心角是多少度？`,P*3.6,[P,P*3.6/2,360-P*3.6],`${P}% × 360° = ${P*3.6}°。`,deg)},
+ ()=>{const T=pick([36,40,60,72,90,120,180]);let x;do{x=ri(1,T-1)}while((x*360)%T);const a=x*360/T;return numQ(`全班 ${T} 人，其中 ${x} 人最喜歡數學。畫成圓形圖，這部分的圓心角是多少度？`,a,[x,Math.round(x/T*100),360-a],`${x} ÷ ${T} × 360° = ${a}°。`,deg)},
+ pool([
+  {q:'想呈現某地一年中每個月氣溫的變化趨勢，最適合用哪一種圖？',o:['折線圖','圓形圖','長條圖','象形圖'],e:'看隨時間的變化趨勢，用折線圖。'},
+  {q:'想呈現家庭每月支出中各項目所占的比例，最適合用哪一種圖？',o:['圓形圖','折線圖','長條圖','散布圖'],e:'看各部分占全體的比例，用圓形圖。'},
+  {q:'想比較各班參加運動會的人數多寡，最適合用哪一種圖？',o:['長條圖','圓形圖','折線圖','盒狀圖'],e:'比較各類別的數量多寡，用長條圖。'},
+ ]),
+],
+'S12':[
+ ()=>{let v;do{v=Array.from({length:5},()=>ri(50,100))}while(v.reduce((a,b)=>a+b)%5);const m=v.reduce((a,b)=>a+b)/5;return numQ(`五次考試成績是 ${v.join('、')}，平均是多少分？`,m,[median(v),m+2,Math.max(...v)-Math.min(...v)],`總和 ${v.reduce((a,b)=>a+b)} ÷ 5 = ${m}（分）。`,x=>x+' 分')},
+ ()=>{let m,t,x;do{m=ri(60,90);t=m+ri(1,5);x=5*t-4*m}while(x>100);return numQ(`小華前 4 次考試平均 ${m} 分，第 5 次要考幾分，5 次平均才會是 ${t} 分？`,x,[t,t+(t-m),5*t-m],`5 次總分 ${5*t}，前 4 次總分 ${4*m}，第 5 次要考 ${5*t} − ${4*m} = ${x} 分。`,v=>v+' 分')},
+],
+'S21':[
+ ()=>{const {N,c,lab}=freqTable();const i=ri(0,3);const ans=c[i]/N*100;return numQ(`下表是 ${N} 位學生的成績。「${lab[i]} 分」這組的相對次數是多少？${tbl(lab.map((l,j)=>[l,c[j]]),['成績（分）','人數'])}`,ans,[c[i],c[i]/N*10,100-ans],`相對次數 = ${c[i]} ÷ ${N} = ${ans}%。`,pct)},
+ ()=>{const N=pick([20,25,40,50]);let r;do{r=pick([10,20,25,30,40,50,60])}while((N*r)%100);return numQ(`全班 ${N} 人，某組的相對次數是 ${r}%，這組有幾人？`,N*r/100,[r,Math.round(r/N),N-N*r/100],`${N} × ${r}% = ${N*r/100}（人）。`,v=>v+' 人')},
+],
+'S22':[
+ ()=>{const {N,c,lab}=freqTable();const i=ri(1,3);const cum=c.slice(0,i+1).reduce((a,b)=>a+b);return numQ(`下表是 ${N} 位學生的成績。「${lab[i]} 分」這組的以下累積次數是多少？${tbl(lab.map((l,j)=>[l,c[j]]),['成績（分）','人數'])}`,cum,[c[i],N-cum+c[i],cum-c[0]],`從第一組加到這一組：${c.slice(0,i+1).join(' + ')} = ${cum}。`,v=>v+' 人')},
+ ()=>{const {N,c,lab}=freqTable();const i=ri(0,2);const cum=c.slice(0,i+1).reduce((a,b)=>a+b);const ans=cum/N*100;return numQ(`下表是 ${N} 位學生的成績。「${lab[i]} 分」這組的以下累積相對次數是多少？${tbl(lab.map((l,j)=>[l,c[j]]),['成績（分）','人數'])}`,ans,[c[i]/N*100,100-ans,cum],`累積次數 ${cum}，${cum} ÷ ${N} = ${ans}%。`,pct)},
+ ()=>{const N=pick([20,30,40,50]);return numQ(`共有 ${N} 筆資料，最後一組的以下累積相對次數是多少？`,100,[N,50,0],'最後一組的累積次數等於總次數，累積相對次數是 100%。',pct)},
+],
+'S31':[
+ ()=>{const k=pick([7,8,9]);const v=Array.from({length:k},()=>ri(10,60));const m=median(v);return numQ(`資料：${v.join('、')}，中位數是多少？`,m,[v[Math.floor(k/2)],Math.round(v.reduce((a,b)=>a+b)/k),m+1],`由小到大排：${v.slice().sort((a,b)=>a-b).join('、')}，${k%2?'第 '+((k+1)/2)+' 個':'中間兩個的平均'}是 ${m}。`)},
+ ()=>{const mode=ri(1,9);let v;do{v=[mode,mode,mode,...Array.from({length:5},()=>ri(1,9))]}while(v.filter(x=>x!==mode).some(x=>v.filter(y=>y===x).length>=3));v=shuffle(v);return numQ(`資料：${v.join('、')}，眾數是多少？`,mode,[median(v),Math.max(...v),v[0]],`${mode} 出現 ${v.filter(x=>x===mode).length} 次，最多，所以眾數是 ${mode}。`)},
+ ()=>{const v=Array.from({length:7},()=>ri(-5,40));const R=Math.max(...v)-Math.min(...v);return numQ(`某週每日最低氣溫（°C）：${v.join('、')}，全距是多少？`,R,[Math.max(...v),Math.max(...v)+Math.min(...v),median(v)],`全距 = 最大值 ${Math.max(...v)} − 最小值 ${p(Math.min(...v))} = ${R}。`)},
+],
+'S32':[
+ ()=>{const k=pick([8,12]);const v=Array.from({length:k},()=>ri(10,90)).sort((a,b)=>a-b);const lo=v.slice(0,k/2),hi=v.slice(k/2);const Q1=median(lo),Q3=median(hi);const what=pick(['Q₁','Q₃','四分位距']);const ans=what==='Q₁'?Q1:what==='Q₃'?Q3:Q3-Q1;
+   return numQ(`資料（已由小到大排列）：${v.join('、')}，${what}是多少？`,ans,what==='四分位距'?[v[k-1]-v[0],Q3,median(v)]:[what==='Q₁'?Q3:Q1,median(v),what==='Q₁'?lo[0]:hi[hi.length-1]],`前半 ${lo.join('、')} 的中位數 Q₁ = ${Q1}；後半 ${hi.join('、')} 的中位數 Q₃ = ${Q3}；四分位距 = ${Q3} − ${Q1} = ${Q3-Q1}。`)},
+ pool([
+  {q:'盒狀圖中，「盒子」的左右兩端分別是？',o:['Q₁ 和 Q₃','最小值和最大值','平均數和中位數','Q₂ 和 Q₃'],e:'盒子從 Q₁ 畫到 Q₃，中間的線是 Q₂。'},
+  {q:'第 2 四分位數 Q₂ 等於？',o:['中位數','平均數','眾數','全距'],e:'Q₂ 就是中位數。'},
+  {q:'四分位距的意義是？',o:['中間 50% 資料的分布範圍','全部資料的分布範圍','平均數和中位數的差','最大值的一半'],e:'Q₃ − Q₁ 涵蓋了中間 50% 的資料。'},
+  {q:'哪一個統計量最容易受到極端值影響？',o:['全距','中位數','四分位距','Q₂'],e:'全距只看最大和最小值，一個極端值就會改變它。'},
+ ]),
+],
+'S41':[
+ ()=>{const r=ri(1,8),b=ri(1,8),g=ri(1,8);const T=r+b+g;const c=pick([['紅球',r],['藍球',b],['綠球',g]]);return frQ(`袋中有紅球 ${r} 顆、藍球 ${b} 顆、綠球 ${g} 顆，任取一顆是${c[0]}的機率是多少？`,new Fr(c[1],T),[new Fr(c[1],T-c[1]),new Fr(1,3),new Fr(T-c[1],T)],`共 ${T} 顆，${c[0]} ${c[1]} 顆，機率 = ${frRaw(c[1],T)}${gcd(c[1],T)>1?' = '+fh(new Fr(c[1],T)):''}。`)},
+ ()=>{const ev=pick([['點數是質數',[2,3,5]],['點數是 3 的倍數',[3,6]],['點數大於 4',[5,6]],['點數是偶數',[2,4,6]],['點數小於 3',[1,2]],['點數是 7',[]]]);const ans=new Fr(ev[1].length,6);return frQ(`擲一顆公正的骰子，「${ev[0]}」的機率是多少？`,ans,[new Fr(ev[1].length||1,3),new Fr(6-ev[1].length,6),new Fr(1,6)],`符合的點數有 ${ev[1].length?ev[1].join('、'):'0 個'}，機率 = ${frRaw(ev[1].length,6)}${ev[1].length?' = '+fh(ans):' = 0'}。`)},
+ ()=>{const N=pick([20,30,40,50]),m=pick([3,4,5,6,7]);const k=Math.floor(N/m);return frQ(`從 1 到 ${N} 的號碼牌中任抽一張，抽到 ${m} 的倍數的機率是多少？`,new Fr(k,N),[new Fr(1,m+1),new Fr(N-k,N),new Fr(k+1,N)],`1 到 ${N} 中 ${m} 的倍數有 ${k} 個，機率 = ${frRaw(k,N)}${gcd(k,N)>1?' = '+fh(new Fr(k,N)):''}。`)},
+],
+'S42':[
+ ()=>{const s=ri(2,12);const w=6-Math.abs(7-s);return frQ(`同時擲兩顆公正的骰子，點數和是 ${s} 的機率是多少？`,new Fr(w,36),[new Fr(1,11),new Fr(w,6),new Fr(w+1,36)],`36 種結果中，點數和是 ${s} 的有 ${w} 種，機率 = ${frRaw(w,36)}${gcd(w,36)>1?' = '+fh(new Fr(w,36)):''}。`)},
+ ()=>{const c=pick([2,3]),k=ri(0,c);const C=c===2?[1,2,1][k]:[1,3,3,1][k];const T=2**c;return frQ(`同時擲 ${c} 枚公正的硬幣，恰好出現 ${k} 個正面的機率是多少？`,new Fr(C,T),[new Fr(1,c+1),new Fr(T-C,T),new Fr(k||1,T)],`共 ${T} 種結果，恰好 ${k} 個正面的有 ${C} 種，機率 = ${frRaw(C,T)}${gcd(C,T)>1?' = '+fh(new Fr(C,T)):''}。`)},
+ pool([
+  {q:'同時擲兩顆骰子，兩顆點數相同的機率是多少？',o:[frac(1,6),frac(1,36),frac(1,12),frac(1,3)],e:'(1,1)、(2,2)…(6,6) 共 6 種，6/36 = 1/6。'},
+  {q:'同時擲兩顆骰子，點數乘積是偶數的機率是多少？',o:[frac(3,4),frac(1,2),frac(1,4),frac(2,3)],e:'乘積是奇數必須兩顆都是奇數：3 × 3 = 9 種，偶數有 36 − 9 = 27 種，27/36 = 3/4。'},
+  {q:'小明擲一枚硬幣，已經連續 5 次出現正面，第 6 次出現正面的機率是？',o:[frac(1,2),'比 '+frac(1,2)+' 小','比 '+frac(1,2)+' 大','0'],e:'每次擲硬幣互不影響，機率仍是 1/2。'},
+ ]),
+],
+});
+const EX_STATS=[
+ {key:'stats-1',title:'統計',qs:[
+  {q:'5 個數的平均是 12，再加入一個數後平均變成 13，加入的數是多少？',o:['18','13','25','14'],e:'原總和 60，新總和 6 × 13 = 78，加入 18。'},
+  {q:'資料 3、7、8、8、10、12 的中位數和眾數分別是？',o:['中位數 8，眾數 8','中位數 9，眾數 8','中位數 8，眾數 10','中位數 7.5，眾數 8'],e:'中間兩數 8 和 8 平均是 8；8 出現兩次是眾數。'},
+  {q:'某班 40 人，數學成績 80 分以上的相對次數是 35%，有幾人？',o:['14 人','35 人','26 人','12 人'],e:'40 × 35% = 14。'},
+  {q:'圓形圖中某項目的圓心角是 72°，它占全體的百分之幾？',o:['20%','72%','25%','36%'],e:'72 ÷ 360 = 0.2 = 20%。'},
+  {q:'資料 2、4、5、7、9、10、12、15 的四分位距是多少？',o:['6.5','13','8','5'],e:'Q₁ = (4 + 5) ÷ 2 = 4.5，Q₃ = (10 + 12) ÷ 2 = 11，四分位距 = 6.5。'},
+  {q:'一組資料中加入一個非常大的數，下列哪一個統計量改變最多？',o:['平均數','中位數','眾數','Q₁'],e:'平均數會受到極端值很大的影響。'},
+ ]},
+ {key:'stats-2',title:'機率',qs:[
+  {q:'袋中有 3 顆紅球、5 顆白球，取出一顆不是紅球的機率是多少？',o:[frac(5,8),frac(3,8),frac(3,5),frac(5,3)],e:'不是紅球就是白球：5/8。'},
+  {q:'同時擲兩顆骰子，點數和為 7 的機率是多少？',o:[frac(1,6),frac(7,36),frac(1,12),frac(1,11)],e:'(1,6)(2,5)(3,4)(4,3)(5,2)(6,1) 共 6 種，6/36 = 1/6。'},
+  {q:'同時擲三枚硬幣，至少一個正面的機率是多少？',o:[frac(7,8),frac(1,8),frac(3,8),frac(1,2)],e:'全部反面的機率 1/8，至少一個正面 = 1 − 1/8 = 7/8。'},
+  {q:'甲、乙、丙三人排成一列，甲站在最前面的機率是多少？',o:[frac(1,3),frac(1,6),frac(1,2),frac(2,3)],e:'共 6 種排法，甲在最前面有 2 種，2/6 = 1/3。'},
+  {q:'從 1～50 的整數中任取一個，取到同時是 2 和 3 的倍數的機率是多少？',o:[frac(4,25),frac(8,25),frac(1,6),frac(3,25)],e:'6 的倍數有 8 個（6～48），8/50 = 4/25。'},
+  {q:'下列哪一個事件的機率是 0？',o:['擲一顆骰子出現 7 點','擲硬幣出現正面','擲骰子出現偶數','明天會下雨'],e:'骰子最大只有 6 點，出現 7 點不可能發生。'},
+ ]},
+];
+/* ================= 群島設定 ================= */
+const PAL=['#3a67d1','#e9822a','#2f9e5b','#8a5bd6','#d6455b','#0f8b8d','#b8860b'];
+const GAMES_NUM={
+ g1:{title:'數線跳跳',sec:'1-1',pos:[330,140],desc:'看提示，在數線上點出答案的位置。10 回合答對 8 回以上，拿到徽章。'},
+ g2:{title:'質因數拆拆樂',sec:'2-1',pos:[470,140],desc:'選一個能整除的質數，把數字一路拆到 1。正確率八成以上，拿到徽章。'},
+};
+SEC_NUMBER.forEach(s=>{s.no=s.id;s.vol='七上';s.ch=s.ch===1?'整數的運算':'分數的運算'});
+const ISL={
+ number:{name:'整數・分數・指數島',hub:'高斯島',hubGlyph:'π',sub:'負數、因數倍數、分數與指數律',head:'把整數與分數，連成島。',scope:'康軒版 七上 第 1–2 章',secs:SEC_NUMBER,exams:EX_NUMBER,games:GAMES_NUM},
+ algebra:{name:'代數與方程式島',hub:'花拉子米島',hubGlyph:'x',sub:'方程式、不等式、多項式、因式分解',head:'把未知數，解成答案。',scope:'康軒版 七上第 3 章 · 七下 · 八上',secs:SEC_ALGEBRA,exams:EX_ALGEBRA},
+ function:{name:'坐標與函數島',hub:'笛卡兒島',hubGlyph:'y',sub:'坐標、比例、數列、函數',head:'把關係，畫成圖形。',scope:'康軒版 七下 · 八下 · 九上 · 九下',secs:SEC_FUNCTION,exams:EX_FUNCTION},
+ geometry:{name:'幾何島',hub:'歐幾里得島',hubGlyph:'△',sub:'三角形、四邊形、相似、圓與立體',head:'把圖形，看出道理。',scope:'康軒版 七下 · 八上 · 八下 · 九上 · 九下',secs:SEC_GEOMETRY,exams:EX_GEOMETRY},
+ stats:{name:'統計與機率島',hub:'帕斯卡島',hubGlyph:'%',sub:'統計圖表、資料分析、機率',head:'把資料，變成判斷。',scope:'康軒版 七下 · 八上 · 九下',secs:SEC_STATS,exams:EX_STATS},
+};
+const ISL_ORDER=['number','algebra','function','geometry','stats'];
+const SUBS={};
+const W2S=(x,z)=>[400+x*10,365+z*10];
+ISL_ORDER.forEach(k=>{const I=ISL[k];I.id=k;const chs=[];I.secs.forEach(s=>{const key=s.vol+s.ch;if(!chs.includes(key))chs.push(key);s.color=PAL[chs.indexOf(key)%PAL.length];s.isl=k;s.subs.forEach(u=>SUBS[u.id]={...u,sec:s})});
+  const N=I.secs.length;
+  if(k==='number'){I.rings=1;I.sea=[37.2,31.2];I.boat=[400,585];I.secs.forEach(s=>{s.r=5.2;s.from=null});return}
+  const two=N>10;const K=two?Math.ceil(N/2):N;const slots=K+1;I.rings=two?2:1;I.sea=two?[41,37]:[37.2,31.2];
+  const R1=two?[19,16.5]:[27,23.5],R2=[33,29.5];const rr=two?4.6:5.2;
+  const ang=j=>Math.PI/2+(j+1)*2*Math.PI/slots;
+  I.secs.forEach((s,i)=>{const j=two?Math.floor(i/2):i,outer=two&&i%2===1;const R=outer?R2:R1;const a=ang(j);s.r=rr;s.pos=W2S(Math.cos(a)*R[0],Math.sin(a)*R[1]);s.from=outer?W2S(Math.cos(a)*R1[0],Math.sin(a)*R1[1]):null});
+  I.boat=W2S(0,two?15.5:19.5);
+});
+let CUR=ISL.number,SECTIONS=CUR.secs,GAMES=CUR.games||{};
+function setIsland(k){CUR=ISL[k];SECTIONS=CUR.secs;GAMES=CUR.games||{}}
+
+/* ================= 進度 ================= */
+const KEY='mathIsle.v1';
+let S={name:'',stars:{},games:{},exams:{}};
+try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const secStars=s=>s.subs.filter(u=>S.stars[u.id]).length;
+const flagged=s=>secStars(s)===s.subs.length;
+const islStars=I=>I.secs.reduce((a,s)=>a+secStars(s),0);
+const islTotal=I=>I.secs.reduce((a,s)=>a+s.subs.length,0);
+const totStars=()=>islStars(CUR);
+const totFlags=()=>SECTIONS.filter(flagged).length;
+const totGames=()=>Object.keys(GAMES).filter(k=>S.games[k]).length;
+const totExams=()=>CUR.exams.filter(x=>S.exams[x.key]).length;
+function buildQuiz(subId){POOLUSED=new Set();const g=GEN[subId];const order=[];while(order.length<10)order.push(...shuffle(g.map((_,i)=>i)));return order.slice(0,10).map(i=>g[i]())}
+function buildExam(key){const ex=CUR.exams.find(x=>x.key==key);return shuffle(ex.qs).map(x=>finalize(x.q,x.o,x.e))}
+
+/* ================= 3D 地圖 ================= */
+const M3={ok:false,failed:false};
+(function(){
+let R,scene,cam,ctl,wrap,labelsEl,clickables=[],dyn,teacher,boat,labels=[],fly=null,tq=[],gameSprites={},built=null,homeDist=88;
+const W=(x,y)=>[(x-400)/10,(y-365)/10];
+const HUB=[0,-0.5];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mat=c=>new THREE.MeshLambertMaterial({color:c});
+const TOP=1.25;
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function add(parent,geo,m,x=0,y=0,z=0,shadow=true){const o=new THREE.Mesh(geo,m);o.position.set(x,y,z);if(shadow){o.castShadow=true;o.receiveShadow=true}parent.add(o);return o}
+function tree(parent,x,z,s=1,y=0,c='#5aa63c'){const g=new THREE.Group();add(g,new THREE.CylinderGeometry(.18,.22,.9,6),mat('#8a5a33'),0,.45,0);add(g,new THREE.ConeGeometry(1,2.2,7),mat(c),0,1.9,0);add(g,new THREE.ConeGeometry(.75,1.6,7),mat(c),0,2.7,0);g.position.set(x,y,z);g.scale.setScalar(s);parent.add(g);return g}
+function sprite(text,color,w=4,h=2,font=64){const c=document.createElement('canvas');c.width=256;c.height=128;const x=c.getContext('2d');
+  x.fillStyle='#fff';x.strokeStyle=color;x.lineWidth=10;const r=24;x.beginPath();x.moveTo(r+6,6);x.arcTo(250,6,250,122,r);x.arcTo(250,122,6,122,r);x.arcTo(6,122,6,6,r);x.arcTo(6,6,250,6,r);x.closePath();x.fill();x.stroke();
+  let fs=font;x.font=`700 ${fs}px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif`;while(x.measureText(text).width>220&&fs>24){fs-=4;x.font=`700 ${fs}px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif`}
+  x.fillStyle=color;x.textAlign='center';x.textBaseline='middle';x.fillText(text,128,68);
+  const t=new THREE.CanvasTexture(c);t.anisotropy=4;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,depthWrite:false}));s.scale.set(w,h,1);return s}
+function island(x,z,r,top,act){const g=new THREE.Group();g.position.set(x,0,z);
+  add(g,new THREE.CylinderGeometry(r*1.02,r*1.1,1.4,6),mat('#d9bf86'),0,.3,0);
+  add(g,new THREE.CylinderGeometry(r,r*1.02,.3,6),mat('#f3e2b8'),0,1.05,0);
+  add(g,new THREE.CylinderGeometry(r*.8,r*.8,.25,6),mat(top),0,1.15,0);
+  g.userData.act=act;scene.add(g);clickables.push(g);return g}
+function label(html,cls,x,y,z,act,color){const b=document.createElement('button');b.className='lbl '+cls;b.style.setProperty('--c',color);b.innerHTML=html;
+  b.onclick=()=>window.mapActData(act);labelsEl.appendChild(b);const L={el:b,p:new THREE.Vector3(x,y,z)};labels.push(L);return L}
+
+M3.init=function(){
+  if(M3.ok||M3.failed)return;
+  if(!window.THREE||!THREE.OrbitControls){M3.failed=true;return}
+  try{setup();M3.ok=true;document.getElementById('mapsvg').style.display='none';document.querySelectorAll('.only3d').forEach(e=>e.classList.remove('hidden'))}
+  catch(e){console.error(e);M3.failed=true}
+};
+function setup(){
+  wrap=document.querySelector('.map');labelsEl=document.getElementById('labels');
+  R=new THREE.WebGLRenderer({antialias:true});R.setPixelRatio(Math.min(devicePixelRatio,2));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+  wrap.insertBefore(R.domElement,wrap.firstChild);
+  cam=new THREE.PerspectiveCamera(38,1,.5,500);
+  ctl=new THREE.OrbitControls(cam,R.domElement);ctl.enableDamping=true;ctl.dampingFactor=.08;
+  ctl.minDistance=16;ctl.maxDistance=150;ctl.minPolarAngle=.2;ctl.maxPolarAngle=1.28;ctl.enablePan=false;ctl.autoRotateSpeed=.7;
+  ctl.addEventListener('start',()=>{fly=null});
+  new ResizeObserver(resize).observe(wrap);resize();bindPointer();loop();
+}
+M3.load=function(){if(!M3.ok||built===CUR.id)return;built=CUR.id;buildScene()};
+function buildScene(){
+  scene=new THREE.Scene();scene.background=new THREE.Color('#cfeccf');scene.fog=new THREE.Fog('#cfeccf',130,230);
+  clickables=[];labels=[];gameSprites={};labelsEl.innerHTML='';fly=null;tq=[];
+  const two=CUR.rings===2;homeDist=two?108:88;
+  cam.position.set(0,two?74:62,two?78:64);ctl.target.set(0,0,2);ctl.update();
+  scene.add(new THREE.HemisphereLight('#ffffff','#7aa35a',.72));
+  const d=new THREE.DirectionalLight('#fff3dd',.82);d.position.set(-35,70,30);d.castShadow=true;d.shadow.mapSize.set(2048,2048);
+  Object.assign(d.shadow.camera,{left:-55,right:55,top:55,bottom:-55,near:1,far:220});d.shadow.bias=-.0008;scene.add(d);
+  const ground=add(scene,new THREE.PlaneGeometry(600,600),mat('#a4d47c'),0,0,0,false);ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;
+  const [sx,sz]=CUR.sea;
+  const disc=(rx,rz,y,c)=>{const g=new THREE.CircleGeometry(1,72);g.rotateX(-Math.PI/2);const m=add(scene,g,mat(c),0,y,0,false);m.scale.set(rx,1,rz);m.receiveShadow=true;return m};
+  disc(sx+2.8,sz+2.8,.02,'#e9dcae');disc(sx+1.8,sz+1.8,.04,'#a9dfe9');disc(sx,sz,.06,'#47aac8');
+  const rr=rng(11+CUR.id.length);
+  for(let i=0;i<260;i++){const x=(rr()-.5)*200,z=(rr()-.5)*170;if((x/(sx+4))**2+((z)/(sz+4))**2>1.04)tree(scene,x,z,.8+rr()*.7,0,rr()<.5?'#5aa63c':'#4b9632')}
+  // 橋
+  const ends=[];SECTIONS.forEach(s=>{const to=W(...s.pos);const fr=s.from?W(...s.from):HUB;ends.push([fr,s.from?s.r*.8:9,to,s.r])});
+  Object.values(GAMES).forEach(g=>ends.push([HUB,9,W(...g.pos),3.9]));ends.push([HUB,9,W(...CUR.boat),2.5]);
+  const planks=[];ends.forEach(([F,fr,[x,z],r])=>{const dx=x-F[0],dz=z-F[1],L=Math.hypot(dx,dz),a=Math.atan2(dx,dz);const s0=fr,s1=L-r*.8;if(s1<=s0)return;
+    for(let t=s0;t<s1;t+=.62)planks.push([F[0]+dx/L*t,F[1]+dz/L*t,a]);
+    [-1,1].forEach(side=>{const len=s1-s0,mx=F[0]+dx/L*(s0+len/2)+Math.cos(a)*side*1.15,mz=F[1]+dz/L*(s0+len/2)-Math.sin(a)*side*1.15;const rail=add(scene,new THREE.BoxGeometry(.14,.14,len),mat('#7a4f2c'),mx,1.55,mz);rail.rotation.y=a;
+      for(let t=s0;t<s1;t+=2.4){const px=F[0]+dx/L*t+Math.cos(a)*side*1.15,pz=F[1]+dz/L*t-Math.sin(a)*side*1.15;add(scene,new THREE.CylinderGeometry(.09,.09,1.2,5),mat('#7a4f2c'),px,.95,pz)}})});
+  if(planks.length){const pm=new THREE.InstancedMesh(new THREE.BoxGeometry(2.3,.16,.48),mat('#d8a46b'),planks.length);const M4=new THREE.Matrix4(),Q=new THREE.Quaternion(),Y=new THREE.Vector3(0,1,0),one=new THREE.Vector3(1,1,1);
+    planks.forEach(([x,z,a],i)=>{Q.setFromAxisAngle(Y,a);M4.compose(new THREE.Vector3(x,1.1,z),Q,one);pm.setMatrixAt(i,M4)});pm.castShadow=true;pm.receiveShadow=true;scene.add(pm)}
+  // 主島
+  const hub=island(HUB[0],HUB[1],9.6,'#9fd36f',null);
+  add(hub,new THREE.CylinderGeometry(1.5,1.9,6,8),mat('#ffffff'),-1,4.2,-1.5);add(hub,new THREE.ConeGeometry(2.3,2.6,8),mat('#d6455b'),-1,8.5,-1.5);
+  const pi=sprite(CUR.hubGlyph,'#1e2b33',3,1.5,84);pi.position.set(-1,11.3,-1.5);hub.add(pi);
+  [[-5.5,1.5,1.2],[-4.5,3.6,1],[4.8,-1.5,1.1],[5.6,1.2,1.3],[2,-5,1],[-3.5,-4.8,.9]].forEach(([x,z,s])=>tree(hub,x,z,s,TOP));
+  label(CUR.hub,'plain',HUB[0],2,HUB[1]+6.5,null,'var(--ink)');
+  // 小節島
+  SECTIONS.forEach(s=>{const [x,z]=W(...s.pos);const g=island(x,z,s.r,'#9fd36f',{sec:s.id});const k=s.r/5.2;
+    tree(g,-2.6*k,.6*k,.85*k,TOP);tree(g,2.5*k,-1*k,.75*k,TOP,'#4b9632');tree(g,1.4*k,2.4*k,.6*k,TOP);
+    const sp=sprite(s.glyph,s.color,3.6*k,1.8*k);sp.position.set(0,3.2,0);g.add(sp);
+    s._lbl=label('','',x,6.2,z,{sec:s.id},s.color)});
+  Object.entries(GAMES).forEach(([id,gm])=>{const [x,z]=W(...gm.pos);const g=island(x,z,3.9,'#c8b2ee',{game:id});tree(g,-1.8,.4,.6,TOP,'#7b58c4');
+    gameSprites[id]={g,sp:null};label(gm.title,'plain',x,5.4,z,{game:id},'var(--game)')});
+  // 會考小船
+  const [bx,bz]=W(...CUR.boat);boat=new THREE.Group();boat.position.set(bx,.3,bz);
+  add(boat,new THREE.BoxGeometry(5.2,1,2.4),mat('#8a5a33'),0,.5,0);add(boat,new THREE.BoxGeometry(4.2,.3,2),mat('#b07a45'),0,1.05,0);
+  add(boat,new THREE.CylinderGeometry(.12,.12,5,6),mat('#5a3a20'),0,3.4,0);
+  const sh=new THREE.Shape();sh.moveTo(0,0);sh.lineTo(3,0);sh.lineTo(0,4);sh.lineTo(0,0);add(boat,new THREE.ShapeGeometry(sh),new THREE.MeshLambertMaterial({color:'#ffffff',side:THREE.DoubleSide}),.15,1.5,0);
+  boat.userData.act={exam:1};scene.add(boat);clickables.push(boat);
+  label('會考小船','plain',bx,5.6,bz+1.5,{exam:1},'var(--exam)');
+  // 老師
+  teacher=new THREE.Group();const skin=mat('#f2c9a0');
+  add(teacher,new THREE.BoxGeometry(.32,.9,.32),mat('#2f3b48'),-.22,.45,0);add(teacher,new THREE.BoxGeometry(.32,.9,.32),mat('#2f3b48'),.22,.45,0);
+  add(teacher,new THREE.BoxGeometry(1,1.2,.55),mat('#3f8f5a'),0,1.5,0);add(teacher,new THREE.BoxGeometry(.18,.6,.05),mat('#f6f1e6'),0,1.65,.29);
+  add(teacher,new THREE.BoxGeometry(.25,1,.25),mat('#3f8f5a'),-.62,1.45,0);add(teacher,new THREE.BoxGeometry(.25,1,.25),mat('#3f8f5a'),.62,1.45,0);
+  add(teacher,new THREE.BoxGeometry(.75,.75,.7),skin,0,2.5,0);add(teacher,new THREE.BoxGeometry(.8,.25,.75),mat('#3a2a20'),0,2.95,-.02);
+  add(teacher,new THREE.BoxGeometry(.7,.12,.05),mat('#222'),0,2.55,.37,false);
+  teacher.scale.setScalar(1.15);const [tx,tz]=W(...TPOS);teacher.position.set(tx,TOP,tz);scene.add(teacher);
+  dyn=new THREE.Group();scene.add(dyn);
+  M3.update();
+}
+function resize(){const w=wrap.clientWidth,h=wrap.clientHeight;if(!w||!h)return;R.setSize(w,h);cam.aspect=w/h;cam.fov=w/h<1?52:38;cam.updateProjectionMatrix()}
+function bindPointer(){const el=R.domElement;let down=null;const ray=new THREE.Raycaster(),v=new THREE.Vector2();
+  const hit=e=>{if(!scene)return null;const r=el.getBoundingClientRect();v.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(v,cam);const h=ray.intersectObjects(clickables,true)[0];if(!h)return null;let o=h.object;while(o&&!o.userData.act)o=o.parent;return o&&o.userData.act};
+  el.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY]});
+  el.addEventListener('pointerup',e=>{if(down&&Math.hypot(e.clientX-down[0],e.clientY-down[1])<6){const a=hit(e);if(a)window.mapActData(a)}down=null});
+  let last=0;el.addEventListener('pointermove',e=>{if(e.buttons)return;const t=performance.now();if(t-last<80)return;last=t;el.style.cursor=hit(e)?'pointer':'grab'});
+}
+M3.update=function(){if(!dyn)return;
+  while(dyn.children.length)dyn.remove(dyn.children[0]);
+  SECTIONS.forEach(s=>{const [x,z]=W(...s.pos);const st=secStars(s);
+    s._lbl.el.innerHTML=`<span class="id">${CUR.id==='number'?'':s.vol+' '}${s.no}</span><span class="s ${st?'on':''}">★${st}/${s.subs.length}</span>`;s._lbl.el.setAttribute('aria-label',`${s.vol} ${s.no} ${s.title}`);
+    if(flagged(s)){const k=s.r/5.2;add(dyn,new THREE.CylinderGeometry(.1,.1,4.5,6),mat('#555'),x+3.6*k,TOP+2.25,z-.5);const sh=new THREE.Shape();sh.moveTo(0,0);sh.lineTo(2.2,-.6);sh.lineTo(0,-1.3);add(dyn,new THREE.ShapeGeometry(sh),new THREE.MeshLambertMaterial({color:'#e8b21c',side:THREE.DoubleSide}),x+3.65*k,TOP+4.4,z-.5)}});
+  Object.entries(gameSprites).forEach(([id,o])=>{if(o.sp)o.g.remove(o.sp);o.sp=sprite(S.games[id]?'★ 遊':'遊',S.games[id]?'#b8860b':'#8a5bd6',3,1.5);o.sp.position.set(0,3,0);o.g.add(o.sp)});
+};
+M3.walk=function(path){if(!teacher)return;const pts=path.map(p=>W(...p));const cur=teacher.position;const nearHub=p=>Math.hypot(p[0]-HUB[0],p[1]-HUB[1])<9;const last=pts[pts.length-1];
+  if(reduce){teacher.position.set(last[0],TOP,last[1]);tq=[];return}
+  tq=(!nearHub([cur.x,cur.z])&&!nearHub(last))?[[HUB[0]+2,HUB[1]+1],...pts]:pts};
+M3.focus=function(x,y){if(!ctl)return;const t=x==null?new THREE.Vector3(0,0,2):new THREE.Vector3(...(()=>{const [a,b]=W(x,y);return[a,0,b]})());const dist=x==null?homeDist:38;
+  if(reduce){const off=cam.position.clone().sub(ctl.target).setLength(dist);ctl.target.copy(t);cam.position.copy(t).add(off);return}fly={t,dist}};
+M3.spin=function(on){ctl.autoRotate=on};
+function loop(){requestAnimationFrame(loop);
+  if(!scene||document.getElementById('island').classList.contains('hidden'))return;
+  const now=performance.now()/1000;
+  if(fly){const old=ctl.target.clone();ctl.target.lerp(fly.t,.07);cam.position.add(ctl.target.clone().sub(old));const off=cam.position.clone().sub(ctl.target);const L=off.length();off.setLength(L+(fly.dist-L)*.07);cam.position.copy(ctl.target).add(off);
+    if(ctl.target.distanceTo(fly.t)<.05&&Math.abs(L-fly.dist)<.2)fly=null}
+  ctl.update();
+  if(tq.length){const [gx,gz]=tq[0];const p=teacher.position;const dx=gx-p.x,dz=gz-p.z,dd=Math.hypot(dx,dz);const sp=.28;
+    if(dd<sp){p.x=gx;p.z=gz;tq.shift()}else{p.x+=dx/dd*sp;p.z+=dz/dd*sp;teacher.rotation.y=Math.atan2(dx,dz)}
+    p.y=TOP+Math.abs(Math.sin(now*12))*.18}else{teacher.position.y=TOP;teacher.rotation.y+=(0-teacher.rotation.y)*.05}
+  boat.position.y=.3+Math.sin(now*1.6)*.15;boat.rotation.z=Math.sin(now*1.3)*.04;
+  R.render(scene,cam);
+  const w=R.domElement.clientWidth,h=R.domElement.clientHeight,v=new THREE.Vector3();
+  labels.forEach(L=>{v.copy(L.p).project(cam);const vis=v.z<1&&Math.abs(v.x)<1.1&&Math.abs(v.y)<1.1;L.el.style.display=vis?'':'none';if(vis){L.el.style.left=((v.x+1)/2*w).toFixed(1)+'px';L.el.style.top=((1-v.y)/2*h).toFixed(1)+'px';L.el.style.zIndex=String(Math.round((1-v.z)*1e5))}});
+}
+})();
+
+/* ================= 平面地圖（3D 無法使用時） ================= */
+function hex(cx,cy,r,sq=.58){return Array.from({length:6},(_,i)=>{const a=Math.PI/180*(60*i+30);return`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)*sq).toFixed(1)}`}).join(' ')}
+function drawMap(){
+  if(M3.ok){M3.update();return}
+  const isl=(x,y,r,top='var(--grass)')=>`<polygon points="${hex(x,y+12,r)}" fill="var(--sand-dark)"/><polygon class="top" points="${hex(x,y,r)}" fill="var(--sand)"/><polygon points="${hex(x,y-2,r*.8)}" fill="${top}"/>`;
+  const [sx,sz]=CUR.sea;let h=`<rect width="800" height="720" fill="var(--land)"/><ellipse cx="400" cy="365" rx="${sx*10+14}" ry="${sz*10+14}" fill="var(--shallow)"/><ellipse cx="400" cy="365" rx="${sx*10}" ry="${sz*10}" fill="var(--sea)"/>`;
+  const br=(a,b)=>`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#7a4f2c" stroke-width="10" stroke-linecap="round"/><line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#d8a46b" stroke-width="6" stroke-dasharray="4 2.5"/>`;
+  const hubP=[400,360];SECTIONS.forEach(s=>h+=br(s.from||hubP,s.pos));Object.values(GAMES).forEach(g=>h+=br(hubP,g.pos));h+=br(hubP,CUR.boat);
+  h+=isl(400,360,90)+`<text x="400" y="368" text-anchor="middle" font-size="30" fill="var(--ink)">${CUR.hubGlyph}</text><rect x="350" y="392" width="100" height="24" rx="12" fill="#fff"/><text x="400" y="409" text-anchor="middle" font-size="14" font-weight="700">${CUR.hub}</text>`;
+  SECTIONS.forEach(s=>{const [x,y]=s.pos,r=s.r*10,st=secStars(s);h+=`<g class="isle" data-sec="${s.id}" tabindex="0" role="button" aria-label="${s.vol} ${s.no} ${s.title}">${isl(x,y,r)}<text x="${x}" y="${y+4}" text-anchor="middle" font-size="13" font-weight="700" fill="${s.color}">${s.glyph}</text><rect x="${x-44}" y="${y-r*.6-28}" width="88" height="24" rx="12" fill="#fff"/><text x="${x}" y="${y-r*.6-11}" text-anchor="middle" font-size="12" font-weight="700" fill="${s.color}">${s.no} ★${st}/${s.subs.length}${flagged(s)?' ⚑':''}</text></g>`});
+  Object.entries(GAMES).forEach(([id,g])=>{const [x,y]=g.pos;h+=`<g class="isle" data-game="${id}" tabindex="0" role="button" aria-label="小遊戲 ${g.title}">${isl(x,y,40,'#c8b2ee')}<text x="${x}" y="${y+4}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--game)">${g.title}</text></g>`});
+  const [bx,by]=CUR.boat;h+=`<g class="isle" data-exam="1" tabindex="0" role="button" aria-label="會考小船"><path d="M${bx-40} ${by} h80 l-12 16 h-56z" fill="#8a5a33"/><polygon points="${bx+2},${by-44} ${bx+34},${by-4} ${bx+2},${by-4}" fill="#fff" stroke="var(--exam)" stroke-width="2"/><text x="${bx+14}" y="${by-10}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--exam)">會考</text></g>`;
+  document.getElementById('mapsvg').innerHTML=h;
+}
+let TPOS=[430,330];
+function moveTeacher(x,y,via){TPOS=[x,y];if(M3.ok)M3.walk(via?[via,[x,y]]:[[x,y]])}
+function say(t){document.getElementById('sayT').innerHTML=t}
+
+/* ================= 面板 ================= */
+let P={view:'index',tab:'learn'};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function head(eb,title,back=true){return`<div class="ph">${back?'<button class="circ" data-act="back" aria-label="返回">‹</button>':''}<div class="t"><div class="eb">${eb}</div><h2>${title}</h2></div>${P.view!=='index'?'<button class="circ" data-act="close" aria-label="回到總覽">✕</button>':''}</div>`}
+function render(){
+  const v=P.view;let h='';
+  if(v==='index')h=renderIndex();else if(v==='section')h=renderSection();else if(v==='quiz')h=renderQuiz();else if(v==='g1')h=renderG1();else if(v==='g2')h=renderG2();
+  $('panel').innerHTML=h;
+  $('hudStars').textContent=`${totStars()} / ${islTotal(CUR)}`;
+  $('hudExam').textContent=`${totExams()} / ${CUR.exams.length}`;
+  $('hudNameT').textContent=S.name||'訪客';
+  $('hudTitle').textContent=CUR.name;
+}
+function chapters(){const out=[];SECTIONS.forEach(s=>{let g=out.find(x=>x.vol===s.vol&&x.ch===s.ch);if(!g){g={vol:s.vol,ch:s.ch,color:s.color,secs:[]};out.push(g)}g.secs.push(s)});return out}
+function renderIndex(){
+  const pc=(ic,k,v,tot,p)=>`<div class="pcard"><div class="k">${ic} ${k}</div><div class="v">${v} <small>/ ${tot}</small></div><div class="bar"><i style="width:${tot?v/tot*100:0}%"></i></div><p>${p}</p></div>`;
+  const nG=Object.keys(GAMES).length,T=islTotal(CUR);
+  let h=`<div class="ph"><div class="t"><div class="eb">${CUR.scope}</div><h2>${CUR.head}</h2></div></div><div class="pb">`;
+  h+=`<p class="lead">${SECTIONS.length} 座小節島、${T} 個次主題${nG?`、${nG} 個小遊戲`:''}、${CUR.exams.reduce((a,x)=>a+x.qs.length,0)} 題會考題型。點一座島，讀重點、做練習、拿星星。</p>`;
+  h+=`<div class="prog"><div class="h">你的進度 · ${nG?'四':'三'}種進度分開計算</div><div class="pgrid">`+
+   pc('<span style="color:var(--gold)">★</span>','課程星星',totStars(),T,'每個次主題答對八成以上，得 1 顆星。')+
+   pc('<span class="flag">⚑</span>','島嶼金旗',totFlags(),SECTIONS.length,'一座小島的星星全拿到，就升起金旗。')+
+   (nG?pc('<span style="color:var(--game)">◆</span>','遊戲徽章',totGames(),nG,'小遊戲正確率八成以上，得 1 枚。'):'')+
+   pc('<span style="color:var(--exam)">⛵</span>','會考徽章',totExams(),CUR.exams.length,'會考小船答對八成以上，得到該組徽章。')+
+   `</div></div>`;
+  h+=`<div class="tabs" role="tablist"><button class="tab" role="tab" aria-selected="${P.tab==='learn'}" data-tab="learn">島嶼學習</button><button class="tab" role="tab" aria-selected="${P.tab==='exam'}" data-tab="exam">會考小船</button></div>`;
+  if(P.tab==='learn'){
+    chapters().forEach(g=>{h+=`<div class="chh" style="--c:${g.color}">${g.vol}　${g.ch}</div>`;
+      g.secs.forEach(s=>{h+=`<button class="row" style="--c:${s.color}" data-sec="${s.id}"><span class="no">${s.no}</span><span><span class="nm">${s.title}</span><small>課本 ${s.vol} ${s.no} · ${s.subs.length} 個次主題${s.game?' · 含小遊戲':''}</small></span><span class="r">${flagged(s)?'<span class="flag">⚑</span> ':''}★ ${secStars(s)}/${s.subs.length}<br>→</span></button>`})});
+    if(nG){h+=`<div class="chh" style="--c:var(--game)">小遊戲</div>`;
+      Object.entries(GAMES).forEach(([id,g])=>{h+=`<button class="row" style="--c:var(--game)" data-game="${id}"><span class="no">◆</span><span><span class="nm">${g.title}</span><small>搭配課本 ${g.sec}</small></span><span class="r">${S.games[id]?'已得徽章':'未完成'}<br>→</span></button>`})}
+  }else{
+    h+=`<p class="lead">每組 6 題、仿會考的情境與綜合題。答對 5 題以上（八成）得到該組的會考徽章。</p>`;
+    CUR.exams.forEach((x,i)=>{h+=`<div class="box"><div class="chh" style="--c:${PAL[i%PAL.length]};margin:0 0 4px">${x.title}</div><p class="lead" style="margin-bottom:12px">${S.exams[x.key]?'⛵ 已得到會考徽章，可以再挑戰。':'尚未取得會考徽章。'}</p><button class="btn exam" data-examstart="${x.key}">搭上會考小船 · ${x.qs.length} 題</button></div>`});
+  }
+  return h+`</div>`;
+}
+function renderSection(){
+  const s=SECTIONS.find(x=>x.id===P.sec);const st=secStars(s);
+  let h=head(`${s.vol} ${s.ch} · ${s.no}`,s.title)+`<div class="pb">`;
+  h+=`<p class="lead">課本 ${s.vol} ${s.no}。每個次主題先讀重點，再挑戰 10 題，答對八成以上就拿到一顆星。集滿這座島的星星，島上會升起金旗！</p>`;
+  h+=`<div class="box stars"><span>${'<i>★</i>'.repeat(st)}${'★'.repeat(s.subs.length-st)}</span>${st} / ${s.subs.length} 顆星${flagged(s)?'　<span class="flag">⚑ 金旗</span>':''}</div>`;
+  s.subs.forEach((u,i)=>{h+=`<div class="box sub"><h3><span class="n">${i+1}</span>${u.title}<span class="st ${S.stars[u.id]?'on':''}">★</span></h3><ul>${u.pts.map(t=>`<li>${mk(t)}</li>`).join('')}</ul><button class="btn" data-quiz="${u.id}">挑戰這個次主題 · 10 題</button></div>`});
+  if(s.game){const g=GAMES[s.game];h+=`<div class="box gamebox sub"><h3>◆ 小遊戲：${g.title}${S.games[s.game]?'<span class="st on" style="color:var(--game)">◆</span>':''}</h3><p class="lead" style="margin:8px 0 12px">${g.desc}</p><button class="btn game" data-game="${s.game}">開始遊戲</button></div>`}
+  return h+`</div>`;
+}
+const PRAISE=['沒錯，就是這樣！','漂亮！這題你完全掌握了。','觀念很清楚喔！','繼續保持！','好厲害，算得又快又準。'];
+const COMFORT=['沒關係，看一下解析再往下。','這題很多人會錯，先看清楚條件。','慢慢來，把步驟寫出來就不容易錯。','記住這個觀念，下次就會了！'];
+function startQuiz(kind,id){
+  const qs=kind==='sub'?buildQuiz(id):buildExam(id);
+  P={...P,view:'quiz',quiz:{kind,id,qs,i:0,wrong:0,res:[],chosen:null,done:false,from:P.view==='section'?'section':'index'}};
+  say(kind==='sub'?`${esc(S.name||'同學')}，「${SUBS[id].title}」10 題，加油！`:`會考小船出發！`);
+  if(kind==='exam'){moveTeacher(CUR.boat[0]+10,CUR.boat[1]+5);if(M3.ok)M3.focus(...CUR.boat)}
+  render();$('panel').scrollTop=0;
+}
+function renderQuiz(){
+  const Q=P.quiz;const N=Q.qs.length;const ex=Q.kind==='exam'?CUR.exams.find(x=>x.key==Q.id):null;
+  const title=Q.kind==='sub'?SUBS[Q.id].title:ex.title;
+  const eb=Q.kind==='sub'?`${SUBS[Q.id].sec.vol} ${SUBS[Q.id].sec.no} ${SUBS[Q.id].sec.title}`:'會考小船';
+  let h=head(eb,title);
+  if(Q.done){const ok=Q.res.filter(Boolean).length;const pass=ok>=Math.ceil(N*.8);
+    h+=`<div class="pb"><div class="box result"><div class="big">${ok} / ${N}</div><p>${pass?(Q.kind==='sub'?'答對八成以上，得到一顆星！':'答對八成以上，得到會考徽章！'):'再差一點點！答對八成以上就能拿到。'}</p>${Q.newGet?`<p style="color:var(--good);font-weight:700">${Q.kind==='sub'?'★ 新的星星':'⛵ 新的會考徽章'}${Q.newFlag?'，這座島升起金旗了！':''}</p>`:''}<div class="actions"><button class="btn" data-act="retry">再挑戰一次${Q.kind==='sub'?'（換新題目）':''}</button><button class="btn ghost" data-act="back">${Q.from==='section'?'回到小島':'回到總覽'}</button></div></div></div>`;
+    return h}
+  const q=Q.qs[Q.i];
+  h+=`<div class="pb"><div class="qtop"><div class="dots">${Q.qs.map((_,k)=>`<i class="${k<Q.i||(k===Q.i&&Q.chosen!==null)?(Q.res[k]?'ok':'no'):k===Q.i?'cur':''}"></i>`).join('')}</div><span class="err ${Q.wrong?'has':''}">✗ 錯誤 ${Q.wrong}</span><span>第 ${Q.i+1} 題 / 共 ${N} 題</span></div>`;
+  h+=`<div class="qq">${q.q}</div><div class="opts">`;
+  q.opts.forEach((o,k)=>{let cls='';if(Q.chosen!==null){if(k===q.ans)cls='ok';else if(k===Q.chosen)cls='no'}h+=`<button class="opt ${cls}" data-opt="${k}" ${Q.chosen!==null?'disabled':''}><span class="l">${'ABCD'[k]}</span><span>${o}</span></button>`});
+  h+=`</div>`;
+  if(Q.chosen!==null){const ok=Q.chosen===q.ans;h+=`<div class="fb ${ok?'':'no'}"><h4>${ok?'好棒！':'差一點！正確答案是 '+'ABCD'[q.ans]}</h4><p>${q.exp}</p><div class="tsay"><span class="av">師</span><span><small>${CUR.hub.replace('島','')}老師</small>${Q.msg}</span></div><button class="btn" data-act="next">${Q.i<N-1?'下一題':'看結果'}</button></div>`}
+  return h+`</div>`;
+}
+function choose(k){const Q=P.quiz;if(Q.chosen!==null)return;Q.chosen=k;const ok=k===Q.qs[Q.i].ans;Q.res[Q.i]=ok;if(!ok)Q.wrong++;Q.msg=ok?pick(PRAISE):pick(COMFORT);say(Q.msg);render()}
+function next(){const Q=P.quiz;if(Q.i<Q.qs.length-1){Q.i++;Q.chosen=null;render();return}
+  Q.done=true;const ok=Q.res.filter(Boolean).length;const pass=ok>=Math.ceil(Q.qs.length*.8);
+  if(pass){if(Q.kind==='sub'){if(!S.stars[Q.id]){S.stars[Q.id]=true;Q.newGet=true;Q.newFlag=flagged(SUBS[Q.id].sec)}}else if(!S.exams[Q.id]){S.exams[Q.id]=true;Q.newGet=true}save();drawMap()}
+  say(pass?`太棒了，${esc(S.name||'同學')}！答對 ${ok} 題。`:`答對 ${ok} 題，看完解析再挑戰一次吧！`);render()}
+/* ---------- 遊戲 1：數線跳跳 ---------- */
+function startG1(){P={...P,from:P.view,view:'g1',g:{rounds:g1Rounds(),i:0,ok:0,mark:null,state:null}};const [x,y]=GAMES.g1.pos;moveTeacher(x+20,y+6);say('看提示，在數線上點出位置！');render()}
+function nlSVG(mark,ans,state){const W=340,L=20,Rr=320,y=60;const X=v=>L+(v+10)/20*(Rr-L);let s=`<svg viewBox="0 0 ${W} 100" id="nl" role="img" aria-label="−10 到 10 的數線"><rect width="${W}" height="100" fill="#fff" rx="12"/><line x1="${L-8}" y1="${y}" x2="${Rr+8}" y2="${y}" stroke="var(--ink)" stroke-width="2"/><polygon points="${Rr+14},${y} ${Rr+6},${y-4} ${Rr+6},${y+4}" fill="var(--ink)"/>`;
+  for(let v=-10;v<=10;v++){const big=v%5===0;s+=`<line x1="${X(v)}" y1="${y-(big?8:5)}" x2="${X(v)}" y2="${y+(big?8:5)}" stroke="var(--ink)" stroke-width="${big?2:1}"/>`;if(v%2===0)s+=`<text x="${X(v)}" y="${y+24}" text-anchor="middle" font-size="11" fill="var(--muted)">${n(v)}</text>`}
+  if(state&&state!=='ok')s+=`<circle cx="${X(ans)}" cy="${y}" r="7" fill="var(--good)"/><text x="${X(ans)}" y="${y-14}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--good)">${n(ans)}</text>`;
+  if(mark!==null)s+=`<circle cx="${X(mark)}" cy="${y}" r="7" fill="${state==='ok'?'var(--good)':state==='no'?'var(--bad)':'var(--game)'}"/>${state==='no'?`<text x="${X(mark)}" y="${y-14}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--bad)">${n(mark)}</text>`:''}`;
+  return s+`</svg>`}
+function renderG1(){const G=P.g;let h=head('小遊戲 · 搭配 1-1','數線跳跳')+`<div class="pb">`;
+  if(G.i>=10){const pass=G.ok>=8;return h+`<div class="box result"><div class="big">${G.ok} / 10</div><p>${pass?'答對八成以上，得到遊戲徽章！':'答對 8 回以上就能拿到徽章，再試一次吧！'}</p><div class="actions"><button class="btn game" data-game="g1">再玩一次</button><button class="btn ghost" data-act="back">返回</button></div></div></div>`}
+  const [t,v]=G.rounds[G.i];
+  h+=`<div class="qtop"><div class="dots">${G.rounds.map((_,k)=>`<i class="${k===G.i?'cur':''}"></i>`).join('')}</div><span>第 ${G.i+1} 回 / 10 · 答對 ${G.ok}</span></div>`;
+  h+=`<p class="note">在數線上點出這個數的位置</p><div class="target">${t}</div><div class="nl">${nlSVG(G.mark,v,G.state)}</div>`;
+  h+=`<div class="flash ${G.state||''}">${G.state==='ok'?'答對了！':G.state==='no'?`差一點，答案是 ${n(v)}`:''}</div>`;
+  if(G.state)h+=`<button class="btn game" data-act="g1next">${G.i<9?'下一回':'看結果'}</button>`;
+  return h+`</div>`}
+function g1Click(ev){const G=P.g;if(G.state||G.i>=10)return;const svg=$('nl');const pt=svg.createSVGPoint();pt.x=ev.clientX;pt.y=ev.clientY;const lp=pt.matrixTransform(svg.getScreenCTM().inverse());
+  const v=Math.max(-10,Math.min(10,Math.round((lp.x-20)/300*20-10)));const ans=G.rounds[G.i][1];G.mark=v;G.state=v===ans?'ok':'no';if(G.state==='ok')G.ok++;say(G.state==='ok'?pick(PRAISE):'看看綠色的點在哪裡。');render()}
+function g1Next(){const G=P.g;G.i++;G.mark=null;G.state=null;if(G.i>=10&&G.ok>=8&&!S.games.g1){S.games.g1=true;save();drawMap()}if(G.i>=10)say(G.ok>=8?'數線高手，拿到徽章了！':'再練一次就會更熟！');render()}
+
+/* ---------- 遊戲 2：質因數拆拆樂 ---------- */
+function startG2(){P={...P,from:P.view,view:'g2',g:{list:shuffle(G2POOL).slice(0,5),i:0,cur:0,chain:[],right:0,total:0,msg:'',ms:''}};P.g.cur=P.g.list[0];const [x,y]=GAMES.g2.pos;moveTeacher(x+20,y+6);say('選一個能整除的質數！');render()}
+function renderG2(){const G=P.g;let h=head('小遊戲 · 搭配 2-1','質因數拆拆樂')+`<div class="pb">`;
+  const rate=G.total?Math.round(G.right/G.total*100):0;
+  if(G.i>=5){const pass=G.right/G.total>=.8;return h+`<div class="box result"><div class="big">${rate}%</div><p>選對 ${G.right} 次，共選 ${G.total} 次。${pass?'正確率八成以上，得到遊戲徽章！':'正確率到八成就能拿到徽章，再試一次吧！'}</p><div class="actions"><button class="btn game" data-game="g2">再玩一次</button><button class="btn ghost" data-act="back">返回</button></div></div></div>`}
+  const N=G.list[G.i];
+  h+=`<div class="qtop"><div class="dots">${G.list.map((_,k)=>`<i class="${k<G.i?'ok':k===G.i?'cur':''}"></i>`).join('')}</div><span>第 ${G.i+1} 個數 / 5 · 正確率 ${G.total?rate+'%':'—'}</span></div>`;
+  h+=`<div class="box"><div class="chain">${N} = ${G.chain.map(x=>`<b>${x}</b>`).join(' × ')}${G.cur>1?(G.chain.length?' × ':'')+`<span style="color:var(--muted)">${G.cur}</span>`:''}</div><p class="note">${G.cur>1?`還剩 ${G.cur}，選一個能整除它的質數`:'拆完了！'}</p></div>`;
+  h+=`<div class="flash ${G.ms}">${G.msg}</div>`;
+  if(G.cur>1)h+=`<div class="primes">${[2,3,5,7,11,13].map(q=>`<button data-prime="${q}">${q}</button>`).join('')}</div>`;
+  else h+=`<p class="note">標準分解式：${fmtF(factorize(N))}</p><button class="btn game" data-act="g2next">${G.i<4?'下一個數':'看結果'}</button>`;
+  return h+`</div>`}
+function g2Pick(q){const G=P.g;G.total++;if(G.cur%q===0){G.right++;G.cur/=q;G.chain.push(q);G.msg=G.cur>1?`${q} 可以整除，繼續！`:'完成！';G.ms='ok'}else{G.msg=`${G.cur} 不能被 ${q} 整除，換一個試試`;G.ms='no'}render()}
+function g2Next(){const G=P.g;G.i++;G.chain=[];G.msg='';G.ms='';if(G.i<5)G.cur=G.list[G.i];else{if(G.right/G.total>=.8&&!S.games.g2){S.games.g2=true;save();drawMap()}say(G.right/G.total>=.8?'拆數字大師，拿到徽章了！':'多玩幾次，質數會越來越熟！')}render()}
+
+/* ================= 導覽 ================= */
+function openSection(id){const s=SECTIONS.find(x=>x.id===id);P={view:'section',sec:id,tab:P.tab};const [x,y]=s.pos;moveTeacher(x+22,y+8,s.from);if(M3.ok)M3.focus(x,y);say(`來到 ${s.vol} ${s.no}「${s.title}」，先讀重點再挑戰！`);render();$('panel').scrollTop=0}
+function toIndex(){P={view:'index',tab:P.tab};moveTeacher(430,330);if(M3.ok)M3.focus(null);say(`${esc(S.name||'同學')}，點一座小島開始挑戰！`);render();$('panel').scrollTop=0}
+function back(){if(P.view==='quiz'&&P.quiz.from==='section'){openSection(P.quiz.kind==='sub'?SUBS[P.quiz.id].sec.id:P.sec);return}
+  if((P.view==='g1'||P.view==='g2')&&P.from==='section'){openSection(GAMES[P.view].sec);return}toIndex()}
+$('panel').addEventListener('click',e=>{const b=e.target.closest('button');if(!b){if(e.target.closest('#nl'))g1Click(e);return}
+  const d=b.dataset;
+  if(d.act==='back')back();else if(d.act==='close')toIndex();else if(d.act==='next')next();
+  else if(d.act==='retry')startQuiz(P.quiz.kind,P.quiz.id);
+  else if(d.act==='g1next')g1Next();else if(d.act==='g2next')g2Next();
+  else if(d.tab){P.tab=d.tab;render()}
+  else if(d.sec)openSection(d.sec);
+  else if(d.quiz)startQuiz('sub',d.quiz);
+  else if(d.examstart)startQuiz('exam',d.examstart);
+  else if(d.opt!==undefined)choose(+d.opt);
+  else if(d.prime)g2Pick(+d.prime);
+  else if(d.game){d.game==='g1'?startG1():startG2()}
+});
+function mapAct(g){if(g)mapActData(g.dataset)}
+function mapActData(a){if(!a)return;if(a.sec)openSection(a.sec);else if(a.game){P.view='section';P.sec=GAMES[a.game].sec;if(M3.ok)M3.focus(...GAMES[a.game].pos);a.game==='g1'?startG1():startG2()}else if(a.exam){P={view:'index',tab:'exam'};moveTeacher(CUR.boat[0]+10,CUR.boat[1]+5);if(M3.ok)M3.focus(...CUR.boat);say('會考小船在這裡，選一組出航吧！');render()}}
+window.mapActData=mapActData;
+$('mapsvg').addEventListener('click',e=>mapAct(e.target.closest('.isle')));
+$('mapsvg').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();mapAct(e.target.closest('.isle'))}});
+$('btnView').onclick=()=>M3.focus(null);
+$('btnSpin').onclick=e=>{const b=e.currentTarget;const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);M3.spin(on)};
+$('toHome').onclick=()=>{location.hash='home'};
+$('hudName').onclick=()=>askName();
+function askName(){$('nameIn').value=S.name||'';$('nameModal').classList.remove('hidden');setTimeout(()=>$('nameIn').focus(),50)}
+$('nameForm').addEventListener('submit',e=>{e.preventDefault();S.name=$('nameIn').value.trim().slice(0,12)||'同學';save();$('nameModal').classList.add('hidden');say(`嗨，${esc(S.name)}！點一座小島開始挑戰。`);render()});
+
+/* ================= 入口頁 ================= */
+const ICONS={
+ number:'<line x1="40" y1="62" x2="160" y2="62" stroke="#1e2b33" stroke-width="3"/><g fill="#1e2b33">'+[0,1,2,3,4].map(i=>`<rect x="${58+i*21}" y="55" width="2.5" height="14"/>`).join('')+'</g><circle cx="80" cy="62" r="7" fill="#3a67d1"/><text x="80" y="46" text-anchor="middle" font-size="16" font-weight="700" fill="#3a67d1">−1</text>',
+ algebra:'<rect x="62" y="30" width="76" height="46" rx="8" fill="#fff" stroke="#e9822a" stroke-width="3"/><text x="100" y="62" text-anchor="middle" font-size="22" font-weight="700" fill="#e9822a">x = ?</text>',
+ function:'<line x1="70" y1="78" x2="70" y2="22" stroke="#1e2b33" stroke-width="3"/><line x1="64" y1="72" x2="140" y2="72" stroke="#1e2b33" stroke-width="3"/><path d="M78 26 Q104 100 130 26" fill="none" stroke="#2f9e5b" stroke-width="4"/>',
+ geometry:'<polygon points="100,20 140,76 60,76" fill="#efe6fb" stroke="#8a5bd6" stroke-width="4"/><circle cx="100" cy="58" r="12" fill="none" stroke="#8a5bd6" stroke-width="3"/>',
+ stats:'<rect x="68" y="50" width="14" height="26" fill="#d6455b"/><rect x="92" y="34" width="14" height="42" fill="#d6455b"/><rect x="116" y="58" width="14" height="18" fill="#d6455b"/>',
+};
+const ICOL={number:'var(--ch1)',algebra:'var(--ch2)',function:'var(--good)',geometry:'var(--game)',stats:'var(--exam)'};
+function homeIsle(icon){return`<svg viewBox="0 0 200 130" aria-hidden="true"><ellipse cx="100" cy="112" rx="88" ry="14" fill="rgba(0,0,0,.12)"/><polygon points="${hex(100,98,82,.32)}" fill="#d9bf86"/><polygon points="${hex(100,90,82,.32)}" fill="#f3e2b8"/><polygon points="${hex(100,88,64,.32)}" fill="#9fd36f"/>${icon}</svg>`}
+const VOLS=['七上','七下','八上','八下','九上','九下'];
+function renderHome(){
+  const all=ISL_ORDER.reduce((a,k)=>a+islStars(ISL[k]),0),allT=ISL_ORDER.reduce((a,k)=>a+islTotal(ISL[k]),0);
+  let h=`<div class="home-in"><div class="home-top"><div><h1>國中數學群島</h1><p>選一座島全部逛，或從下面挑一節，只練那一節的範圍。</p></div><span class="chip"><span class="s">★</span>${all} / ${allT}</span></div><div class="isles">`;
+  ISL_ORDER.forEach(k=>{const I=ISL[k];h+=`<button class="isle-card" style="--c:${ICOL[k]}" data-big="${k}">${homeIsle(ICONS[k])}<div class="box"><h3>${I.name}</h3><small>${I.sub}</small><small>${I.secs.length} 座小島 · ${I.exams.length} 組會考題</small><div class="meta"><span style="color:var(--gold)">★</span> ${islStars(I)} / ${islTotal(I)}</div></div></button>`});
+  h+=`</div><div class="chapters"><h2>依課本章節進入</h2><p>順序與康軒版課本相同：七上到九下，共 ${ISL_ORDER.reduce((a,k)=>a+ISL[k].secs.length,0)} 節。</p>`;
+  VOLS.forEach(v=>{const list=[];ISL_ORDER.forEach(k=>ISL[k].secs.forEach(s=>{if(s.vol===v)list.push(s)}));if(!list.length)return;list.sort((a,b)=>a.no.localeCompare(b.no,'en',{numeric:true}));
+    h+=`<div class="vol">${v}</div>`;list.forEach(s=>{h+=`<button class="crow" style="--c:${s.color}" data-go="${s.isl}|${s.id}"><b>${s.no}</b><span>${s.title}<small>${ISL[s.isl].name}</small></span><span class="st">★ ${secStars(s)}/${s.subs.length}</span></button>`})});
+  h+=`</div></div>`;$('home').innerHTML=h;
+}
+let pendingSec=null;
+$('home').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;if(b.dataset.big){location.hash=b.dataset.big}else if(b.dataset.go){const [k,id]=b.dataset.go.split('|');pendingSec=id;if(location.hash==='#'+k)route();else location.hash=k}});
+function route(){const h=location.hash.replace('#','');
+  if(ISL[h]){setIsland(h);$('home').classList.add('hidden');$('island').classList.remove('hidden');$('sayName').textContent=CUR.hub.replace('島','')+'老師';
+    TPOS=[430,330];M3.init();if(M3.ok)M3.load();drawMap();
+    if(pendingSec){openSection(pendingSec);pendingSec=null}else{P={view:'index',tab:'learn'};render();say(`${S.name?esc(S.name)+'，':''}歡迎來到${CUR.name}！點一座小島開始挑戰${M3.ok?'（拖曳可以旋轉地圖）':''}。`)}
+    if(!S.name)askName()}
+  else{$('island').classList.add('hidden');$('home').classList.remove('hidden');renderHome();$('home').scrollTop=0}}
+window.addEventListener('hashchange',route);
+route();
+
+</script>
+</body>
+</html>
