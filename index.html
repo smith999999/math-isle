@@ -2,6 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>國中數學群島</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -225,8 +227,8 @@ sup{font-size:.7em;line-height:0}
   </form>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js" integrity="sha384-wagZhIFgY4hD+7awjQjR4e2E294y6J2HSnd8eTNc15ZubTeQeVRZwhQJ+W6hnBsf" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 /* ================= 工具 ================= */
 const M='−';
@@ -981,7 +983,8 @@ function setIsland(k){CUR=ISL[k];SECTIONS=CUR.secs;GAMES=CUR.games||{}}
 /* ================= 進度 ================= */
 const KEY='mathIsle.v1';
 let S={name:'',stars:{},games:{},exams:{}};
-try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw))}catch(e){}
+function cleanFlags(o){const out=Object.create(null);if(o&&typeof o==='object'&&!Array.isArray(o))for(const k of Object.keys(o))if(/^[\w-]{1,24}$/.test(k)&&o[k]===true)out[k]=true;return out}
+try{const raw=localStorage.getItem(KEY);if(raw&&raw.length<20000){const d=JSON.parse(raw);S={name:typeof d.name==='string'?d.name.slice(0,12):'',stars:cleanFlags(d.stars),games:cleanFlags(d.games),exams:cleanFlags(d.exams)}}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const secStars=s=>s.subs.filter(u=>S.stars[u.id]).length;
 const flagged=s=>secStars(s)===s.subs.length;
