@@ -1224,6 +1224,16 @@ function next(){const Q=P.quiz;if(Q.i<Q.qs.length-1){Q.i++;Q.chosen=null;render(
   Q.done=true;const ok=Q.res.filter(Boolean).length;const pass=ok>=Math.ceil(Q.qs.length*.8);
   if(pass){if(Q.kind==='sub'){if(!S.stars[Q.id]){S.stars[Q.id]=true;Q.newGet=true;Q.newFlag=flagged(SUBS[Q.id].sec)}}else if(!S.exams[Q.id]){S.exams[Q.id]=true;Q.newGet=true}save();drawMap()}
   say(pass?`太棒了，${esc(S.name||'同學')}！答對 ${ok} 題。`:`答對 ${ok} 題，看完解析再挑戰一次吧！`);render()}
+/* ---------- 小遊戲資料 ---------- */
+function g1Rounds(){const R=[];const mk1=[
+ ()=>{const v=rnz(-10,10);return[`${n(v)}`,v]},
+ ()=>{const v=rnz(-9,9);return[`${n(-v)} 的相反數`,v]},
+ ()=>{const v=ri(1,10);return[`|${M}${v}|`,v]},
+ ()=>{const a=ri(-6,6),d=ri(2,6);return[`比 ${n(a)} 小 ${d} 的數`,a-d]},
+ ()=>{const a=ri(-8,3),d=ri(2,7);return[`${n(a)} + ${d}`,a+d]},
+ ()=>{const a=ri(-10,0);const b=a+2*ri(1,5);return[`${n(a)} 與 ${n(b)} 的中點`,(a+b)/2]},
+ ];while(R.length<10){const [t,v]=pick(mk1)();if(v>=-10&&v<=10&&!R.some(r=>r[0]===t))R.push([t,v])}return R}
+const G2POOL=[60,72,84,90,96,108,120,126,140,150,168,180,198,210,252,264,270,300,330,378,390,420];
 /* ---------- 遊戲 1：數線跳跳 ---------- */
 function startG1(){P={...P,from:P.view,view:'g1',g:{rounds:g1Rounds(),i:0,ok:0,mark:null,state:null}};const [x,y]=GAMES.g1.pos;moveTeacher(x+20,y+6);say('看提示，在數線上點出位置！');render()}
 function nlSVG(mark,ans,state){const W=340,L=20,Rr=320,y=60;const X=v=>L+(v+10)/20*(Rr-L);let s=`<svg viewBox="0 0 ${W} 100" id="nl" role="img" aria-label="−10 到 10 的數線"><rect width="${W}" height="100" fill="#fff" rx="12"/><line x1="${L-8}" y1="${y}" x2="${Rr+8}" y2="${y}" stroke="var(--ink)" stroke-width="2"/><polygon points="${Rr+14},${y} ${Rr+6},${y-4} ${Rr+6},${y+4}" fill="var(--ink)"/>`;
