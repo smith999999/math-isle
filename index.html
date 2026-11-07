@@ -190,6 +190,94 @@ sup{font-size:.7em;line-height:0}
   .opts{grid-template-columns:1fr}
   .ph h2{font-size:22px}
 }
+
+/* ---------- 引導與互動（v3） ---------- */
+.nextbar{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;width:100%;text-align:left;border:2px solid #f2c94c;background:#fff8dc;border-radius:16px;padding:12px 14px}
+.nextbar .k{font-size:12px;font-weight:900;color:#a27800;letter-spacing:.04em}
+.nextbar .v{grid-column:1;font-weight:700;font-size:17px}
+.nextbar small{grid-column:1;color:var(--muted);font-size:13px}
+.nextbar .go{grid-column:2;grid-row:1/4;font-size:24px;color:#a27800}
+.nextbar.done{display:block;font-weight:700;color:#7a5c00}
+.row.isnext{background:#fffbe8}
+.nexttag{font-style:normal;font-size:12px;background:#f2c94c;color:#5a4300;border-radius:999px;padding:1px 8px;margin-left:4px;vertical-align:middle}
+.lbl.next{box-shadow:0 0 0 3px #ffd34d,0 0 14px 4px rgba(255,211,77,.8)}
+.sub-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sub-acts .btn:only-child{grid-column:1/3}
+.btn.try{background:#fff;color:var(--game);border:2px dashed #c9b2ef;margin-bottom:10px}
+.trybox{border:2px dashed #c9b2ef;background:#faf6ff;border-radius:14px;padding:10px 12px;margin-bottom:12px}
+.tryh{display:flex;justify-content:space-between;align-items:center;color:var(--game);margin-bottom:6px}
+.tool{display:flex;flex-direction:column;gap:8px}
+.tool svg{width:100%;height:auto;background:#fff;border-radius:10px;touch-action:none;user-select:none}
+.tool .tip{margin:0;font-size:14px;color:var(--muted)}
+.tool .out{margin:0;font-size:15px;line-height:1.7}
+.tool .out small{color:var(--muted)}
+.big-range{width:100%;height:36px;accent-color:var(--game)}
+.stps{display:flex;flex-wrap:wrap;gap:8px}
+.stp{display:flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:3px 6px;font-size:13px}
+.stp button{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:#f6f1ff;font-size:20px;font-weight:700;color:var(--game)}
+.stp b{min-width:30px;text-align:center;font-size:17px}
+.mini{min-height:40px;border-radius:10px;border:1px solid #c9b2ef;background:#fff;color:var(--game);font-weight:700;padding:6px 12px;align-self:flex-start}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.chip{min-width:52px;min-height:48px;border-radius:12px;border:2px solid #3a67d1;background:#eef3ff;font-size:20px;font-weight:700;color:#3a67d1}
+.chip.neg{border-color:var(--bad);background:var(--bad-bg);color:var(--bad)}
+.op{font-size:18px;color:var(--muted)}
+.expr{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:20px;background:#fff;border-radius:12px;padding:10px}
+.opb{min-width:46px;min-height:46px;border-radius:50%;border:2px solid var(--game);background:#f6f1ff;font-size:22px;font-weight:700;color:var(--game)}
+.num{font-weight:700}.num.big{font-size:30px}
+.hist{margin:0;padding-left:22px;font-size:14px;color:var(--muted)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cmp>div{background:#fff;border-radius:12px;padding:10px;text-align:center;font-size:18px;line-height:1.6}
+.cmp small{font-size:12px;color:var(--muted);word-break:break-all}
+.sci{background:#fff;border-radius:12px;padding:16px 10px;text-align:center;font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;word-break:break-all}
+.sci.ok{outline:3px solid var(--good)}
+.sci .mant{color:var(--game)}
+.rects{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.rect{display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff;border-radius:8px;padding:6px}
+.rect svg{background:none}
+.tree{background:#fff;border-radius:12px;padding:10px;font-size:18px;line-height:1.8}
+.tr b{color:var(--game)}
+.tile{display:inline-grid;place-items:center;width:30px;height:30px;margin:2px;border-radius:7px;background:var(--t);color:#fff;font-weight:700;font-style:italic;transition:opacity .3s}
+.tile.gone{opacity:.25;text-decoration:line-through}
+.row-t,.frac-t{background:#fff;border-radius:12px;padding:10px;text-align:center}
+.bar-t{height:2px;background:var(--ink);margin:6px 10%}
+.groups{display:flex;flex-wrap:wrap;gap:8px}
+.grp{border:2px solid #2f9e5b;border-radius:10px;padding:4px;background:#fff}
+.hop{stroke-dasharray:400;stroke-dashoffset:400;animation:hop .6s ease-out forwards}
+@keyframes hop{to{stroke-dashoffset:0}}
+.c-ok{color:var(--good)}.c-no{color:var(--bad)}.b{font-weight:700}
+.btn.help{border:2px solid #f2c94c;background:#fffbe8;color:#7a5c00}
+.hintbox{background:#fffbe8;border:2px solid #f2c94c;border-radius:14px;padding:10px 14px}
+.hintbox b{color:#a27800;font-size:13px}
+.hintbox p{margin:4px 0 0;font-size:17px}
+.stepbox{background:#f3f8ff;border:2px solid #b9cdf3;border-radius:14px;padding:12px}
+.sbh{font-weight:900;font-size:13px;color:var(--ch1);margin-bottom:6px}
+.steps-done{margin:0 0 8px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.steps-done li{background:#fff;border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.steps-done .sq{font-size:14px;color:var(--muted)}
+.steps-done .sa{font-size:18px;font-weight:700;color:var(--good)}
+.steps-done small{color:var(--muted)}
+.stepq{font-size:17px;margin:4px 0 8px}
+.sopts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sopt{min-height:52px;border-radius:12px;border:2px solid #b9cdf3;background:#fff;font-size:17px;padding:8px}
+.sopt.no{border-color:var(--bad);background:var(--bad-bg);text-decoration:line-through}
+.smsg{margin:8px 0 0;font-weight:700}
+.misline{background:#fff;border-radius:10px;padding:8px 10px;font-size:15px}
+.twin{background:#fff;border-radius:12px;padding:10px;margin-bottom:10px}
+.qq.sm{font-size:18px;margin-bottom:8px}
+.opt.sel{border-color:var(--ink);background:#f1eee9}
+.dots i.help{background:#f2c94c}.dots i.done{background:#9aa5ac}
+.tally{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.tally .t{border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
+.tally .t.ok{background:var(--good-bg)}.tally .t.help{background:#fff3c4;color:#7a5c00}.tally .t.no{background:var(--bad-bg)}
+.bh{font-family:var(--body);font-weight:700;font-size:17px;margin-bottom:8px}
+.misl{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:6px}
+.misl li{display:flex;justify-content:space-between;gap:10px;background:var(--bad-bg);border-radius:10px;padding:8px 12px}
+.exlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.exlist li{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.exlist li.no span{color:var(--bad);font-weight:700}.exlist li.ok span{color:var(--good);font-weight:700}
+.eb2{font-size:12px;font-weight:900;color:var(--ch1);letter-spacing:.04em}
+@media (prefers-reduced-motion:reduce){.hop{animation:none;stroke-dashoffset:0}.tile{transition:none}}
+@media (max-width:420px){.sopts{grid-template-columns:1fr}.cmp{grid-template-columns:1fr}.sub-acts{grid-template-columns:1fr}.sub-acts .btn:only-child{grid-column:auto}}
 </style>
 </head>
 <body>
@@ -256,14 +344,20 @@ const sci=(a,e)=>`${a} × 10<sup>${n(e)}</sup>`;
 const mk=s=>s.replace(/\[([^\/\[\]]+)\/([^\/\[\]]+)\]/g,(_,a,b)=>{const neg=a[0]===M;return(neg?M:'')+`<span class="fr"><span>${neg?a.slice(1):a}</span><span>${b}</span></span>`});
 
 const ltx=s=>String(s).replace(/<(?=[\s\d−=])/g,'&lt;');
-function finalize(q,opts,exp){const idx=shuffle(opts.map((_,i)=>i));return{q:ltx(q),opts:idx.map(i=>ltx(opts[i])),ans:idx.indexOf(0),exp:ltx(exp)}}
-function numQ(q,ans,cands,exp,fmt=n){const rd=v=>Number.isFinite(v)?Math.round(v*1e6)/1e6:v;ans=rd(ans);cands=cands.map(rd);const s=[ans];for(const c of cands){if(Number.isFinite(c)&&!s.includes(c))s.push(c);if(s.length===4)break}
-  let k=1;while(s.length<4){for(const c of [ans+k,ans-k])if(s.length<4&&!s.includes(c))s.push(c);k++}
-  return finalize(q,s.map(fmt),exp)}
-function frQ(q,ans,cands,exp){const s=[ans],keys=[ans.key()];for(const c of cands){if(c&&!keys.includes(c.key())){s.push(c);keys.push(c.key())}if(s.length===4)break}
-  let k=1;while(s.length<4){for(const c of [ans.add(new Fr(k,ans.b)),ans.sub(new Fr(k,ans.b))])if(s.length<4&&!keys.includes(c.key())){s.push(c);keys.push(c.key())}k++}
-  return finalize(q,s.map(fh),exp)}
-function strQ(q,ans,cands,fallback,exp){const s=[ans];for(const c of cands.concat(fallback)){if(c&&!s.includes(c))s.push(c);if(s.length===4)break}return finalize(q,s,exp)}
+/* m（選填）＝引導資料：{hint, steps:[{q,o:[正解,…],e}], mis:[與 opts 對齊的錯誤觀念，opts[0] 為 null]} */
+function finalize(q,opts,exp,m){const idx=shuffle(opts.map((_,i)=>i));const o={q:ltx(q),opts:idx.map(i=>ltx(opts[i])),ans:idx.indexOf(0),exp:ltx(exp)};
+  if(m){o.hint=m.hint?ltx(m.hint):null;o.mis=idx.map(i=>i===0?null:((m.mis&&m.mis[i])||'計算過程出錯'));
+    o.steps=(m.steps||[]).map(st=>{const uniq=[...new Set(st.o.map(String))];if(uniq.length<2){const alt=uniq[0].replace(/−?\d+/,d=>n(parseInt(d.replace('−','-'))+1));uniq.push(alt!==uniq[0]?alt:'以上皆非')}const j=shuffle(uniq.map((_,i)=>i));return{q:ltx(st.q),opts:j.map(i=>ltx(uniq[i])),ans:j.indexOf(0),e:ltx(st.e||'')}})}
+  return o}
+const st=(q,o,e='')=>({q,o,e});
+function numQ(q,ans,cands,exp,fmt=n,m){const rd=v=>Number.isFinite(v)?Math.round(v*1e6)/1e6:v;ans=rd(ans);cands=cands.map(rd);const s=[ans],lab=[null];
+  cands.forEach((c,i)=>{if(s.length<4&&Number.isFinite(c)&&!s.includes(c)){s.push(c);lab.push(m&&m.mis?m.mis[i]:null)}});
+  let k=1;while(s.length<4){for(const c of [ans+k,ans-k])if(s.length<4&&!s.includes(c)){s.push(c);lab.push(null)}k++}
+  return finalize(q,s.map(fmt),exp,m?{...m,mis:lab}:null)}
+function frQ(q,ans,cands,exp,m){const s=[ans],keys=[ans.key()],lab=[null];cands.forEach((c,i)=>{if(s.length<4&&c&&!keys.includes(c.key())){s.push(c);keys.push(c.key());lab.push(m&&m.mis?m.mis[i]:null)}});
+  let k=1;while(s.length<4){for(const c of [ans.add(new Fr(k,ans.b)),ans.sub(new Fr(k,ans.b))])if(s.length<4&&!keys.includes(c.key())){s.push(c);keys.push(c.key());lab.push(null)}k++}
+  return finalize(q,s.map(fh),exp,m?{...m,mis:lab}:null)}
+function strQ(q,ans,cands,fallback,exp,m){const s=[ans],lab=[null];cands.concat(fallback).forEach((c,i)=>{if(s.length<4&&c&&!s.includes(c)){s.push(c);lab.push(m&&m.mis&&i<cands.length?m.mis[i]:null)}});return finalize(q,s,exp,m?{...m,mis:lab}:null)}
 
 /* ================= 課程內容（康軒版七上 第1–2章） ================= */
 const SEC_NUMBER=[
@@ -304,114 +398,8 @@ function randFactored(){for(;;){const f=[[2,ri(1,4)],[3,ri(0,3)],[5,ri(0,2)],[7,
 function coprimePair(){for(;;){const x=ri(2,9),y=ri(2,9);if(x!==y&&gcd(x,y)===1)return[x,y]}}
 function properFr(){const b=ri(2,9);return new Fr(rnz(-(b-1),b-1),b)}
 
-const GEN={
-'1-1a':[
- ()=>{const x=rnz(-30,30);return numQ(`${n(x)} 的相反數是多少？`,-x,[x,Math.abs(x)+1,-Math.abs(x)-1],`只有正負號不同的兩個數互為相反數，所以 ${n(x)} 的相反數是 ${n(-x)}。`)},
- ()=>{const c=pick([['向東走','公尺','向西走'],['收入','元','支出'],['上升','公尺','下降'],['存入','元','提出']]);const a=ri(3,90);let b=ri(3,90);if(b===a)b++;
-   return numQ(`若${c[0]} ${a} ${c[1]}記為 +${a}，則${c[2]} ${b} ${c[1]}應記為多少？`,-b,[b,-a,a],`「${c[2]}」和「${c[0]}」意義相反，所以用負數表示，記為 ${n(-b)}。`,x=>x>0?'+'+x:n(x))},
- ()=>{const a=ri(2,15),b=ri(2,15),c=ri(2,15);return finalize('下列哪一個數是負數？',[`${M}|${M}${c}|`,`${M}(${M}${a})`,`|${M}${b}|`,'0'],`${M}(${M}${a}) = ${a}，|${M}${b}| = ${b}，0 不是正數也不是負數；只有 ${M}|${M}${c}| = ${M}${c} 是負數。`)},
-],
-'1-1b':[
- ()=>{const x=rnz(-60,60),a=Math.abs(x);return numQ(`|${n(x)}| = ?`,a,[-a,a+10,a-1],`絕對值是到原點的距離，不會是負數：|${n(x)}| = ${a}。`)},
- ()=>{const v=shuffle(Array.from({length:20},(_,i)=>-(i+1))).slice(0,4);const big=Math.random()<.5;const ans=big?Math.max(...v):Math.min(...v);
-   return numQ(`下列哪一個數${big?'最大':'最小'}？`,ans,v.filter(x=>x!==ans),big?`負數比大小：絕對值越小的數越大，離原點最近的 ${n(ans)} 最大。`:`負數比大小：絕對值越大的數越小，離原點最遠的 ${n(ans)} 最小。`)},
- ()=>{const a=ri(-15,15);let b=ri(-15,15);if(b===a)b=a-7;const d=Math.abs(a-b);
-   return numQ(`數線上 A(${n(a)})、B(${n(b)}) 兩點的距離是多少？`,d,[Math.abs(a+b),Math.abs(a)+Math.abs(b),a-b,b-a],`距離 = |a − b| = |${n(a)} − ${p(b)}| = |${n(a-b)}| = ${d}。`)},
- ()=>{const a=ri(-15,10),b=a+2*ri(2,10);const [x,y]=Math.random()<.5?[a,b]:[b,a];const m=(x+y)/2;
-   return numQ(`數線上 A(${n(x)})、B(${n(y)})，線段 AB 中點的坐標是多少？`,m,[(y-x)/2,(x-y)/2,x+y],`中點坐標 = (a + b) ÷ 2 = (${n(x)} + ${p(y)}) ÷ 2 = ${n(x+y)} ÷ 2 = ${n(m)}。`)},
-],
-'1-2a':[
- ()=>{const a=rnz(-50,50),b=rnz(-50,-1);const s=a+b;return numQ(`${n(a)} + ${p(b)} = ?`,s,[a-b,-s,-a+b],`${a*b>0?'同號相加：絕對值相加，保留共同的符號。':'異號相加：絕對值大的減去小的，取絕對值較大者的符號。'}所以答案是 ${n(s)}。`)},
- ()=>{const a=rnz(-30,30),b=rnz(-30,30),c=rnz(-30,-1);const s=a+b+c;return numQ(`${n(a)} + ${p(b)} + ${p(c)} = ?`,s,[a+b-c,-s,a-b+c],`先算 ${n(a)} + ${p(b)} = ${n(a+b)}，再加上 ${p(c)}，得 ${n(s)}。`)},
-],
-'1-2b':[
- ()=>{const a=rnz(-40,40),b=rnz(-40,40);const s=a-b;return numQ(`${n(a)} − ${p(b)} = ?`,s,[a+b,b-a,-a-b],`減去一個數等於加上它的相反數：${n(a)} − ${p(b)} = ${n(a)} + ${p(-b)} = ${n(s)}。`)},
- ()=>{const a=rnz(-20,20),b=rnz(-20,20),c=rnz(-20,20);const s=a-b+c;return numQ(`${n(a)} − (${n(b)} − ${p(c)}) = ?`,s,[a-b-c,a+b-c,-a+b-c],`去括號：−(b − c) = −b + c，所以原式 = ${n(a)} − ${p(b)} + ${p(c)} = ${n(s)}。`)},
- ()=>{const s=ri(-10,8),u=ri(3,15),d=ri(3,15);const e=s+u-d;return numQ(`某地清晨氣溫 ${n(s)}°C，中午上升 ${u}°C，晚上又下降 ${d}°C。晚上氣溫是多少？`,e,[s-u+d,s+u+d,-e],`${n(s)} + ${u} − ${d} = ${n(e)}，晚上氣溫是 ${n(e)}°C。`,x=>n(x)+'°C')},
-],
-'1-3a':[
- ()=>{const a=rnz(-12,12),b=rnz(-12,-1);const s=a*b;return numQ(`${n(a)} × ${p(b)} = ?`,s,[-s,a+b,-(a+b)],`${s>0?'同號相乘得正':'異號相乘得負'}：${n(a)} × ${p(b)} = ${n(s)}。`)},
- ()=>{const q=rnz(-12,12),b=rnz(-12,-2);const c=q*b;return numQ(`${n(c)} ÷ ${p(b)} = ?`,q,[-q,b,-b],`${q>0?'同號相除得正':'異號相除得負'}：${n(c)} ÷ ${p(b)} = ${n(q)}。`)},
- ()=>{const k=ri(2,9),m=ri(1,6);const neg=k%2===1;return finalize(`${k} 個負數與 ${m} 個正數相乘（都不是 0），結果是什麼數？`,[neg?'負數':'正數',neg?'正數':'負數','0','無法判斷'],`負數有 ${k} 個，是${neg?'奇':'偶'}數個，所以乘積是${neg?'負':'正'}數。正數的個數不影響正負號。`)},
-],
-'1-3b':[
- ()=>{const a=rnz(-9,9),b=rnz(-9,9),c=rnz(-9,9);const s=a+b*c;return numQ(`${n(a)} + ${p(b)} × ${p(c)} = ?`,s,[(a+b)*c,a-b*c,-s],`先乘後加：${p(b)} × ${p(c)} = ${n(b*c)}，${n(a)} + ${p(b*c)} = ${n(s)}。`)},
- ()=>{const c=rnz(-6,6)||2,k=rnz(-9,9),a=rnz(-20,20);const b=c*k,s=a-k;return numQ(`${n(a)} − ${p(b)} ÷ ${p(c)} = ?`,s,[(a-b)%c===0?(a-b)/c:null,a+k,k-a],`先除後減：${p(b)} ÷ ${p(c)} = ${n(k)}，${n(a)} − ${p(k)} = ${n(s)}。`)},
- ()=>{const a=rnz(-12,12),b=rnz(-12,12),c=rnz(-6,6);const s=(a-b)*c;return numQ(`(${n(a)} − ${p(b)}) × ${p(c)} = ?`,s,[a-b*c,(a+b)*c,-s],`先算括號：${n(a)} − ${p(b)} = ${n(a-b)}，再乘以 ${p(c)}，得 ${n(s)}。`)},
-],
-'1-4a':[
- ()=>{const b=pick([-2,-3,2,3,-4,-5]);const e=Math.abs(b)<=3?ri(2,5):ri(2,3);const v=b**e;
-   return numQ(`${p(b)}<sup>${e}</sup> = ?`,v,[-v,b*e,Math.abs(b)**e],`${p(b)}<sup>${e}</sup> 是 ${e} 個 ${p(b)} 相乘。${b<0?(e%2?'負數的奇數次方為負，':'負數的偶數次方為正，'):''}結果是 ${n(v)}。`)},
- ()=>{const b=ri(2,5),e=b>3?ri(2,3):ri(2,4);const v=-(b**e);return numQ(`${M}${b}<sup>${e}</sup> = ?`,v,[-v,-b*e,b*e],`底數是 ${b}，前面的負號不在次方裡：${M}${b}<sup>${e}</sup> = ${M}(${b}<sup>${e}</sup>) = ${n(v)}。`)},
- ()=>{const k=ri(11,99);const v=k%2?-1:1;return numQ(`(${M}1)<sup>${k}</sup> = ?`,v,[-v,k,-k],`${k} 是${k%2?'奇':'偶'}數，(${M}1) 的${k%2?'奇':'偶'}數次方等於 ${n(v)}。`)},
-],
-'1-4b':[
- ()=>{let m=ri(11,99);if(m%10===0)m++;const e=ri(3,8);const N=(m*10**(e-1)).toLocaleString('en-US');const a=(m/10).toFixed(1);
-   return strQ(`把 ${N} 寫成科學記號：`,sci(a,e),[sci(a,e-1),sci(a,e+1),`${m} × 10<sup>${e-1}</sup>`],[],`小數點往左移 ${e} 位，數字才會落在 1 到 10 之間，所以 ${N} = ${sci(a,e)}。${m} × 10<sup>${e-1}</sup> 的 ${m} 大於 10，不是科學記號。`)},
- ()=>{let m=ri(11,99);if(m%10===0)m++;const e=ri(2,6);const D='0.'+'0'.repeat(e-1)+m;const a=(m/10).toFixed(1);
-   return strQ(`把 ${D} 寫成科學記號：`,sci(a,-e),[sci(a,e),sci(a,-(e+1)),sci(a,-(e-1))],[],`小數點往右移 ${e} 位，數字才會落在 1 到 10 之間，所以 ${D} = ${sci(a,-e)}。`)},
- ()=>{const [u,ue]=pick([['奈米',-9],['微米',-6]]);let m=ri(11,99);if(m%10===0)m++;const j=ri(0,1);const k=m*10**j;const a=(m/10).toFixed(1);const E=j+1+ue;
-   return strQ(`1 ${u} = 10<sup>${n(ue)}</sup> 公尺。${k} ${u}用科學記號表示是多少公尺？`,sci(a,E),[sci(a,E-1),sci(a,E+1),sci(a,-E)],[],`${k} = ${sci(a,j+1)}，所以 ${k} ${u} = ${sci(a,j+1)} × 10<sup>${n(ue)}</sup> = ${sci(a,E)} 公尺。`)},
-],
-'2-1a':[
- ()=>{const pr=pick(PRIMES);const cs=shuffle(Object.keys(COMPS)).slice(0,3).map(Number);
-   return finalize('下列哪一個數是質數？',[pr,...cs].map(String),`${cs.map(c=>`${c} = ${COMPS[c]}`).join('，')}，都是合數；只有 ${pr} 除了 1 和自己以外沒有其他因數，是質數。`)},
- ()=>{const N=pick([12,18,20,24,28,30,32,36,40,42,44,45,48,50,54,60,63,72]);const d=divisors(N);
-   return numQ(`${N} 共有幾個正因數？`,d.length,[d.length-1,d.length+1,d.length+2],`${N} 的因數有 ${d.join('、')}，共 ${d.length} 個。`)},
- ()=>{const k=pick([3,9,4]);const ds=x=>String(x).split('').reduce((a,c)=>a+ +c,0);
-   let ans;do{ans=ri(100,999)}while(ans%k);const others=[];
-   while(others.length<3){const x=ri(100,999);if(x%k&&!others.includes(x)&&(k!==9||others.length>0||x%3===0))others.push(x)}
-   const why=k===4?`末兩位 ${String(ans).slice(-2)} 是 4 的倍數`:`各位數字和 ${ds(ans)} 是 ${k} 的倍數`;
-   return finalize(`下列哪一個數是 ${k} 的倍數？`,[ans,...others].map(String),`${ans} 的${why}，所以 ${ans} 是 ${k} 的倍數。${k===4?'判斷 4 的倍數只要看末兩位。':`判斷 ${k} 的倍數看各位數字和。`}`)},
-],
-'2-1b':[
- ()=>{const {f,N}=randFactored();const ans=fmtF(f);const vars=[];
-   f.forEach((_,i)=>{const g=f.map(x=>x.slice());g[i][1]++;vars.push(fmtF(g));if(f[i][1]>=2){const h=f.map(x=>x.slice());h[i][1]--;vars.push(fmtF(h))}});
-   if(f[0][0]===2&&f[0][1]>=2){const rest=f.slice(1);vars.push([f[0][1]>2?pw('2',f[0][1]-2):null,'4',fmtF(rest)].filter(Boolean).join(' × '))}
-   return strQ(`${N} 的標準分解式是？`,ans,shuffle(vars),[ans+' × 11'],`用質數一直去除：${N} = ${expandF(f)} = ${ans}。`)},
- ()=>{const {f,N}=randFactored();const ps=f.map(x=>x[0]);const ans=ps.join('、');
-   const comp=(N%4===0)?4:(N%6===0)?6:(N%9===0)?9:10;
-   const c1='1、'+ans,c2=ps.slice(0,-1).join('、'),c3=[...ps,comp].sort((a,b)=>a-b).join('、');
-   return strQ(`${N} 的質因數有哪些？`,ans,[c3,c1,c2],[ans+'、11'],`${N} = ${fmtF(f)}，質因數是 ${ans}。1 不是質數，${comp} 雖然是因數但不是質數。`)},
-],
-'2-2a':[
- ()=>{const g=ri(2,16),[x,y]=coprimePair();const a=g*x,b=g*y;return numQ(`(${a}, ${b}) = ?（最大公因數）`,g,[g*x*y,2*g,x*y],`${a} = ${g} × ${x}，${b} = ${g} × ${y}，${x} 與 ${y} 互質，所以 (${a}, ${b}) = ${g}。`)},
- ()=>{const g=ri(2,8);let t;do{t=shuffle([2,3,4,5,6,7]).slice(0,3)}while(gcd(gcd(t[0],t[1]),t[2])!==1);const v=t.map(x=>x*g);
-   return numQ(`${v.join('、')} 三個數的最大公因數是多少？`,g,[g*2,gcd(v[0],v[1])===g?g+1:gcd(v[0],v[1]),1],`三個數都是 ${g} 的倍數：${v.map((x,i)=>`${x} = ${g} × ${t[i]}`).join('，')}，而 ${t.join('、')} 沒有共同的質因數，所以最大公因數是 ${g}。`)},
-],
-'2-2b':[
- ()=>{const g=ri(2,12),[x,y]=coprimePair();const a=g*x,b=g*y,L=g*x*y;return numQ(`[${a}, ${b}] = ?（最小公倍數）`,L,[g,a*b,2*L],`${a} = ${g} × ${x}，${b} = ${g} × ${y}，所以 [${a}, ${b}] = ${g} × ${x} × ${y} = ${L}。`)},
- ()=>{const ok=pick([[8,15],[9,20],[14,25],[16,21],[27,32],[10,21],[22,15],[25,36],[35,12]]);const bad=[];
-   while(bad.length<3){const g=ri(2,7),[x,y]=[ri(2,9),ri(2,9)];if(x!==y){const s=`${g*x} 和 ${g*y}`;if(!bad.includes(s))bad.push(s)}}
-   return finalize('下列哪一組數互質？',[`${ok[0]} 和 ${ok[1]}`,...bad],`${ok[0]} 與 ${ok[1]} 的最大公因數是 1，所以互質；其他各組都有大於 1 的公因數。兩個合數也可能互質喔！`)},
- ()=>{const g=ri(2,9),[x,y]=coprimePair();const P=g*x*g*y,L=g*x*y;return numQ(`兩個正整數的最大公因數是 ${g}，兩數的乘積是 ${P}，它們的最小公倍數是多少？`,L,[P,g,P/2],`(a, b) × [a, b] = a × b，所以最小公倍數 = ${P} ÷ ${g} = ${L}。`)},
-],
-'2-3a':[
- ()=>{let F1,F2;do{F1=properFr();F2=properFr()}while(F1.b===F2.b);const plus=Math.random()<.5,op=plus?'+':'−';
-   const ans=plus?F1.add(F2):F1.sub(F2);const L=lcm(F1.b,F2.b);
-   const naive=new Fr(plus?F1.a+F2.a:F1.a-F2.a,F1.b+F2.b);
-   return frQ(`${fh(F1)} ${op} ${fp(F2)} = ?`,ans,[naive,ans.neg(),plus?F1.sub(F2):F1.add(F2)],`通分，分母取 ${L}：${frRaw(F1.a*L/F1.b,L)} ${op} ${(F2.a<0?'(':'')+frRaw(F2.a*L/F2.b,L)+(F2.a<0?')':'')} = ${fh(ans)}。分母不能直接相加喔！`)},
-],
-'2-3b':[
- ()=>{const F1=properFr(),F2=properFr();const ans=F1.mul(F2);return frQ(`${fh(F1)} × ${fp(F2)} = ?`,ans,[ans.neg(),new Fr(F1.a*F2.b,F1.b*F2.a),F1.add(F2)],`分子乘分子、分母乘分母，再約分：${fh(F1)} × ${fp(F2)} = ${fh(ans)}。${ans.a<0?'異號相乘得負。':'同號相乘得正。'}`)},
- ()=>{const F1=properFr(),F2=properFr();const ans=F1.div(F2);const R=new Fr(F2.b,F2.a);return frQ(`${fh(F1)} ÷ ${fp(F2)} = ?`,ans,[F1.mul(F2),ans.neg(),ans.a?new Fr(ans.b,ans.a):null],`除以 ${fp(F2)} 等於乘以它的倒數 ${fp(R)}：${fh(F1)} × ${fp(R)} = ${fh(ans)}。`)},
-],
-'2-4a':[
- ()=>{const B=pick(['2','3','5','a','x']);let m=ri(2,9),k=ri(2,9);if(m===2&&k===2)k=3;const num=!isNaN(B);
-   return strQ(`${pw(B,m)} × ${pw(B,k)} = ?`,pw(B,m+k),[pw(B,m*k),num?pw(String(B*B),m+k):`2${pw(B,m+k)}`,pw(B,m+k+1)],[pw(B,m+k-1),pw(B,m+k+2)],`同底數相乘，指數相加：${pw(B,m)} × ${pw(B,k)} = ${B}<sup>${m}+${k}</sup> = ${pw(B,m+k)}。`)},
- ()=>{const B=pick(['2','3','7','a','y']);const m=ri(6,12),k=ri(2,m-2);
-   return strQ(`${pw(B,m)} ÷ ${pw(B,k)} = ?`,pw(B,m-k),[pw(B,m+k),m%k===0&&m/k!==m-k?pw(B,m/k):pw(B,m*k),pw(B,m-k+1)],[pw(B,m-k-1)||'1',pw(B,m-k+2)],`同底數相除，指數相減：${pw(B,m)} ÷ ${pw(B,k)} = ${B}<sup>${m}−${k}</sup> = ${pw(B,m-k)}。`)},
- ()=>{const x=rnz(-99,99);return numQ(`(${n(x)})<sup>0</sup> = ?`,1,[0,x,-1],`任何不為 0 的數，0 次方都等於 1，所以 (${n(x)})<sup>0</sup> = 1。`)},
-],
-'2-4b':[
- ()=>{const B=pick(['2','3','a','x']);let m=ri(2,6),k=ri(2,5);if(m===2&&k===2)m=3;
-   return strQ(`(${pw(B,m)})<sup>${k}</sup> = ?`,pw(B,m*k),[pw(B,m+k),m**k<=99&&m**k!==m*k?pw(B,m**k):pw(B,m*k+1),pw(B,m*k-1)],[pw(B,m*k+2),pw(B,m*k+3),pw(B,m*k+4)],`次方再次方，指數相乘：(${pw(B,m)})<sup>${k}</sup> = ${B}<sup>${m}×${k}</sup> = ${pw(B,m*k)}。`)},
- ()=>{const [A,B]=pick([['a','b'],['x','y'],['2','a'],['3','x'],['5','y']]);const e=ri(2,6);
-   return strQ(`(${A} × ${B})<sup>${e}</sup> = ?`,`${pw(A,e)} × ${pw(B,e)}`,[`${A} × ${pw(B,e)}`,`${pw(A,e)} × ${B}`,`${pw(A,e)} + ${pw(B,e)}`],[],`乘積的次方，每個因數都要次方：(${A} × ${B})<sup>${e}</sup> = ${pw(A,e)} × ${pw(B,e)}。`)},
- ()=>{let b,c;do{b=rnz(-4,4);c=ri(2,5)}while(gcd(b,c)!==1||Math.abs(b)===1&&Math.random()<.5);const e=ri(2,3);const F=new Fr(b,c);const ans=new Fr(b**e,c**e);
-   return frQ(`(${fh(F)})<sup>${e}</sup> = ?`,ans,[ans.neg(),new Fr(b**e,c),new Fr(b*e,c*e)],`分子、分母各自 ${e} 次方：${b<0?(e%2?'負數的奇數次方為負，':'負數的偶數次方為正，'):''}(${fh(F)})<sup>${e}</sup> = ${fh(ans)}。`)},
-],
-};
+const GEN={};
+
 /* ---------- 會考小船（固定題，每次打亂選項） ---------- */
 const EXAMS_NUM={
 1:[
@@ -431,6 +419,269 @@ const EXAMS_NUM={
  {q:'計算 2<sup>10</sup> × 4<sup>3</sup> ÷ 8<sup>4</sup> 的值。',o:['2<sup>4</sup>','2<sup>2</sup>','2<sup>7</sup>','2<sup>6</sup>'],e:'4<sup>3</sup> = 2<sup>6</sup>，8<sup>4</sup> = 2<sup>12</sup>，所以原式 = 2<sup>10 + 6 − 12</sup> = 2<sup>4</sup>。'},
 ]};
 const EX_NUMBER=[{key:1,title:'第 1 章 整數的運算',qs:EXAMS_NUM[1]},{key:2,title:'第 2 章 分數的運算',qs:EXAMS_NUM[2]}];
+/* ================= 整數・分數・指數島：附提示、步驟、錯誤觀念的出題器 ================= */
+const AB=x=>Math.abs(x);
+Object.assign(GEN,{
+'1-1a':[
+ ()=>{const x=rnz(-30,30);return numQ(`${n(x)} 的相反數是多少？`,-x,[x,AB(x)+1,-AB(x)-1],`只有正負號不同的兩個數互為相反數，所以 ${n(x)} 的相反數是 ${n(-x)}。`,n,
+   {hint:'相反數只改變正負號，數字的大小不變。',
+    steps:[st(`${n(x)} 是正數還是負數？`,[x>0?'正數':'負數',x>0?'負數':'正數']),st(`把正負號改過來，${n(x)} 的相反數是？`,[n(-x),n(x)],`正負號相反、大小相同：${n(-x)}。`)],
+    mis:['以為相反數就是它自己','把相反數和「大 1 的數」搞混','把相反數和「大 1 的數」搞混']})},
+ ()=>{const c=pick([['向東走','公尺','向西走'],['收入','元','支出'],['上升','公尺','下降'],['存入','元','提出']]);const a=ri(3,90);let b=ri(3,90);if(b===a)b++;
+   return numQ(`若${c[0]} ${a} ${c[1]}記為 +${a}，則${c[2]} ${b} ${c[1]}應記為多少？`,-b,[b,-a,a],`「${c[2]}」和「${c[0]}」意義相反，所以用負數表示，記為 ${n(-b)}。`,x=>x>0?'+'+x:n(x),
+   {hint:`先想清楚：「${c[0]}」記為正，那和它意義相反的「${c[2]}」要記為正還是負？`,
+    steps:[st(`「${c[2]}」和「${c[0]}」的意義是？`,['相反','相同']),st(`所以「${c[2]}」要用正數還是負數表示？`,['負數','正數']),st(`${c[2]} ${b} ${c[1]}記為？`,[n(-b),'+'+b],`數字用題目中的 ${b}，符號用負號。`)],
+    mis:['正負號弄反了','用錯了題目中的數字','正負號和數字都弄錯了']})},
+ ()=>{const a=ri(2,15),b=ri(2,15),c=ri(2,15);return finalize('下列哪一個數是負數？',[`${M}|${M}${c}|`,`${M}(${M}${a})`,`|${M}${b}|`,'0'],`${M}(${M}${a}) = ${a}，|${M}${b}| = ${b}，0 不是正數也不是負數；只有 ${M}|${M}${c}| = ${M}${c} 是負數。`,
+   {hint:'先把每個選項化簡成一個數，再看哪一個比 0 小。',
+    steps:[st(`${M}(${M}${a}) 化簡後是？`,[`${a}`,`${M}${a}`],'負負得正。'),st(`|${M}${b}| 化簡後是？`,[`${b}`,`${M}${b}`],'絕對值不會是負的。'),st(`${M}|${M}${c}| 化簡後是？`,[`${M}${c}`,`${c}`],`先算 |${M}${c}| = ${c}，再加上外面的負號。`)],
+    mis:[null,'負負得正沒有處理好','以為絕對值會保留負號','以為 0 是負數']})},
+],
+'1-1b':[
+ ()=>{const x=rnz(-60,60),a=AB(x);return numQ(`|${n(x)}| = ?`,a,[-a,a+10,a-1],`絕對值是到原點的距離，不會是負數：|${n(x)}| = ${a}。`,n,
+   {hint:'絕對值是這個數到原點的距離，距離不會是負的。',
+    steps:[st(`${n(x)} 在原點的哪一邊？`,[x<0?'左邊':'右邊',x<0?'右邊':'左邊']),st(`它離原點幾個單位？`,[`${a}`,`${a+1}`]),st('距離可以是負數嗎？',['不行，所以答案是 '+a,'可以'])],
+    mis:['以為絕對值會保留負號','計算錯誤','少數了一格']})},
+ ()=>{const v=shuffle(Array.from({length:20},(_,i)=>-(i+1))).slice(0,4);const big=Math.random()<.5;const ans=big?Math.max(...v):Math.min(...v);const others=v.filter(x=>x!==ans);
+   return numQ(`下列哪一個數${big?'最大':'最小'}？`,ans,others,big?`負數比大小：絕對值越小的數越大，離原點最近的 ${n(ans)} 最大。`:`負數比大小：絕對值越大的數越小，離原點最遠的 ${n(ans)} 最小。`,n,
+   {hint:'這些都是負數。在數線上想一想：越右邊越大，負數離原點越近就越大。',
+    steps:[st(`這四個數中，哪一個離原點最${big?'近':'遠'}？`,[n(ans),...others.map(n)]),st(`負數離原點越${big?'近':'遠'}，數值就越？`,[big?'大':'小',big?'小':'大'])],
+    mis:others.map(()=>big?'以為絕對值大的負數比較大':'以為絕對值小的負數比較小')})},
+ ()=>{const a=ri(-15,15);let b=ri(-15,15);if(b===a)b=a-7;const d=AB(a-b),hi=Math.max(a,b),lo=Math.min(a,b);
+   return numQ(`數線上 A(${n(a)})、B(${n(b)}) 兩點的距離是多少？`,d,[AB(a+b),AB(a)+AB(b),a-b,b-a],`距離 = 大的數 − 小的數 = ${n(hi)} − ${p(lo)} = ${d}。`,n,
+   {hint:'兩點的距離 = 右邊的數 − 左邊的數（大減小）。',
+    steps:[st('哪一個點在右邊（比較大）？',[n(hi),n(lo)]),st(`距離 = ${n(hi)} − ${p(lo)} = ?`,[`${d}`,`${AB(hi+lo)}`],lo<0?'減去負數要變成加上正數。':'')],
+    mis:['把減法做成了加法','兩點在原點同一側時，不能把絕對值相加','距離不會是負數','距離不會是負數']})},
+ ()=>{const a=ri(-15,10),b=a+2*ri(2,10);const [x,y]=Math.random()<.5?[a,b]:[b,a];const m=(x+y)/2;
+   return numQ(`數線上 A(${n(x)})、B(${n(y)})，線段 AB 中點的坐標是多少？`,m,[(y-x)/2,(x-y)/2,x+y],`中點坐標 = (a + b) ÷ 2 = (${n(x)} + ${p(y)}) ÷ 2 = ${n(x+y)} ÷ 2 = ${n(m)}。`,n,
+   {hint:'中點坐標 = 兩點的坐標相加，再除以 2。',
+    steps:[st(`${n(x)} + ${p(y)} = ?`,[n(x+y),n(x-y)]),st(`${n(x+y)} ÷ 2 = ?`,[n(m),n(x+y)])],
+    mis:['把相加做成相減（算成了距離的一半）','把相加做成相減，正負號也弄反了','忘了除以 2']})},
+],
+'1-2a':[
+ ()=>{let a,b;do{a=rnz(-50,50);b=rnz(-50,-1)}while(AB(a)===AB(b));const s=a+b;const same=a*b>0;const big=AB(a)>AB(b)?a:b;
+   return numQ(`${n(a)} + ${p(b)} = ?`,s,[a-b,-s,-a+b],`${same?'同號相加：絕對值相加，保留共同的符號。':'異號相加：絕對值大的減去小的，取絕對值較大者的符號。'}所以答案是 ${n(s)}。`,n,
+   {hint:same?'兩個數都是負的（同號）：絕對值相加，答案保留負號。':'一正一負（異號）：絕對值大的減小的，答案的符號跟著絕對值比較大的那個數。',
+    steps:same?[st('兩個數同號，絕對值要？',['相加','相減']),st(`${AB(a)} + ${AB(b)} = ?`,[`${AB(a)+AB(b)}`,`${AB(AB(a)-AB(b))}`]),st('保留共同的負號，答案是？',[n(s),n(-s)])]
+      :[st(`${n(a)} 和 ${p(b)}，誰的絕對值比較大？`,[n(big),n(big===a?b:a)]),st(`絕對值大減小：${Math.max(AB(a),AB(b))} − ${Math.min(AB(a),AB(b))} = ?`,[`${AB(AB(a)-AB(b))}`,`${AB(a)+AB(b)}`]),st(`符號跟著 ${n(big)}，答案是？`,[n(s),n(-s)])],
+    mis:['加上負數，被當成減去負數了','答案的正負號弄反了','第一個數的正負號弄錯了']})},
+ ()=>{const a=rnz(-30,30),b=rnz(-30,30),c=rnz(-30,-1);const s=a+b+c;return numQ(`${n(a)} + ${p(b)} + ${p(c)} = ?`,s,[a+b-c,-s,a-b+c],`先算 ${n(a)} + ${p(b)} = ${n(a+b)}，再加上 ${p(c)}，得 ${n(s)}。`,n,
+   {hint:'由左到右，兩個兩個加。',
+    steps:[st(`先算 ${n(a)} + ${p(b)} = ?`,[n(a+b),n(a-b)]),st(`再算 ${n(a+b)} + ${p(c)} = ?`,[n(s),n(a+b-c)])],
+    mis:['最後一項的負號處理錯了','答案的正負號弄反了','中間那一項的正負號弄錯了']})},
+],
+'1-2b':[
+ ()=>{const a=rnz(-40,40),b=rnz(-40,40);const s=a-b;return numQ(`${n(a)} − ${p(b)} = ?`,s,[a+b,b-a,-a-b],`減去一個數等於加上它的相反數：${n(a)} − ${p(b)} = ${n(a)} + ${p(-b)} = ${n(s)}。`,n,
+   {hint:'減去一個數 = 加上它的相反數。先把減法改寫成加法。',
+    steps:[st(`${n(a)} − ${p(b)} 可以改寫成？`,[`${n(a)} + ${p(-b)}`,`${n(a)} + ${p(b)}`]),st(`${n(a)} + ${p(-b)} = ?`,[n(s),n(a+b)])],
+    mis:['減號沒有改成「加上相反數」','把被減數和減數對調了','兩個數的正負號都弄錯了']})},
+ ()=>{const a=rnz(-20,20),b=rnz(-20,20),c=rnz(-20,20);const s=a-b+c;return numQ(`${n(a)} − (${n(b)} − ${p(c)}) = ?`,s,[a-b-c,a+b-c,-a+b-c],`去括號：−(b − c) = −b + c，所以原式 = ${n(a)} − ${p(b)} + ${p(c)} = ${n(s)}。`,n,
+   {hint:'括號前面是減號，去括號時，括號裡的每一項都要變號。',
+    steps:[st(`去掉括號：−(${n(b)} − ${p(c)}) 變成？`,[`${n(-b)} + ${p(c)}`,`${n(-b)} − ${p(c)}`],'括號內每一項都要變號。'),st(`${n(a)} + ${p(-b)} + ${p(c)} = ?`,[n(s),n(a-b-c)])],
+    mis:['去括號時只變了第一項的號','去括號時忘了變號','把整個式子都變號了']})},
+ ()=>{const s=ri(-10,8),u=ri(3,15),d=ri(3,15);const e=s+u-d;return numQ(`某地清晨氣溫 ${n(s)}°C，中午上升 ${u}°C，晚上又下降 ${d}°C。晚上氣溫是多少？`,e,[s-u+d,s+u+d,-e],`${n(s)} + ${u} − ${d} = ${n(e)}，晚上氣溫是 ${n(e)}°C。`,x=>n(x)+'°C',
+   {hint:'上升用加法，下降用減法，照時間順序算。',
+    steps:[st(`中午的氣溫：${n(s)} + ${u} = ?`,[n(s+u)+'°C',n(s-u)+'°C']),st(`晚上的氣溫：${n(s+u)} − ${d} = ?`,[n(e)+'°C',n(s+u+d)+'°C'])],
+    mis:['上升和下降的加減弄反了','下降也用了加法','答案的正負號弄反了']})},
+],
+'1-3a':[
+ ()=>{const a=rnz(-12,12),b=rnz(-12,-1);const s=a*b;return numQ(`${n(a)} × ${p(b)} = ?`,s,[-s,a+b,-(a+b)],`${s>0?'同號相乘得正':'異號相乘得負'}：${n(a)} × ${p(b)} = ${n(s)}。`,n,
+   {hint:'先把絕對值相乘，再決定正負號：同號得正、異號得負。',
+    steps:[st(`${AB(a)} × ${AB(b)} = ?`,[`${AB(s)}`,`${AB(a)+AB(b)}`]),st(`${n(a)} 和 ${p(b)} 是同號還是異號？`,[s>0?'同號，答案是正的':'異號，答案是負的',s>0?'異號，答案是負的':'同號，答案是正的'])],
+    mis:['正負號的規則用錯了','把乘法做成了加法','把乘法做成了加法']})},
+ ()=>{const q=rnz(-12,12),b=rnz(-12,-2);const c=q*b;return numQ(`${n(c)} ÷ ${p(b)} = ?`,q,[-q,b,-b],`${q>0?'同號相除得正':'異號相除得負'}：${n(c)} ÷ ${p(b)} = ${n(q)}。`,n,
+   {hint:'除法的正負號規則和乘法一樣：同號得正、異號得負。',
+    steps:[st(`${AB(c)} ÷ ${AB(b)} = ?`,[`${AB(q)}`,`${AB(c)-AB(b)}`]),st(`${n(c)} 和 ${p(b)} 是同號還是異號？`,[q>0?'同號，答案是正的':'異號，答案是負的',q>0?'異號，答案是負的':'同號，答案是正的'])],
+    mis:['正負號的規則用錯了','把除數當成了答案','把除數當成了答案']})},
+ ()=>{const k=ri(2,9),m=ri(1,6);const neg=k%2===1;return finalize(`${k} 個負數與 ${m} 個正數相乘（都不是 0），結果是什麼數？`,[neg?'負數':'正數',neg?'正數':'負數','0','無法判斷'],`負數有 ${k} 個，是${neg?'奇':'偶'}數個，所以乘積是${neg?'負':'正'}數。正數的個數不影響正負號。`,
+   {hint:'只要數「負數有幾個」：奇數個得負，偶數個得正。',
+    steps:[st(`負數有 ${k} 個，${k} 是奇數還是偶數？`,[neg?'奇數':'偶數',neg?'偶數':'奇數']),st('所以乘積是？',[neg?'負數':'正數',neg?'正數':'負數'])],
+    mis:[null,'奇數個、偶數個的規則記反了','題目說都不是 0，乘積不會是 0','只看負數的個數就能判斷']})},
+],
+'1-3b':[
+ ()=>{const a=rnz(-9,9),b=rnz(-9,9),c=rnz(-9,9);const s=a+b*c;return numQ(`${n(a)} + ${p(b)} × ${p(c)} = ?`,s,[(a+b)*c,a-b*c,-s],`先乘後加：${p(b)} × ${p(c)} = ${n(b*c)}，${n(a)} + ${p(b*c)} = ${n(s)}。`,n,
+   {hint:'先乘除，後加減。',
+    steps:[st('這一題要先算哪一部分？',[`${p(b)} × ${p(c)}`,`${n(a)} + ${p(b)}`]),st(`${p(b)} × ${p(c)} = ?`,[n(b*c),n(-b*c)]),st(`${n(a)} + ${p(b*c)} = ?`,[n(s),n(a-b*c)])],
+    mis:['先算了加法（要先乘除）','乘完之後的正負號弄錯了','答案的正負號弄反了']})},
+ ()=>{let c=rnz(-6,6);if(AB(c)===1)c=2*c;const k=rnz(-9,9),a=rnz(-20,20);const b=c*k,s=a-k;return numQ(`${n(a)} − ${p(b)} ÷ ${p(c)} = ?`,s,[(a-b)%c===0?(a-b)/c:null,a+k,k-a],`先除後減：${p(b)} ÷ ${p(c)} = ${n(k)}，${n(a)} − ${p(k)} = ${n(s)}。`,n,
+   {hint:'先乘除，後加減。',
+    steps:[st('這一題要先算哪一部分？',[`${p(b)} ÷ ${p(c)}`,`${n(a)} − ${p(b)}`]),st(`${p(b)} ÷ ${p(c)} = ?`,[n(k),n(-k)]),st(`${n(a)} − ${p(k)} = ?`,[n(s),n(a+k)])],
+    mis:['先算了減法（要先乘除）','減去負數時正負號弄錯了','把減法的前後對調了']})},
+ ()=>{const a=rnz(-12,12),b=rnz(-12,12),c=rnz(-6,6);const s=(a-b)*c;return numQ(`(${n(a)} − ${p(b)}) × ${p(c)} = ?`,s,[a-b*c,(a+b)*c,-s],`先算括號：${n(a)} − ${p(b)} = ${n(a-b)}，再乘以 ${p(c)}，得 ${n(s)}。`,n,
+   {hint:'有括號，先算括號裡面。',
+    steps:[st('這一題要先算哪一部分？',['括號裡面',`${p(b)} × ${p(c)}`]),st(`${n(a)} − ${p(b)} = ?`,[n(a-b),n(a+b)]),st(`${n(a-b)} × ${p(c)} = ?`,[n(s),n(-s)])],
+    mis:['沒有先算括號','括號內減法的正負號弄錯了','正負號的規則用錯了']})},
+],
+'1-4a':[
+ ()=>{const b=pick([-2,-3,2,3,-4,-5]);const e=AB(b)<=3?ri(2,5):ri(2,3);const v=b**e;const ab=AB(b);
+   const steps=[st(`${p(b)}<sup>${e}</sup> 的意思是？`,[`${e} 個 ${p(b)} 相乘`,`${p(b)} × ${e}`]),st(`${ab}<sup>${e}</sup> = ?`,[`${ab**e}`,`${ab*e}`])];
+   if(b<0)steps.push(st(`有 ${e} 個負數相乘，答案是？`,[e%2?'負的':'正的',e%2?'正的':'負的']));
+   return numQ(`${p(b)}<sup>${e}</sup> = ?`,v,[-v,b*e,ab**e],`${p(b)}<sup>${e}</sup> 是 ${e} 個 ${p(b)} 相乘。${b<0?(e%2?'負數的奇數次方為負，':'負數的偶數次方為正，'):''}結果是 ${n(v)}。`,n,
+   {hint:`${p(b)}<sup>${e}</sup> 是 ${e} 個 ${p(b)} 連乘，不是把底數乘以指數。`,steps,
+    mis:['負數次方的正負號判斷錯了','把次方當成了乘法','忘了底數是負數']})},
+ ()=>{const b=ri(2,5),e=b>3?ri(2,3):ri(2,4);const v=-(b**e);return numQ(`${M}${b}<sup>${e}</sup> = ?`,v,[-v,-b*e,b*e],`底數是 ${b}，前面的負號不在次方裡：${M}${b}<sup>${e}</sup> = ${M}(${b}<sup>${e}</sup>) = ${n(v)}。`,n,
+   {hint:`沒有括號時，負號不在次方裡：${M}${b}<sup>${e}</sup> = ${M}(${b}<sup>${e}</sup>)。`,
+    steps:[st(`${M}${b}<sup>${e}</sup> 的底數是？`,[`${b}`,`${M}${b}`],'沒有括號，底數只有數字的部分。'),st(`${b}<sup>${e}</sup> = ?`,[`${b**e}`,`${b*e}`]),st('再加上前面的負號，答案是？',[n(v),n(-v)])],
+    mis:['把負號也算進次方裡了','把次方當成了乘法','把次方當成了乘法，還漏了負號']})},
+ ()=>{const k=ri(11,99);const v=k%2?-1:1;return numQ(`(${M}1)<sup>${k}</sup> = ?`,v,[-v,k,-k],`${k} 是${k%2?'奇':'偶'}數，(${M}1) 的${k%2?'奇':'偶'}數次方等於 ${n(v)}。`,n,
+   {hint:`(${M}1) 的偶數次方是 1，奇數次方是 ${M}1。`,
+    steps:[st(`${k} 是奇數還是偶數？`,[k%2?'奇數':'偶數',k%2?'偶數':'奇數']),st(`所以 (${M}1)<sup>${k}</sup> = ?`,[n(v),n(-v)])],
+    mis:['奇數、偶數次方的規則記反了','把指數當成了答案','把次方當成了乘法']})},
+],
+'1-4b':[
+ ()=>{let m=ri(11,99);if(m%10===0)m++;const e=ri(3,8);const N=(m*10**(e-1)).toLocaleString('en-US');const a=(m/10).toFixed(1);
+   return strQ(`把 ${N} 寫成科學記號：`,sci(a,e),[sci(a,e-1),sci(a,e+1),`${m} × 10<sup>${e-1}</sup>`],[],`小數點往左移 ${e} 位，數字才會落在 1 到 10 之間，所以 ${N} = ${sci(a,e)}。${m} × 10<sup>${e-1}</sup> 的 ${m} 大於 10，不是科學記號。`,
+   {hint:'科學記號 a × 10ⁿ 的 a 要在 1 到 10 之間。數一數小數點往左移了幾位。',
+    steps:[st(`a 要在 1 到 10 之間，a 應該是？`,[a,`${m}`]),st(`小數點從 ${N} 的最後面往左移到 ${a}，移了幾位？`,[`${e} 位`,`${e-1} 位`]),st('往左移，10 的次方是正的還是負的？',['正的','負的'])],
+    mis:['小數點移動的位數少算了一位','小數點移動的位數多算了一位','a 必須在 1 到 10 之間']})},
+ ()=>{let m=ri(11,99);if(m%10===0)m++;const e=ri(2,6);const D='0.'+'0'.repeat(e-1)+m;const a=(m/10).toFixed(1);
+   return strQ(`把 ${D} 寫成科學記號：`,sci(a,-e),[sci(a,e),sci(a,-(e+1)),sci(a,-(e-1))],[],`小數點往右移 ${e} 位，數字才會落在 1 到 10 之間，所以 ${D} = ${sci(a,-e)}。`,
+   {hint:'比 1 小的數，小數點往右移，10 的次方是負的。',
+    steps:[st('a 要在 1 到 10 之間，a 應該是？',[a,`${m}`]),st(`小數點往右移到 ${a}，移了幾位？`,[`${e} 位`,`${e+1} 位`]),st('往右移，10 的次方是正的還是負的？',['負的','正的'])],
+    mis:['比 1 小的數，次方應該是負的','小數點移動的位數多算了一位','小數點移動的位數少算了一位']})},
+ ()=>{const [u,ue]=pick([['奈米',-9],['微米',-6]]);let m=ri(11,99);if(m%10===0)m++;const j=ri(0,1);const k=m*10**j;const a=(m/10).toFixed(1);const E=j+1+ue;
+   return strQ(`1 ${u} = 10<sup>${n(ue)}</sup> 公尺。${k} ${u}用科學記號表示是多少公尺？`,sci(a,E),[sci(a,E-1),sci(a,E+1),sci(a,-E)],[],`${k} = ${sci(a,j+1)}，所以 ${k} ${u} = ${sci(a,j+1)} × 10<sup>${n(ue)}</sup> = ${sci(a,E)} 公尺。`,
+   {hint:`先把 ${k} 寫成科學記號，再乘上 10<sup>${n(ue)}</sup>；同底數相乘，指數相加。`,
+    steps:[st(`${k} 寫成科學記號是？`,[sci(a,j+1),sci(a,j)]),st(`再乘上 10<sup>${n(ue)}</sup>，指數要怎麼算？`,[`相加：${j+1} + ${p(ue)} = ${n(E)}`,`相乘：${j+1} × ${p(ue)} = ${n((j+1)*ue)}`])],
+    mis:['指數算錯了一位','指數算錯了一位','指數的正負號弄反了']})},
+],
+'2-1a':[
+ ()=>{const pr=pick(PRIMES);const cs=shuffle(Object.keys(COMPS)).slice(0,3).map(Number);
+   return finalize('下列哪一個數是質數？',[pr,...cs].map(String),`${cs.map(c=>`${c} = ${COMPS[c]}`).join('，')}，都是合數；只有 ${pr} 除了 1 和自己以外沒有其他因數，是質數。`,
+   {hint:'試試看每個數能不能被 3、7、11、13 整除。',
+    steps:[...cs.slice(0,2).map(c=>st(`${c} 可以拆成？`,[COMPS[c],`只能拆成 1 × ${c}`],`${c} = ${COMPS[c]}，是合數。`)),st('哪一個數除了 1 和自己以外，沒有其他因數？',[`${pr}`,...cs.map(String)])],
+    mis:[null,...cs.map(c=>`沒發現 ${c} 可以拆成 ${COMPS[c]}`)]})},
+ ()=>{const N=pick([12,18,20,24,28,30,32,36,40,42,44,45,48,50,54,60,63,72]);const d=divisors(N);const miss=d.filter((_,i)=>i!==Math.floor(d.length/2));
+   return numQ(`${N} 共有幾個正因數？`,d.length,[d.length-1,d.length+1,d.length+2],`${N} 的因數有 ${d.join('、')}，共 ${d.length} 個。`,n,
+   {hint:'用乘法一對一對找：1 × 自己、2 × ?、3 × ? …，找到兩個數重複為止。',
+    steps:[st(`${N} 的因數有哪些？`,[d.join('、'),miss.join('、')]),st('數一數，共有幾個？',[`${d.length} 個`,`${d.length-1} 個`])],
+    mis:['漏掉了一個因數（常漏掉 1 或它自己）','多算了不是因數的數','多算了不是因數的數']})},
+ ()=>{const k=pick([3,9,4]);const ds=x=>String(x).split('').reduce((a,c)=>a+ +c,0);
+   let ans;do{ans=ri(100,999)}while(ans%k);const others=[];
+   while(others.length<3){const x=ri(100,999);if(x%k&&!others.includes(x)&&(k!==9||others.length>0||x%3===0))others.push(x)}
+   const why=k===4?`末兩位 ${String(ans).slice(-2)} 是 4 的倍數`:`各位數字和 ${ds(ans)} 是 ${k} 的倍數`;
+   return finalize(`下列哪一個數是 ${k} 的倍數？`,[ans,...others].map(String),`${ans} 的${why}，所以 ${ans} 是 ${k} 的倍數。${k===4?'判斷 4 的倍數只要看末兩位。':`判斷 ${k} 的倍數看各位數字和。`}`,
+   {hint:k===4?'判斷 4 的倍數：只要看末兩位是不是 4 的倍數。':`判斷 ${k} 的倍數：把各位數字加起來，看和是不是 ${k} 的倍數。`,
+    steps:k===4?[st('判斷 4 的倍數要看？',['末兩位','各位數字和']),st(`${ans} 的末兩位 ${String(ans).slice(-2)} 是 4 的倍數嗎？`,['是','不是'])]
+      :[st(`判斷 ${k} 的倍數要看？`,['各位數字和','末兩位']),st(`${ans} 的各位數字和是？`,[`${ds(ans)}`,`${ds(ans)+1}`]),st(`${ds(ans)} 是 ${k} 的倍數嗎？`,['是','不是'])],
+    mis:[null,...others.map(x=>k===4?`${x} 的末兩位不是 4 的倍數`:(k===9&&x%3===0?`${x} 是 3 的倍數，但不是 9 的倍數`:`${x} 的各位數字和不是 ${k} 的倍數`))]})},
+],
+'2-1b':[
+ ()=>{const {f,N}=randFactored();const ans=fmtF(f);const vars=[];
+   f.forEach((_,i)=>{const g=f.map(x=>x.slice());g[i][1]++;vars.push([fmtF(g),`質因數 ${f[i][0]} 的個數多算了`]);if(f[i][1]>=2){const h=f.map(x=>x.slice());h[i][1]--;vars.push([fmtF(h),`質因數 ${f[i][0]} 的個數少算了`])}});
+   if(f[0][0]===2&&f[0][1]>=2){const rest=f.slice(1);vars.push([[f[0][1]>2?pw('2',f[0][1]-2):null,'4',fmtF(rest)].filter(Boolean).join(' × '),'標準分解式裡只能有質數，4 不是質數'])}
+   const sv=shuffle(vars);const g2=f.map(x=>x.slice());g2[g2.length-1][1]++;
+   return strQ(`${N} 的標準分解式是？`,ans,sv.map(v=>v[0]),[ans+' × 11'],`用質數一直去除：${N} = ${expandF(f)} = ${ans}。`,
+   {hint:'從最小的質數 2 開始一直除，除不下去再換 3、5、7，直到商是 1。',
+    steps:[st(`${N} 拆成質數相乘是？`,[expandF(f),expandF(g2)]),st('相同的質數用指數寫，標準分解式是？',[ans,fmtF(g2)])],
+    mis:sv.map(v=>v[1])})},
+ ()=>{const {f,N}=randFactored();const ps=f.map(x=>x[0]);const ans=ps.join('、');
+   const comp=(N%4===0)?4:(N%6===0)?6:(N%9===0)?9:10;
+   const c1='1、'+ans,c2=ps.slice(0,-1).join('、'),c3=[...ps,comp].sort((a,b)=>a-b).join('、');
+   return strQ(`${N} 的質因數有哪些？`,ans,[c3,c1,c2],[ans+'、11'],`${N} = ${fmtF(f)}，質因數是 ${ans}。1 不是質數，${comp} 雖然是因數但不是質數。`,
+   {hint:'先做質因數分解，出現過的質數就是質因數。記得 1 不是質數。',
+    steps:[st(`${N} 的標準分解式是？`,[fmtF(f),fmtF(f.map(([q,e])=>[q,e+1]))]),st('出現了哪些質數？',[ans,c1])],
+    mis:[`${comp} 是因數，但不是質數`,'1 不是質數','漏掉了一個質因數']})},
+],
+'2-2a':[
+ ()=>{const g=ri(2,16),[x,y]=coprimePair();const a=g*x,b=g*y;return numQ(`(${a}, ${b}) = ?（最大公因數）`,g,[g*x*y,2*g,x*y],`${a} = ${g} × ${x}，${b} = ${g} × ${y}，${x} 與 ${y} 互質，所以 (${a}, ${b}) = ${g}。`,n,
+   {hint:`把兩個數都寫成「共同的數 × 剩下的數」，剩下的兩個數要互質。`,
+    steps:[st(`${a} = ${g} × ?`,[`${x}`,`${x+1}`]),st(`${b} = ${g} × ?`,[`${y}`,`${y+1}`]),st(`${x} 和 ${y} 還有大於 1 的公因數嗎？`,[`沒有，所以最大公因數是 ${g}`,'有，還要再找'])],
+    mis:['把最小公倍數當成了最大公因數','它不是兩個數的公因數','把剩下的數相乘了']})},
+ ()=>{const g=ri(2,8);let t;do{t=shuffle([2,3,4,5,6,7]).slice(0,3)}while(gcd(gcd(t[0],t[1]),t[2])!==1);const v=t.map(x=>x*g);const g01=gcd(v[0],v[1]);
+   return numQ(`${v.join('、')} 三個數的最大公因數是多少？`,g,[g*2,g01===g?g+1:g01,1],`三個數都是 ${g} 的倍數：${v.map((x,i)=>`${x} = ${g} × ${t[i]}`).join('，')}，而 ${t.join('、')} 沒有共同的質因數，所以最大公因數是 ${g}。`,n,
+   {hint:'找一個三個數都能整除的最大的數。',
+    steps:[st(`三個數都是 ${g} 的倍數嗎？`,['是','不是']),st(`除以 ${g} 後得到 ${t.join('、')}，它們還有共同的因數嗎？`,[`沒有，答案是 ${g}`,'有'])],
+    mis:['三個數不一定都是它的倍數','只看了前兩個數','沒有找到共同的因數']})},
+],
+'2-2b':[
+ ()=>{const g=ri(2,12),[x,y]=coprimePair();const a=g*x,b=g*y,L=g*x*y;return numQ(`[${a}, ${b}] = ?（最小公倍數）`,L,[g,a*b,2*L],`${a} = ${g} × ${x}，${b} = ${g} × ${y}，所以 [${a}, ${b}] = ${g} × ${x} × ${y} = ${L}。`,n,
+   {hint:'最小公倍數 = 共同的因數 × 兩邊剩下的數。',
+    steps:[st(`${a} = ${g} × ${x}，${b} = ${g} × ?`,[`${y}`,`${y+1}`]),st(`最小公倍數 = ${g} × ${x} × ${y} = ?`,[`${L}`,`${g*x+y}`])],
+    mis:['把最大公因數當成了最小公倍數','直接相乘得到的是公倍數，但不一定最小','這是公倍數，但不是最小的']})},
+ ()=>{const ok=pick([[8,15],[9,20],[14,25],[16,21],[27,32],[10,21],[22,15],[25,36],[35,12]]);const bad=[],gs=[];
+   while(bad.length<3){const g=ri(2,7),[x,y]=[ri(2,9),ri(2,9)];if(x!==y){const s=`${g*x} 和 ${g*y}`;if(!bad.includes(s)){bad.push(s);gs.push(gcd(g*x,g*y))}}}
+   return finalize('下列哪一組數互質？',[`${ok[0]} 和 ${ok[1]}`,...bad],`${ok[0]} 與 ${ok[1]} 的最大公因數是 1，所以互質；其他各組都有大於 1 的公因數。兩個合數也可能互質喔！`,
+   {hint:'互質是指兩數的最大公因數是 1。兩個合數也可能互質。',
+    steps:[st(`${ok[0]} 和 ${ok[1]} 的最大公因數是？`,['1',`${gcd(ok[0],ok[1])+1}`]),st('最大公因數是 1，代表？',['互質','不互質'])],
+    mis:[null,...gs.map(g=>`這兩個數都有公因數 ${g}`)]})},
+ ()=>{const g=ri(2,9),[x,y]=coprimePair();const P=g*x*g*y,L=g*x*y;return numQ(`兩個正整數的最大公因數是 ${g}，兩數的乘積是 ${P}，它們的最小公倍數是多少？`,L,[P,g,P/2],`(a, b) × [a, b] = a × b，所以最小公倍數 = ${P} ÷ ${g} = ${L}。`,n,
+   {hint:'兩個正整數：最大公因數 × 最小公倍數 = 兩數的乘積。',
+    steps:[st('哪一個關係式是對的？',['(a, b) × [a, b] = a × b','(a, b) + [a, b] = a × b']),st(`[a, b] = ${P} ÷ ${g} = ?`,[`${L}`,`${P-g}`])],
+    mis:['把兩數乘積當成了最小公倍數','把最大公因數當成了答案','除錯了數']})},
+],
+'2-3a':[
+ ()=>{let F1,F2;do{F1=properFr();F2=properFr()}while(F1.b===F2.b);const plus=Math.random()<.5,op=plus?'+':'−';
+   const ans=plus?F1.add(F2):F1.sub(F2);const L=lcm(F1.b,F2.b);const naive=new Fr(plus?F1.a+F2.a:F1.a-F2.a,F1.b+F2.b);
+   const t1=frRaw(F1.a*L/F1.b,L),t2=(F2.a<0?'(':'')+frRaw(F2.a*L/F2.b,L)+(F2.a<0?')':'');const num=plus?F1.a*L/F1.b+F2.a*L/F2.b:F1.a*L/F1.b-F2.a*L/F2.b;
+   return frQ(`${fh(F1)} ${op} ${fp(F2)} = ?`,ans,[naive,ans.neg(),plus?F1.sub(F2):F1.add(F2)],`通分，分母取 ${L}：${t1} ${op} ${t2} = ${fh(ans)}。分母不能直接相加喔！`,
+   {hint:'分母不一樣，要先通分（分母換成兩個分母的最小公倍數），分母不能直接相加減。',
+    steps:[st(`分母 ${F1.b} 和 ${F2.b} 的最小公倍數是？`,[`${L}`,`${F1.b+F2.b}`]),st('通分後變成？',[`${t1} ${op} ${t2}`,`${frRaw(F1.a,L)} ${op} ${frRaw(F2.a,L)}`],'分子也要乘上同樣的倍數。'),st(`分子相${plus?'加':'減'}，結果是？`,[fh(ans),fh(naive)],gcd(num,L)>1?`${frRaw(num,L)} 還要約分成 ${fh(ans)}。`:'分母保持不變，只有分子相加減。')],
+    mis:['分子加分子、分母加分母（分母不能直接相加）','答案的正負號弄反了','加減號用錯了']})},
+],
+'2-3b':[
+ ()=>{const F1=properFr(),F2=properFr();const ans=F1.mul(F2);return frQ(`${fh(F1)} × ${fp(F2)} = ?`,ans,[ans.neg(),new Fr(F1.a*F2.b,F1.b*F2.a),F1.add(F2)],`分子乘分子、分母乘分母，再約分：${fh(F1)} × ${fp(F2)} = ${fh(ans)}。${ans.a<0?'異號相乘得負。':'同號相乘得正。'}`,
+   {hint:'先決定正負號，再把分子乘分子、分母乘分母，最後約分。',
+    steps:[st('答案是正的還是負的？',[ans.a<0?'負的':'正的',ans.a<0?'正的':'負的']),st(`分子：${AB(F1.a)} × ${AB(F2.a)}，分母：${F1.b} × ${F2.b}，約分後是？`,[fh(new Fr(AB(ans.a),ans.b)),fh(new Fr(AB(F1.a*F2.b),F1.b*AB(F2.a)))])],
+    mis:['正負號判斷錯了','交叉相乘了（那是除法的做法）','把乘法做成了加法']})},
+ ()=>{const F1=properFr(),F2=properFr();const ans=F1.div(F2);const R=new Fr(F2.b,F2.a);return frQ(`${fh(F1)} ÷ ${fp(F2)} = ?`,ans,[F1.mul(F2),ans.neg(),ans.a?new Fr(ans.b,ans.a):null],`除以 ${fp(F2)} 等於乘以它的倒數 ${fp(R)}：${fh(F1)} × ${fp(R)} = ${fh(ans)}。`,
+   {hint:'除以一個分數，等於乘以它的倒數（分子、分母對調）。',
+    steps:[st(`${fp(F2)} 的倒數是？`,[fp(R),fp(F2.neg())]),st(`${fh(F1)} × ${fp(R)} = ?`,[fh(ans),fh(F1.mul(F2))])],
+    mis:['忘了把除數倒過來','正負號判斷錯了','倒過來的是被除數，應該倒除數']})},
+],
+'2-4a':[
+ ()=>{const B=pick(['2','3','5','a','x']);let m=ri(2,9),k=ri(2,9);if(m===2&&k===2)k=3;const num=!isNaN(B);
+   return strQ(`${pw(B,m)} × ${pw(B,k)} = ?`,pw(B,m+k),[pw(B,m*k),num?pw(String(B*B),m+k):`2${pw(B,m+k)}`,pw(B,m+k+1)],[pw(B,m+k-1),pw(B,m+k+2)],`同底數相乘，指數相加：${pw(B,m)} × ${pw(B,k)} = ${B}<sup>${m}+${k}</sup> = ${pw(B,m+k)}。`,
+   {hint:'同底數相乘，底數不變，指數相加。',
+    steps:[st('底數相同的次方相乘，指數要？',['相加','相乘']),st(`${m} + ${k} = ?`,[`${m+k}`,`${m*k}`])],
+    mis:['指數相乘了（應該相加）',num?'底數也相乘了（底數要保持不變）':'多寫了係數 2','指數算錯了']})},
+ ()=>{const B=pick(['2','3','7','a','y']);const m=ri(6,12),k=ri(2,m-2);const alt=m%k===0&&m/k!==m-k;
+   return strQ(`${pw(B,m)} ÷ ${pw(B,k)} = ?`,pw(B,m-k),[pw(B,m+k),alt?pw(B,m/k):pw(B,m*k),pw(B,m-k+1)],[pw(B,m-k-1),pw(B,m-k+2)],`同底數相除，指數相減：${pw(B,m)} ÷ ${pw(B,k)} = ${B}<sup>${m}−${k}</sup> = ${pw(B,m-k)}。`,
+   {hint:'同底數相除，底數不變，指數相減。',
+    steps:[st('底數相同的次方相除，指數要？',['相減','相除']),st(`${m} − ${k} = ?`,[`${m-k}`,`${m+k}`])],
+    mis:['相除時指數要相減，不是相加',alt?'指數相除了（應該相減）':'指數相乘了（應該相減）','指數算錯了']})},
+ ()=>{const x=rnz(-99,99);return numQ(`(${n(x)})<sup>0</sup> = ?`,1,[0,x,-1],`任何不為 0 的數，0 次方都等於 1，所以 (${n(x)})<sup>0</sup> = 1。`,n,
+   {hint:'任何不為 0 的數，0 次方都等於 1。',
+    steps:[st(`${n(x)} 等於 0 嗎？`,['不等於 0','等於 0']),st('不為 0 的數，0 次方是？',['1','0'])],
+    mis:['以為 0 次方會得到 0','以為 0 次方不會改變數字','以為負數的 0 次方是 −1']})},
+],
+'2-4b':[
+ ()=>{const B=pick(['2','3','a','x']);let m=ri(2,6),k=ri(2,5);if(m===k)m=k+1;const mk_=m**k<=99&&m**k!==m*k;
+   return strQ(`(${pw(B,m)})<sup>${k}</sup> = ?`,pw(B,m*k),[pw(B,m+k),mk_?pw(B,m**k):pw(B,m*k+1),pw(B,m*k-1)],[pw(B,m*k+2),pw(B,m*k+3),pw(B,m*k+4)],`次方再次方，指數相乘：(${pw(B,m)})<sup>${k}</sup> = ${B}<sup>${m}×${k}</sup> = ${pw(B,m*k)}。`,
+   {hint:'次方再次方，指數相乘。',
+    steps:[st(`(${pw(B,m)})<sup>${k}</sup> 是幾個 ${pw(B,m)} 相乘？`,[`${k} 個`,`${m} 個`]),st(`所以指數 = ${m} × ${k} = ?`,[`${m*k}`,`${m+k}`])],
+    mis:['指數相加了（應該相乘）',mk_?'把指數當成次方又算了一次':'指數算錯了','指數算錯了']})},
+ ()=>{const [A,B]=pick([['a','b'],['x','y'],['2','a'],['3','x'],['5','y']]);const e=ri(2,6);
+   return strQ(`(${A} × ${B})<sup>${e}</sup> = ?`,`${pw(A,e)} × ${pw(B,e)}`,[`${A} × ${pw(B,e)}`,`${pw(A,e)} × ${B}`,`${pw(A,e)} + ${pw(B,e)}`],[],`乘積的次方，每個因數都要次方：(${A} × ${B})<sup>${e}</sup> = ${pw(A,e)} × ${pw(B,e)}。`,
+   {hint:'括號裡每一個相乘的因數，都要次方。',
+    steps:[st(`(${A} × ${B})<sup>${e}</sup> 裡，${A} 要次方嗎？`,['要','不用']),st(`${B} 要次方嗎？`,['要','不用'])],
+    mis:[`忘了把 ${A} 也次方`,`忘了把 ${B} 也次方`,'把乘法變成了加法']})},
+ ()=>{let b,c;do{b=rnz(-4,4);c=ri(2,5)}while(gcd(b,c)!==1||AB(b)===1&&Math.random()<.5);const e=ri(2,3);const F=new Fr(b,c);const ans=new Fr(b**e,c**e);
+   return frQ(`(${fh(F)})<sup>${e}</sup> = ?`,ans,[ans.neg(),new Fr(b**e,c),new Fr(b*e,c*e)],`分子、分母各自 ${e} 次方：${b<0?(e%2?'負數的奇數次方為負，':'負數的偶數次方為正，'):''}(${fh(F)})<sup>${e}</sup> = ${fh(ans)}。`,
+   {hint:'分子、分母各自次方，再判斷正負號。',
+    steps:[st(`分子：${p(b)}<sup>${e}</sup> = ?`,[n(b**e),n(-(b**e))]),st(`分母：${c}<sup>${e}</sup> = ?`,[`${c**e}`,`${c*e}`])],
+    mis:['負數次方的正負號判斷錯了','分母忘了次方','把次方當成了乘法']})},
+],
+});
+/* 會考題的檢討步驟（依題目順序對齊 EXAMS_NUM） */
+const EXAM_STEPS_NUM={
+1:[
+ [st('清晨 −3°C，中午上升 11°C，中午是？',['8°C','−14°C']),st('晚上再下降 6°C，是？',['2°C','14°C'])],
+ [st('−7 + 5 = ?',['−2','−12']),st('−2 ÷ 2 = ?',['−1','−4'])],
+ [st('a 是負數、b 是正數，a × b 是？',['負數','正數']),st('b − a 是正數減負數，結果是？',['正數','負數'])],
+ [st('120 寫成科學記號是？','1.2 × 10<sup>2</sup>|12 × 10<sup>1</sup>'.split('|')),st('10<sup>2</sup> × 10<sup>−9</sup> = ?',['10<sup>−7</sup>','10<sup>−18</sup>'])],
+ [st('(−2)<sup>3</sup> = ?',['−8','8']),st('(−3)<sup>2</sup> ÷ 3 × (−1) = ?',['−3','3']),st('−8 − (−3) = ?',['−5','−11'])],
+ [st('|−8| = ?',['8','−8']),st('|3 − 10| = ?',['7','−7']),st('8 − 7 = ?',['1','15'])],
+],
+2:[
+ [st('每段長度要同時整除 84 和 126，而且要最長，要找？',['最大公因數','最小公倍數']),st('(84, 126) = ?',['42','21'])],
+ [st('兩車再次同時發車，要找 12 和 18 的？',['最小公倍數','最大公因數']),st('[12, 18] = ?',['36','6'])],
+ [st('360 拆成質數相乘是？',['2 × 2 × 2 × 3 × 3 × 5','2 × 2 × 3 × 3 × 10']),st('寫成指數形式是？',['2<sup>3</sup> × 3<sup>2</sup> × 5','2<sup>3</sup> × 3<sup>2</sup> × 5<sup>2</sup>'])],
+ [st('4 和 6 的最小公倍數是？',['12','24']),st(mk('通分：[−3/4] + [5/6] = ?'),[mk('[−9/12] + [10/12]'),mk('[−3/12] + [5/12]')]),st('分子相加得？',[mk('[1/12]'),mk('[−1/12]')])],
+ [st(mk('除以 [4/9] 等於乘以？'),[mk('[9/4]'),mk('[4/9]')]),st(mk('([−2/3]) × [9/4] = ?'),[mk('[−3/2]'),mk('[−8/27]')]),st(mk('([−3/2]) × ([−1/2]) = ?'),[mk('[3/4]'),mk('[−3/4]')])],
+ [st('4<sup>3</sup> 寫成 2 的次方是？',['2<sup>6</sup>','2<sup>5</sup>']),st('8<sup>4</sup> 寫成 2 的次方是？',['2<sup>12</sup>','2<sup>7</sup>']),st('2<sup>10 + 6 − 12</sup> = ?',['2<sup>4</sup>','2<sup>28</sup>'])],
+]};
+EXAMS_NUM[1].forEach((q,i)=>q.s=EXAM_STEPS_NUM[1][i]);EXAMS_NUM[2].forEach((q,i)=>q.s=EXAM_STEPS_NUM[2][i]);
 /* ================= 共用輔助 ================= */
 function term(c,pw_,v,first){if(c===0)return'';const s=c<0?(first?M:' − '):(first?'':' + ');const a=Math.abs(c);const coef=(a===1&&pw_>0)?'':a;const vv=pw_===0?'':pw_===1?v:v+(pw_===2?'²':pw_===3?'³':`<sup>${pw_}</sup>`);return s+coef+vv}
 function poly(cs,v='x'){let o='',f=true;const d=cs.length-1;cs.forEach((c,i)=>{const t=term(c,d-i,v,f);if(t){o+=t;f=false}});return o||'0'}
@@ -994,13 +1245,16 @@ const totStars=()=>islStars(CUR);
 const totFlags=()=>SECTIONS.filter(flagged).length;
 const totGames=()=>Object.keys(GAMES).filter(k=>S.games[k]).length;
 const totExams=()=>CUR.exams.filter(x=>S.exams[x.key]).length;
-function buildQuiz(subId){POOLUSED=new Set();const g=GEN[subId];const order=[];while(order.length<10)order.push(...shuffle(g.map((_,i)=>i)));return order.slice(0,10).map(i=>g[i]())}
-function buildExam(key){const ex=CUR.exams.find(x=>x.key==key);return shuffle(ex.qs).map(x=>finalize(x.q,x.o,x.e))}
+function buildQuiz(subId){POOLUSED=new Set();const g=GEN[subId];const order=[];while(order.length<10)order.push(...shuffle(g.map((_,i)=>i)));return order.slice(0,10).map(i=>{const q=g[i]();q.gen=g[i];return q})}
+function buildExam(key){const ex=CUR.exams.find(x=>x.key==key);return shuffle(ex.qs).map(x=>finalize(x.q,x.o,x.e,x.s?{steps:x.s}:null))}
+/* 建議下一站：照課本順序，第一個還沒拿滿星星的小節 */
+function nextStation(){return SECTIONS.find(s=>!flagged(s))||null}
+const isGuided=subId=>{const g=GEN[subId];if(!g)return false;POOLUSED=new Set();const q=g[0]();return!!(q.steps&&q.steps.length&&q.hint)};
 
 /* ================= 3D 地圖 ================= */
 const M3={ok:false,failed:false};
 (function(){
-let R,scene,cam,ctl,wrap,labelsEl,clickables=[],dyn,teacher,boat,labels=[],fly=null,tq=[],gameSprites={},built=null,homeDist=88;
+let R,scene,cam,ctl,wrap,labelsEl,clickables=[],dyn,teacher,boat,labels=[],fly=null,tq=[],gameSprites={},built=null,homeDist=88,ring=null;
 const W=(x,y)=>[(x-400)/10,(y-365)/10];
 const HUB=[0,-0.5];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1106,6 +1360,8 @@ M3.update=function(){if(!dyn)return;
     s._lbl.el.innerHTML=`<span class="id">${CUR.id==='number'?'':s.vol+' '}${s.no}</span><span class="s ${st?'on':''}">★${st}/${s.subs.length}</span>`;s._lbl.el.setAttribute('aria-label',`${s.vol} ${s.no} ${s.title}`);
     if(flagged(s)){const k=s.r/5.2;add(dyn,new THREE.CylinderGeometry(.1,.1,4.5,6),mat('#555'),x+3.6*k,TOP+2.25,z-.5);const sh=new THREE.Shape();sh.moveTo(0,0);sh.lineTo(2.2,-.6);sh.lineTo(0,-1.3);add(dyn,new THREE.ShapeGeometry(sh),new THREE.MeshLambertMaterial({color:'#e8b21c',side:THREE.DoubleSide}),x+3.65*k,TOP+4.4,z-.5)}});
   Object.entries(gameSprites).forEach(([id,o])=>{if(o.sp)o.g.remove(o.sp);o.sp=sprite(S.games[id]?'★ 遊':'遊',S.games[id]?'#b8860b':'#8a5bd6',3,1.5);o.sp.position.set(0,3,0);o.g.add(o.sp)});
+  const nx=nextStation();SECTIONS.forEach(s=>s._lbl.el.classList.toggle('next',s===nx));ring=null;
+  if(nx){const [x,z]=W(...nx.pos);ring=new THREE.Mesh(new THREE.RingGeometry(nx.r*1.12,nx.r*1.32,6),new THREE.MeshBasicMaterial({color:'#ffd34d',transparent:true,opacity:.85,side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.rotation.z=Math.PI/6;ring.position.set(x,.12,z);dyn.add(ring)}
 };
 M3.walk=function(path){if(!teacher)return;const pts=path.map(p=>W(...p));const cur=teacher.position;const nearHub=p=>Math.hypot(p[0]-HUB[0],p[1]-HUB[1])<9;const last=pts[pts.length-1];
   if(reduce){teacher.position.set(last[0],TOP,last[1]);tq=[];return}
@@ -1123,6 +1379,7 @@ function loop(){requestAnimationFrame(loop);
     if(dd<sp){p.x=gx;p.z=gz;tq.shift()}else{p.x+=dx/dd*sp;p.z+=dz/dd*sp;teacher.rotation.y=Math.atan2(dx,dz)}
     p.y=TOP+Math.abs(Math.sin(now*12))*.18}else{teacher.position.y=TOP;teacher.rotation.y+=(0-teacher.rotation.y)*.05}
   boat.position.y=.3+Math.sin(now*1.6)*.15;boat.rotation.z=Math.sin(now*1.3)*.04;
+  if(ring){const k=reduce?1:1+Math.sin(now*3)*.06;ring.scale.set(k,k,k);ring.material.opacity=reduce?.85:.6+Math.sin(now*3)*.25}
   R.render(scene,cam);
   const w=R.domElement.clientWidth,h=R.domElement.clientHeight,v=new THREE.Vector3();
   labels.forEach(L=>{v.copy(L.p).project(cam);const vis=v.z<1&&Math.abs(v.x)<1.1&&Math.abs(v.y)<1.1;L.el.style.display=vis?'':'none';if(vis){L.el.style.left=((v.x+1)/2*w).toFixed(1)+'px';L.el.style.top=((1-v.y)/2*h).toFixed(1)+'px';L.el.style.zIndex=String(Math.round((1-v.z)*1e5))}});
@@ -1138,7 +1395,7 @@ function drawMap(){
   const br=(a,b)=>`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#7a4f2c" stroke-width="10" stroke-linecap="round"/><line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#d8a46b" stroke-width="6" stroke-dasharray="4 2.5"/>`;
   const hubP=[400,360];SECTIONS.forEach(s=>h+=br(s.from||hubP,s.pos));Object.values(GAMES).forEach(g=>h+=br(hubP,g.pos));h+=br(hubP,CUR.boat);
   h+=isl(400,360,90)+`<text x="400" y="368" text-anchor="middle" font-size="30" fill="var(--ink)">${CUR.hubGlyph}</text><rect x="350" y="392" width="100" height="24" rx="12" fill="#fff"/><text x="400" y="409" text-anchor="middle" font-size="14" font-weight="700">${CUR.hub}</text>`;
-  SECTIONS.forEach(s=>{const [x,y]=s.pos,r=s.r*10,st=secStars(s);h+=`<g class="isle" data-sec="${s.id}" tabindex="0" role="button" aria-label="${s.vol} ${s.no} ${s.title}">${isl(x,y,r)}<text x="${x}" y="${y+4}" text-anchor="middle" font-size="13" font-weight="700" fill="${s.color}">${s.glyph}</text><rect x="${x-44}" y="${y-r*.6-28}" width="88" height="24" rx="12" fill="#fff"/><text x="${x}" y="${y-r*.6-11}" text-anchor="middle" font-size="12" font-weight="700" fill="${s.color}">${s.no} ★${st}/${s.subs.length}${flagged(s)?' ⚑':''}</text></g>`});
+  const nx=nextStation();SECTIONS.forEach(s=>{const [x,y]=s.pos,r=s.r*10,st=secStars(s);h+=`<g class="isle" data-sec="${s.id}" tabindex="0" role="button" aria-label="${s.vol} ${s.no} ${s.title}">${s===nx?`<polygon points="${hex(x,y+4,r*1.25)}" fill="none" stroke="#ffd34d" stroke-width="6"/>`:''}${isl(x,y,r)}<text x="${x}" y="${y+4}" text-anchor="middle" font-size="13" font-weight="700" fill="${s.color}">${s.glyph}</text><rect x="${x-44}" y="${y-r*.6-28}" width="88" height="24" rx="12" fill="#fff"/><text x="${x}" y="${y-r*.6-11}" text-anchor="middle" font-size="12" font-weight="700" fill="${s.color}">${s.no} ★${st}/${s.subs.length}${flagged(s)?' ⚑':''}</text></g>`});
   Object.entries(GAMES).forEach(([id,g])=>{const [x,y]=g.pos;h+=`<g class="isle" data-game="${id}" tabindex="0" role="button" aria-label="小遊戲 ${g.title}">${isl(x,y,40,'#c8b2ee')}<text x="${x}" y="${y+4}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--game)">${g.title}</text></g>`});
   const [bx,by]=CUR.boat;h+=`<g class="isle" data-exam="1" tabindex="0" role="button" aria-label="會考小船"><path d="M${bx-40} ${by} h80 l-12 16 h-56z" fill="#8a5a33"/><polygon points="${bx+2},${by-44} ${bx+34},${by-4} ${bx+2},${by-4}" fill="#fff" stroke="var(--exam)" stroke-width="2"/><text x="${bx+14}" y="${by-10}" text-anchor="middle" font-size="10" font-weight="700" fill="var(--exam)">會考</text></g>`;
   document.getElementById('mapsvg').innerHTML=h;
@@ -1151,79 +1408,166 @@ function say(t){document.getElementById('sayT').innerHTML=t}
 let P={view:'index',tab:'learn'};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LET='ABCD';
 function head(eb,title,back=true){return`<div class="ph">${back?'<button class="circ" data-act="back" aria-label="返回">‹</button>':''}<div class="t"><div class="eb">${eb}</div><h2>${title}</h2></div>${P.view!=='index'?'<button class="circ" data-act="close" aria-label="回到總覽">✕</button>':''}</div>`}
+function teacherName(){return CUR.hub.replace('島','')+'老師'}
+function tsay(msg){return`<div class="tsay"><span class="av">師</span><span><small>${teacherName()}</small>${msg}</span></div>`}
 function render(){
   const v=P.view;let h='';
-  if(v==='index')h=renderIndex();else if(v==='section')h=renderSection();else if(v==='quiz')h=renderQuiz();else if(v==='g1')h=renderG1();else if(v==='g2')h=renderG2();
+  if(v==='index')h=renderIndex();else if(v==='section')h=renderSection();else if(v==='quiz')h=renderQuiz();else if(v==='example')h=renderExample();else if(v==='review')h=renderReview();else if(v==='g1')h=renderG1();else if(v==='g2')h=renderG2();
   $('panel').innerHTML=h;
   $('hudStars').textContent=`${totStars()} / ${islTotal(CUR)}`;
   $('hudExam').textContent=`${totExams()} / ${CUR.exams.length}`;
   $('hudNameT').textContent=S.name||'訪客';
   $('hudTitle').textContent=CUR.name;
+  if(P.scrollSel){const el=$('panel').querySelector(P.scrollSel);P.scrollSel=null;if(el)el.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+  if(v==='section'&&P.tool){const el=$('panel').querySelector(`[data-tool="${P.tool}"]`);if(el&&TOOLS[P.tool])TOOLS[P.tool](el)}
 }
 function chapters(){const out=[];SECTIONS.forEach(s=>{let g=out.find(x=>x.vol===s.vol&&x.ch===s.ch);if(!g){g={vol:s.vol,ch:s.ch,color:s.color,secs:[]};out.push(g)}g.secs.push(s)});return out}
+function nextBar(){const nx=nextStation();if(!nx)return`<div class="nextbar done">這座島的每一座小島都插上金旗了！可以搭會考小船挑戰看看。</div>`;
+  const st=secStars(nx);return`<button class="nextbar" data-sec="${nx.id}"><span class="k">建議下一站</span><span class="v">${nx.vol} ${nx.no}　${nx.title}</span><small>${st?`已拿到 ${st} / ${nx.subs.length} 顆星，把剩下的拿完`:'照課本順序，從這裡開始最順'}</small><span class="go">→</span></button>`}
+
+/* ---------- 總覽 ---------- */
 function renderIndex(){
   const pc=(ic,k,v,tot,p)=>`<div class="pcard"><div class="k">${ic} ${k}</div><div class="v">${v} <small>/ ${tot}</small></div><div class="bar"><i style="width:${tot?v/tot*100:0}%"></i></div><p>${p}</p></div>`;
   const nG=Object.keys(GAMES).length,T=islTotal(CUR);
   let h=`<div class="ph"><div class="t"><div class="eb">${CUR.scope}</div><h2>${CUR.head}</h2></div></div><div class="pb">`;
-  h+=`<p class="lead">${SECTIONS.length} 座小節島、${T} 個次主題${nG?`、${nG} 個小遊戲`:''}、${CUR.exams.reduce((a,x)=>a+x.qs.length,0)} 題會考題型。點一座島，讀重點、做練習、拿星星。</p>`;
+  h+=nextBar();
   h+=`<div class="prog"><div class="h">你的進度 · ${nG?'四':'三'}種進度分開計算</div><div class="pgrid">`+
-   pc('<span style="color:var(--gold)">★</span>','課程星星',totStars(),T,'每個次主題答對八成以上，得 1 顆星。')+
+   pc('<span style="color:var(--gold)">★</span>','課程星星',totStars(),T,'每個次主題第一次就答對八成以上，得 1 顆星。')+
    pc('<span class="flag">⚑</span>','島嶼金旗',totFlags(),SECTIONS.length,'一座小島的星星全拿到，就升起金旗。')+
    (nG?pc('<span style="color:var(--game)">◆</span>','遊戲徽章',totGames(),nG,'小遊戲正確率八成以上，得 1 枚。'):'')+
    pc('<span style="color:var(--exam)">⛵</span>','會考徽章',totExams(),CUR.exams.length,'會考小船答對八成以上，得到該組徽章。')+
    `</div></div>`;
   h+=`<div class="tabs" role="tablist"><button class="tab" role="tab" aria-selected="${P.tab==='learn'}" data-tab="learn">島嶼學習</button><button class="tab" role="tab" aria-selected="${P.tab==='exam'}" data-tab="exam">會考小船</button></div>`;
+  const nx=nextStation();
   if(P.tab==='learn'){
     chapters().forEach(g=>{h+=`<div class="chh" style="--c:${g.color}">${g.vol}　${g.ch}</div>`;
-      g.secs.forEach(s=>{h+=`<button class="row" style="--c:${s.color}" data-sec="${s.id}"><span class="no">${s.no}</span><span><span class="nm">${s.title}</span><small>課本 ${s.vol} ${s.no} · ${s.subs.length} 個次主題${s.game?' · 含小遊戲':''}</small></span><span class="r">${flagged(s)?'<span class="flag">⚑</span> ':''}★ ${secStars(s)}/${s.subs.length}<br>→</span></button>`})});
+      g.secs.forEach(s=>{h+=`<button class="row ${s===nx?'isnext':''}" style="--c:${s.color}" data-sec="${s.id}"><span class="no">${s.no}</span><span><span class="nm">${s.title}${s===nx?' <em class="nexttag">下一站</em>':''}</span><small>課本 ${s.vol} ${s.no} · ${s.subs.length} 個次主題${s.game?' · 含小遊戲':''}</small></span><span class="r">${flagged(s)?'<span class="flag">⚑</span> ':''}★ ${secStars(s)}/${s.subs.length}<br>→</span></button>`})});
     if(nG){h+=`<div class="chh" style="--c:var(--game)">小遊戲</div>`;
       Object.entries(GAMES).forEach(([id,g])=>{h+=`<button class="row" style="--c:var(--game)" data-game="${id}"><span class="no">◆</span><span><span class="nm">${g.title}</span><small>搭配課本 ${g.sec}</small></span><span class="r">${S.games[id]?'已得徽章':'未完成'}<br>→</span></button>`})}
   }else{
-    h+=`<p class="lead">每組 6 題、仿會考的情境與綜合題。答對 5 題以上（八成）得到該組的會考徽章。</p>`;
+    h+=`<p class="lead">每組 6 題，仿會考的情境與綜合題。作答時沒有提示，就像真的考試；交卷後可以逐題檢討。答對 5 題以上（八成）得到該組的會考徽章。</p>`;
     CUR.exams.forEach((x,i)=>{h+=`<div class="box"><div class="chh" style="--c:${PAL[i%PAL.length]};margin:0 0 4px">${x.title}</div><p class="lead" style="margin-bottom:12px">${S.exams[x.key]?'⛵ 已得到會考徽章，可以再挑戰。':'尚未取得會考徽章。'}</p><button class="btn exam" data-examstart="${x.key}">搭上會考小船 · ${x.qs.length} 題</button></div>`});
   }
   return h+`</div>`;
 }
+
+/* ---------- 小節 ---------- */
 function renderSection(){
   const s=SECTIONS.find(x=>x.id===P.sec);const st=secStars(s);
   let h=head(`${s.vol} ${s.ch} · ${s.no}`,s.title)+`<div class="pb">`;
-  h+=`<p class="lead">課本 ${s.vol} ${s.no}。每個次主題先讀重點，再挑戰 10 題，答對八成以上就拿到一顆星。集滿這座島的星星，島上會升起金旗！</p>`;
+  h+=`<p class="lead">每個次主題：先讀重點，${s.subs.some(u=>TOOLS[u.id])?'動手試試看，':''}${s.subs.some(u=>isGuided(u.id))?'看一題例題，':''}再挑戰 10 題。第一次就答對八成以上，拿到一顆星。</p>`;
   h+=`<div class="box stars"><span>${'<i>★</i>'.repeat(st)}${'★'.repeat(s.subs.length-st)}</span>${st} / ${s.subs.length} 顆星${flagged(s)?'　<span class="flag">⚑ 金旗</span>':''}</div>`;
-  s.subs.forEach((u,i)=>{h+=`<div class="box sub"><h3><span class="n">${i+1}</span>${u.title}<span class="st ${S.stars[u.id]?'on':''}">★</span></h3><ul>${u.pts.map(t=>`<li>${mk(t)}</li>`).join('')}</ul><button class="btn" data-quiz="${u.id}">挑戰這個次主題 · 10 題</button></div>`});
+  s.subs.forEach((u,i)=>{const g=isGuided(u.id);
+    h+=`<div class="box sub" id="sub-${u.id}"><h3><span class="n">${i+1}</span>${u.title}<span class="st ${S.stars[u.id]?'on':''}">★</span></h3><ul>${u.pts.map(t=>`<li>${mk(t)}</li>`).join('')}</ul>`;
+    if(TOOLS[u.id])h+=P.tool===u.id?`<div class="trybox"><div class="tryh"><b>動手試試看</b><button type="button" class="mini" data-tool-close="1">收起</button></div><div class="tool" data-tool="${u.id}"></div></div>`:`<button class="btn try" data-tool-open="${u.id}">動手試試看</button>`;
+    h+=`<div class="sub-acts">${g?`<button class="btn ghost" data-ex="${u.id}">看一題例題</button>`:''}<button class="btn" data-quiz="${u.id}">挑戰這個次主題 · 10 題</button></div></div>`});
   if(s.game){const g=GAMES[s.game];h+=`<div class="box gamebox sub"><h3>◆ 小遊戲：${g.title}${S.games[s.game]?'<span class="st on" style="color:var(--game)">◆</span>':''}</h3><p class="lead" style="margin:8px 0 12px">${g.desc}</p><button class="btn game" data-game="${s.game}">開始遊戲</button></div>`}
   return h+`</div>`;
 }
+
+/* ---------- 例題示範 ---------- */
+function startExample(subId){const g=GEN[subId];let q;for(let t=0;t<20;t++){POOLUSED=new Set();q=pick(g)();if(q.steps&&q.steps.length)break}
+  P={...P,view:'example',ex:{sub:subId,q,shown:0,from:P.view}};say('一步一步看，按「下一步」繼續。');render();$('panel').scrollTop=0}
+function renderExample(){const E=P.ex,q=E.q,u=SUBS[E.sub];const N=q.steps.length;
+  let h=head(`例題示範 · ${u.sec.vol} ${u.sec.no}`,u.title)+`<div class="pb"><div class="box"><div class="eb2">例題</div><div class="qq">${q.q}</div></div><ol class="steps-done">`;
+  q.steps.slice(0,E.shown).forEach((x,i)=>{h+=`<li><span class="sq">第 ${i+1} 步：${x.q}</span><span class="sa">${x.opts[x.ans]}</span>${x.e?`<small>${x.e}</small>`:''}</li>`});
+  h+=`</ol>`;
+  if(E.shown<N)h+=`<button class="btn exnext" data-act="exnext">${E.shown?'下一步':'開始看第 1 步'}</button>`;
+  else h+=`<div class="fb"><h4>答案：${q.opts[q.ans]}</h4><p>${q.exp}</p></div><div class="actions"><button class="btn ghost" data-act="exagain">再看一題（換數字）</button><button class="btn" data-quiz="${E.sub}">開始挑戰 10 題</button></div>`;
+  return h+`</div>`}
+
+/* ---------- 作答 ---------- */
 const PRAISE=['沒錯，就是這樣！','漂亮！這題你完全掌握了。','觀念很清楚喔！','繼續保持！','好厲害，算得又快又準。'];
-const COMFORT=['沒關係，看一下解析再往下。','這題很多人會錯，先看清楚條件。','慢慢來，把步驟寫出來就不容易錯。','記住這個觀念，下次就會了！'];
+const COMFORT=['沒關係，跟著步驟來，一定會懂。','這題很多人會錯，我們一步一步看。','慢慢來，把步驟拆開就不難了。'];
+function newCur(){return{phase:'ask',tried:[],firstWrong:null,stepI:0,stepTried:[],stepMsg:'',twin:null,twinChosen:null,helped:false,msg:''}}
 function startQuiz(kind,id){
   const qs=kind==='sub'?buildQuiz(id):buildExam(id);
-  P={...P,view:'quiz',quiz:{kind,id,qs,i:0,wrong:0,res:[],chosen:null,done:false,from:P.view==='section'?'section':'index'}};
-  say(kind==='sub'?`${esc(S.name||'同學')}，「${SUBS[id].title}」10 題，加油！`:`會考小船出發！`);
+  P={...P,view:'quiz',tool:null,quiz:{kind,id,qs,i:0,res:[],picks:[],misLog:[],done:false,from:P.view==='section'||P.view==='example'?'section':'index',cur:newCur()}};
+  say(kind==='sub'?`${esc(S.name||'同學')}，「${SUBS[id].title}」10 題，加油！${GEN[id]&&isGuided(id)?'不會的題目可以按「我不會」。':''}`:`會考小船出發！這次沒有提示，就像真的考試。`);
   if(kind==='exam'){moveTeacher(CUR.boat[0]+10,CUR.boat[1]+5);if(M3.ok)M3.focus(...CUR.boat)}
   render();$('panel').scrollTop=0;
 }
+function dotsHTML(Q){return`<div class="dots">${Q.qs.map((_,k)=>{const r=Q.res[k];const c=k===Q.i&&!Q.done&&r===undefined?'cur':r==='ok'?'ok':r==='help'?'help':r==='no'?'no':r==='done'?'done':'';return`<i class="${c}"></i>`}).join('')}</div>`}
 function renderQuiz(){
   const Q=P.quiz;const N=Q.qs.length;const ex=Q.kind==='exam'?CUR.exams.find(x=>x.key==Q.id):null;
   const title=Q.kind==='sub'?SUBS[Q.id].title:ex.title;
   const eb=Q.kind==='sub'?`${SUBS[Q.id].sec.vol} ${SUBS[Q.id].sec.no} ${SUBS[Q.id].sec.title}`:'會考小船';
   let h=head(eb,title);
-  if(Q.done){const ok=Q.res.filter(Boolean).length;const pass=ok>=Math.ceil(N*.8);
-    h+=`<div class="pb"><div class="box result"><div class="big">${ok} / ${N}</div><p>${pass?(Q.kind==='sub'?'答對八成以上，得到一顆星！':'答對八成以上，得到會考徽章！'):'再差一點點！答對八成以上就能拿到。'}</p>${Q.newGet?`<p style="color:var(--good);font-weight:700">${Q.kind==='sub'?'★ 新的星星':'⛵ 新的會考徽章'}${Q.newFlag?'，這座島升起金旗了！':''}</p>`:''}<div class="actions"><button class="btn" data-act="retry">再挑戰一次${Q.kind==='sub'?'（換新題目）':''}</button><button class="btn ghost" data-act="back">${Q.from==='section'?'回到小島':'回到總覽'}</button></div></div></div>`;
-    return h}
-  const q=Q.qs[Q.i];
-  h+=`<div class="pb"><div class="qtop"><div class="dots">${Q.qs.map((_,k)=>`<i class="${k<Q.i||(k===Q.i&&Q.chosen!==null)?(Q.res[k]?'ok':'no'):k===Q.i?'cur':''}"></i>`).join('')}</div><span class="err ${Q.wrong?'has':''}">✗ 錯誤 ${Q.wrong}</span><span>第 ${Q.i+1} 題 / 共 ${N} 題</span></div>`;
-  h+=`<div class="qq">${q.q}</div><div class="opts">`;
-  q.opts.forEach((o,k)=>{let cls='';if(Q.chosen!==null){if(k===q.ans)cls='ok';else if(k===Q.chosen)cls='no'}h+=`<button class="opt ${cls}" data-opt="${k}" ${Q.chosen!==null?'disabled':''}><span class="l">${'ABCD'[k]}</span><span>${o}</span></button>`});
-  h+=`</div>`;
-  if(Q.chosen!==null){const ok=Q.chosen===q.ans;h+=`<div class="fb ${ok?'':'no'}"><h4>${ok?'好棒！':'差一點！正確答案是 '+'ABCD'[q.ans]}</h4><p>${q.exp}</p><div class="tsay"><span class="av">師</span><span><small>${CUR.hub.replace('島','')}老師</small>${Q.msg}</span></div><button class="btn" data-act="next">${Q.i<N-1?'下一題':'看結果'}</button></div>`}
+  if(Q.done)return h+renderResult(Q);
+  const q=Q.qs[Q.i],C=Q.cur;
+  const firstOk=Q.res.filter(r=>r==='ok').length;
+  h+=`<div class="pb"><div class="qtop">${dotsHTML(Q)}<span>第 ${Q.i+1} 題 / 共 ${N} 題</span>${Q.kind==='sub'?`<span class="err">第一次就答對 ${firstOk}</span>`:''}</div>`;
+  h+=`<div class="qq">${q.q}</div>`;
+  /* 會考：只記錄答案，不給回饋 */
+  if(Q.kind==='exam'){const pk=Q.picks[Q.i];h+=`<div class="opts">${q.opts.map((o,k)=>`<button class="opt ${pk===k?'sel':''}" data-opt="${k}"><span class="l">${LET[k]}</span><span>${o}</span></button>`).join('')}</div>`;
+    if(pk!==undefined)h+=`<button class="btn" data-act="next">${Q.i<N-1?'下一題':'交卷'}</button>`;return h+`</div>`}
+  const locked=C.phase!=='ask'&&C.phase!=='hint';
+  h+=`<div class="opts">${q.opts.map((o,k)=>{let cls='';if(C.tried.includes(k))cls='no';if(locked&&k===q.ans)cls='ok';if(C.phase==='reveal'&&!C.helped&&k===q.ans)cls='ok';return`<button class="opt ${cls}" data-opt="${k}" ${locked||C.tried.includes(k)?'disabled':''}><span class="l">${LET[k]}</span><span>${o}</span></button>`}).join('')}</div>`;
+  if(C.phase==='ask'&&q.hint)h+=`<button class="btn ghost help" data-act="idk">我不會，給我提示</button>`;
+  if(C.phase==='hint')h+=`<div class="hintbox"><b>提示</b><p>${q.hint}</p></div>${tsay(C.tried.length?'先看提示，再選一次！':'看完提示，試著選選看！')}`;
+  if(C.phase==='steps')h+=renderSteps(q,C);
+  if(C.phase==='reveal'||C.phase==='twin')h+=renderReveal(Q,q,C);
   return h+`</div>`;
 }
-function choose(k){const Q=P.quiz;if(Q.chosen!==null)return;Q.chosen=k;const ok=k===Q.qs[Q.i].ans;Q.res[Q.i]=ok;if(!ok)Q.wrong++;Q.msg=ok?pick(PRAISE):pick(COMFORT);say(Q.msg);render()}
-function next(){const Q=P.quiz;if(Q.i<Q.qs.length-1){Q.i++;Q.chosen=null;render();return}
-  Q.done=true;const ok=Q.res.filter(Boolean).length;const pass=ok>=Math.ceil(Q.qs.length*.8);
+function renderSteps(q,C){let h=`<div class="stepbox"><div class="sbh">我們一步一步來（共 ${q.steps.length} 步）</div><ol class="steps-done">`;
+  q.steps.slice(0,C.stepI).forEach((x,i)=>{h+=`<li><span class="sq">第 ${i+1} 步：${x.q}</span><span class="sa">${x.opts[x.ans]}</span>${x.e?`<small>${x.e}</small>`:''}</li>`});h+=`</ol>`;
+  const x=q.steps[C.stepI];h+=`<div class="stepq"><b>第 ${C.stepI+1} 步</b>　${x.q}</div><div class="sopts">${x.opts.map((o,k)=>`<button class="sopt ${C.stepTried.includes(k)?'no':''}" data-step="${k}" ${C.stepTried.includes(k)?'disabled':''}>${o}</button>`).join('')}</div>`;
+  if(C.stepMsg)h+=`<p class="smsg c-no">${C.stepMsg}</p>`;return h+`</div>`}
+function renderReveal(Q,q,C){const r=Q.res[Q.i];const N=Q.qs.length;
+  const title=r==='ok'?'好棒！第一次就答對了！':r==='help'?'看提示後答對了！':q.steps&&q.steps.length?'跟著步驟完成了！':`正確答案是 ${LET[q.ans]}`;
+  let h=`<div class="fb ${r==='ok'||r==='help'?'':'no'}"><h4>${title}</h4><p>${q.exp}</p>`;
+  if(C.firstWrong!==null&&q.mis)h+=`<p class="misline">你一開始選了 <b>${LET[C.firstWrong]}</b>：${q.mis[C.firstWrong]}。</p>`;
+  h+=tsay(C.msg);
+  if(C.phase==='twin'){const t=C.twin;h+=`<div class="twin"><div class="sbh">換個數字，自己做做看</div><div class="qq sm">${t.q}</div><div class="opts">${t.opts.map((o,k)=>{let cls='';if(C.twinChosen!==null){if(k===t.ans)cls='ok';else if(k===C.twinChosen)cls='no'}return`<button class="opt ${cls}" data-twin="${k}" ${C.twinChosen!==null?'disabled':''}><span class="l">${LET[k]}</span><span>${o}</span></button>`}).join('')}</div>`;
+    if(C.twinChosen!==null)h+=`<p class="${C.twinChosen===t.ans?'c-ok':'c-no'} smsg">${C.twinChosen===t.ans?'答對了，這種題型你會了！':'還差一點：'+t.exp}</p>`;h+=`</div>`}
+  const canTwin=C.helped&&q.gen&&C.phase==='reveal';
+  h+=`<div class="actions">${canTwin?`<button class="btn ghost" data-act="twin">換數字再試一題</button>`:''}${C.phase!=='twin'||C.twinChosen!==null?`<button class="btn" data-act="next">${Q.i<N-1?'下一題':'看結果'}</button>`:''}</div></div>`;return h}
+function logMis(Q,q,k){if(q.mis&&q.mis[k])Q.misLog.push(q.mis[k])}
+function choose(k){const Q=P.quiz,q=Q.qs[Q.i],C=Q.cur;
+  if(Q.kind==='exam'){Q.picks[Q.i]=k;render();return}
+  if(C.phase!=='ask'&&C.phase!=='hint')return;if(C.tried.includes(k))return;
+  const right=k===q.ans;
+  if(right){Q.res[Q.i]=C.helped?'help':'ok';C.phase='reveal';C.msg=C.helped?'看了提示就想通了，很好！':pick(PRAISE);say(C.msg);P.scrollSel='.fb';render();return}
+  C.tried.push(k);logMis(Q,q,k);if(C.firstWrong===null)C.firstWrong=k;
+  if(!q.hint){Q.res[Q.i]='no';C.phase='reveal';C.msg=pick(COMFORT);say(C.msg);P.scrollSel='.fb';render();return}
+  C.helped=true;
+  if(C.phase==='ask'){C.phase='hint';say('先看提示，再選一次！');P.scrollSel='.hintbox';render();return}
+  /* 提示後又答錯：進入步驟引導 */
+  Q.res[Q.i]='no';C.phase=q.steps&&q.steps.length?'steps':'reveal';C.msg=pick(COMFORT);say('我們一步一步來。');P.scrollSel=C.phase==='steps'?'.stepbox':'.fb';render()}
+function idk(){const Q=P.quiz,C=Q.cur;if(C.phase!=='ask')return;C.helped=true;C.phase='hint';say('沒關係，先看提示。');P.scrollSel='.hintbox';render()}
+function chooseStep(k){const Q=P.quiz,q=Q.qs[Q.i],C=Q.cur;if(C.phase!=='steps')return;const x=q.steps[C.stepI];
+  if(k!==x.ans){C.stepTried.push(k);C.stepMsg='不是這個喔，再想想看。';render();return}
+  C.stepI++;C.stepTried=[];C.stepMsg='';if(C.stepI>=q.steps.length){C.phase='reveal';C.msg='步驟都走完了，你看，其實沒有那麼難！';say(C.msg);P.scrollSel='.fb'}else P.scrollSel='.stepq';render()}
+function startTwin(){const Q=P.quiz,q=Q.qs[Q.i],C=Q.cur;let t;for(let i=0;i<10;i++){POOLUSED=new Set();t=q.gen();if(t.q!==q.q)break}C.twin=t;C.twinChosen=null;C.phase='twin';P.scrollSel='.twin';render()}
+function chooseTwin(k){const C=P.quiz.cur;if(C.phase!=='twin'||C.twinChosen!==null)return;C.twinChosen=k;say(k===C.twin.ans?pick(PRAISE):'再看一次解析，下次就會了。');P.scrollSel='.twin .smsg';render()}
+function next(){const Q=P.quiz;const N=Q.qs.length;
+  if(Q.kind==='exam'){if(Q.picks[Q.i]===undefined)return;Q.res[Q.i]='done';if(Q.i<N-1){Q.i++;render();$('panel').scrollTop=0;return}
+    Q.qs.forEach((q,i)=>Q.res[i]=Q.picks[i]===q.ans?'ok':'no')}
+  else if(Q.i<N-1){Q.i++;Q.cur=newCur();render();$('panel').scrollTop=0;return}
+  Q.done=true;const ok=Q.res.filter(r=>r==='ok').length;const pass=ok>=Math.ceil(N*.8);
   if(pass){if(Q.kind==='sub'){if(!S.stars[Q.id]){S.stars[Q.id]=true;Q.newGet=true;Q.newFlag=flagged(SUBS[Q.id].sec)}}else if(!S.exams[Q.id]){S.exams[Q.id]=true;Q.newGet=true}save();drawMap()}
-  say(pass?`太棒了，${esc(S.name||'同學')}！答對 ${ok} 題。`:`答對 ${ok} 題，看完解析再挑戰一次吧！`);render()}
+  say(pass?`太棒了，${esc(S.name||'同學')}！`:`看看結果，把常錯的地方再複習一下。`);render();$('panel').scrollTop=0}
+function renderResult(Q){const N=Q.qs.length;const ok=Q.res.filter(r=>r==='ok').length,help=Q.res.filter(r=>r==='help').length,no=N-ok-help;const pass=ok>=Math.ceil(N*.8);
+  let h=`<div class="pb"><div class="box result"><div class="big">${ok} / ${N}</div><p>${Q.kind==='sub'?'第一次就答對':'答對'} ${ok} 題。${pass?(Q.kind==='sub'?'達到八成，得到一顆星！':'達到八成，得到會考徽章！'):`要第一次就答對 ${Math.ceil(N*.8)} 題才能拿到。`}</p>${Q.newGet?`<p class="c-ok b">${Q.kind==='sub'?'★ 新的星星':'⛵ 新的會考徽章'}${Q.newFlag?'，這座島升起金旗了！':''}</p>`:''}`;
+  if(Q.kind==='sub')h+=`<div class="tally"><span class="t ok">第一次就答對 ${ok}</span><span class="t help">看提示後答對 ${help}</span><span class="t no">跟著步驟完成 ${no}</span></div>`;
+  h+=`</div>`;
+  if(Q.kind==='sub'){const cnt={};Q.misLog.forEach(m=>cnt[m]=(cnt[m]||0)+1);const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,3);
+    if(top.length)h+=`<div class="box"><h3 class="bh">這次最常犯的錯誤</h3><ul class="misl">${top.map(([m,c])=>`<li><span>${m}</span><b>${c} 次</b></li>`).join('')}</ul><p class="lead">建議回去複習重點卡「${SUBS[Q.id].title}」${TOOLS[Q.id]?'，也可以用「動手試試看」再操作一次':''}。</p><button class="btn ghost" data-review-card="${Q.id}">回去看重點卡</button></div>`;
+    else h+=`<div class="box"><p class="lead" style="margin:0">這次沒有選錯任何一題，觀念很穩！</p></div>`}
+  else{h+=`<div class="box"><h3 class="bh">逐題檢討</h3><ol class="exlist">${Q.qs.map((q,i)=>`<li class="${Q.res[i]}"><span>${Q.res[i]==='ok'?'✓':'✗'} 第 ${i+1} 題</span>${Q.res[i]==='no'?`<button class="mini" data-review="${i}">檢討</button>`:'<small>答對</small>'}</li>`).join('')}</ol></div>`}
+  h+=`<div class="actions"><button class="btn" data-act="retry">再挑戰一次${Q.kind==='sub'?'（換新題目）':''}</button><button class="btn ghost" data-act="back">${Q.from==='section'?'回到小島':'回到總覽'}</button></div></div>`;return h}
+
+/* ---------- 會考檢討 ---------- */
+function startReview(i){P={...P,view:'review',rv:{i,shown:0,quiz:P.quiz}};say('一起來檢討這一題。');render();$('panel').scrollTop=0}
+function renderReview(){const R=P.rv,Q=R.quiz,q=Q.qs[R.i],pk=Q.picks[R.i];const ex=CUR.exams.find(x=>x.key==Q.id);const steps=q.steps||[];
+  let h=head(`會考檢討 · ${ex.title}`,`第 ${R.i+1} 題`)+`<div class="pb"><div class="qq">${q.q}</div><div class="opts">${q.opts.map((o,k)=>`<button class="opt ${k===q.ans?'ok':k===pk?'no':''}" disabled><span class="l">${LET[k]}</span><span>${o}</span></button>`).join('')}</div>`;
+  h+=`<p class="misline">你選了 <b>${LET[pk]}</b>，正確答案是 <b>${LET[q.ans]}</b>。</p>`;
+  if(steps.length){h+=`<ol class="steps-done">${steps.slice(0,R.shown).map((x,i)=>`<li><span class="sq">第 ${i+1} 步：${x.q}</span><span class="sa">${x.opts[x.ans]}</span></li>`).join('')}</ol>`;
+    if(R.shown<steps.length)h+=`<button class="btn" data-act="rvnext">${R.shown?'下一步':'一步一步看解法'}</button>`}
+  if(!steps.length||R.shown>=steps.length)h+=`<div class="fb"><h4>解析</h4><p>${q.exp}</p></div>`;
+  h+=`<div class="actions"><button class="btn ghost" data-act="rvback">回到結果</button></div></div>`;return h}
 /* ---------- 小遊戲資料 ---------- */
 function g1Rounds(){const R=[];const mk1=[
  ()=>{const v=rnz(-10,10);return[`${n(v)}`,v]},
@@ -1268,16 +1612,182 @@ function renderG2(){const G=P.g;let h=head('小遊戲 · 搭配 2-1','質因數�
 function g2Pick(q){const G=P.g;G.total++;if(G.cur%q===0){G.right++;G.cur/=q;G.chain.push(q);G.msg=G.cur>1?`${q} 可以整除，繼續！`:'完成！';G.ms='ok'}else{G.msg=`${G.cur} 不能被 ${q} 整除，換一個試試`;G.ms='no'}render()}
 function g2Next(){const G=P.g;G.i++;G.chain=[];G.msg='';G.ms='';if(G.i<5)G.cur=G.list[G.i];else{if(G.right/G.total>=.8&&!S.games.g2){S.games.g2=true;save();drawMap()}say(G.right/G.total>=.8?'拆數字大師，拿到徽章了！':'多玩幾次，質數會越來越熟！')}render()}
 
+/* ================= 動手試試看：操作教具（整數・分數・指數島） =================
+   每個教具是 TOOLS[次主題id](root)：在 root 裡畫出可操作的介面。全部用 pointer／click 事件，手機觸控優先。 */
+const TOOLS={};
+const stp=(k,label,v)=>`<div class="stp"><span>${label}</span><button type="button" data-k="${k}" data-d="-1" aria-label="${label}減少">−</button><b>${v}</b><button type="button" data-k="${k}" data-d="1" aria-label="${label}增加">+</button></div>`;
+function bindSteppers(root,state,lim,redraw){root.addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const k=b.dataset.k,[lo,hi,skip]=lim[k];let v=state[k]+ +b.dataset.d;if(skip!==undefined&&v===skip)v+= +b.dataset.d;if(v<lo||v>hi)return;state[k]=v;redraw()})}
+function svgPt(svg,e){const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse())}
+/* 數線：回傳畫法和座標換算 */
+function NL(min,max,W=340,y=52){const L=18,R=W-18;const X=v=>L+(v-min)/(max-min)*(R-L);const V=x=>Math.round(min+(x-L)/(R-L)*(max-min));const span=max-min;const lab=span<=20?1:span<=40?5:10;
+  let s=`<line x1="${L-6}" y1="${y}" x2="${R+6}" y2="${y}" stroke="var(--ink)" stroke-width="2"/><polygon points="${R+12},${y} ${R+4},${y-4} ${R+4},${y+4}" fill="var(--ink)"/>`;
+  for(let v=min;v<=max;v++){const big=v%lab===0;if(span>40&&!big&&v%5)continue;s+=`<line x1="${X(v)}" y1="${y-(big?7:4)}" x2="${X(v)}" y2="${y+(big?7:4)}" stroke="var(--ink)" stroke-width="${v===0?2.5:1}"/>`;if(big)s+=`<text x="${X(v)}" y="${y+22}" text-anchor="middle" font-size="11" fill="var(--muted)">${n(v)}</text>`}
+  return{X,V,base:s,y}}
+const dot=(x,y,c,r=8)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="#fff" stroke-width="2"/>`;
+const arc=(x1,x2,y,c,h=26)=>{const mx=(x1+x2)/2;const dir=x2>x1?1:-1;return`<path class="hop" d="M${x1} ${y-6} Q${mx} ${y-6-h} ${x2} ${y-6}" fill="none" stroke="${c}" stroke-width="3" marker-end="url(#ah)"/>`};
+const AH=`<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="context-stroke"/></marker></defs>`;
+const tlbl=(x,y,t,c='var(--ink)',fs=12)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="${fs}" font-weight="700" fill="${c}">${t}</text>`;
+
+/* 1-1a 正負數與相反數：溫度計＋數線上的相反數 */
+TOOLS['1-1a']=root=>{let v=-5;
+  root.innerHTML=`<p class="tip">拖動滑桿改變氣溫，看看它和它的相反數在數線上的位置。</p><input type="range" min="-20" max="20" value="${v}" class="big-range" aria-label="氣溫"><svg viewBox="0 0 340 120"></svg><p class="out"></p>`;
+  const svg=root.querySelector('svg'),out=root.querySelector('.out');const nl=NL(-20,20,340,80);
+  const draw=()=>{const th=Math.round((v+20)/40*60);let s=nl.base;
+    s+=`<rect x="8" y="6" width="14" height="64" rx="7" fill="#eee" stroke="var(--line)"/><rect x="10" y="${68-th}" width="10" height="${th}" rx="5" fill="${v<0?'#3a67d1':'#d6455b'}"/>${tlbl(52,20,`氣溫 ${n(v)}°C`,v<0?'#3a67d1':'#d6455b',13)}`;
+    if(v!==0)s+=`<line x1="${nl.X(v)}" y1="${nl.y-16}" x2="${nl.X(-v)}" y2="${nl.y-16}" stroke="var(--muted)" stroke-dasharray="4 3"/>${tlbl(nl.X(0),nl.y-22,`距離 0 都是 ${AB(v)}`,'var(--muted)',11)}`;
+    s+=dot(nl.X(-v),nl.y,'#e9822a',7)+dot(nl.X(v),nl.y,v<0?'#3a67d1':'#d6455b');svg.innerHTML=s;
+    out.innerHTML=v===0?'0 的相反數是 0，0 不是正數也不是負數。':`<b>${n(v)}</b> 的相反數是 <b style="color:#e9822a">${n(-v)}</b>：正負號相反，到原點的距離一樣是 ${AB(v)}。`};
+  root.querySelector('input').addEventListener('input',e=>{v=+e.target.value;draw()});draw()};
+
+/* 1-1b 數線、絕對值：拖兩個點 */
+TOOLS['1-1b']=root=>{const P={A:-6,B:3};
+  root.innerHTML=`<p class="tip">用手指拖動 A、B 兩點，看看距離、中點和絕對值怎麼變。</p><svg viewBox="0 0 340 110" class="drag"></svg><p class="out"></p>`;
+  const svg=root.querySelector('svg'),out=root.querySelector('.out');const nl=NL(-10,10,340,64);let drag=null;
+  const draw=()=>{const a=P.A,b=P.B,m=(a+b)/2;let s=nl.base+`<line x1="${nl.X(Math.min(a,b))}" y1="${nl.y}" x2="${nl.X(Math.max(a,b))}" y2="${nl.y}" stroke="#e8b21c" stroke-width="6" opacity=".6"/>`;
+    s+=`<polygon points="${nl.X(m)},${nl.y+10} ${nl.X(m)-6},${nl.y+20} ${nl.X(m)+6},${nl.y+20}" fill="#2f9e5b"/>`;
+    s+=`<g data-p="A">${dot(nl.X(a),nl.y,'#3a67d1',13)}${tlbl(nl.X(a),nl.y-20,'A','#3a67d1',14)}</g><g data-p="B">${dot(nl.X(b),nl.y,'#d6455b',13)}${tlbl(nl.X(b),nl.y-20,'B','#d6455b',14)}</g>`;svg.innerHTML=s;
+    out.innerHTML=`A = ${n(a)}，B = ${n(b)}　|A| = ${AB(a)}，|B| = ${AB(b)}<br>AB 距離 = |${n(a)} − ${p(b)}| = <b>${AB(a-b)}</b>　中點（綠色三角形）= <b>${n(m)}</b><br>${a===b?'兩點重合。':`${n(Math.max(a,b))} 在右邊，所以比較大。`}`};
+  svg.addEventListener('pointerdown',e=>{const g=e.target.closest('[data-p]');const x=svgPt(svg,e).x;drag=g?g.dataset.p:(AB(nl.X(P.A)-x)<AB(nl.X(P.B)-x)?'A':'B');svg.setPointerCapture(e.pointerId);P[drag]=Math.max(-10,Math.min(10,nl.V(x)));draw()});
+  svg.addEventListener('pointermove',e=>{if(!drag)return;const v=Math.max(-10,Math.min(10,nl.V(svgPt(svg,e).x)));if(v!==P[drag]){P[drag]=v;draw()}});
+  svg.addEventListener('pointerup',()=>drag=null);svg.addEventListener('pointercancel',()=>drag=null);draw()};
+
+/* 1-2a 整數加法：數線跳跳 */
+TOOLS['1-2a']=root=>{const S={a:-3,b:5};const draw=()=>{const nl=NL(-20,20,340,70);const{a,b}=S,c=a+b;
+  root.innerHTML=`<p class="tip">設定起點和要加的數，看看在數線上怎麼跳。</p><div class="stps">${stp('a','起點',n(a))}${stp('b','加上',n(b))}</div><svg viewBox="0 0 340 105">${AH}${nl.base}${b?arc(nl.X(a),nl.X(c),nl.y,b>0?'#2f9e5b':'#d6455b'):''}${dot(nl.X(a),nl.y,'#3a67d1')}${dot(nl.X(c),nl.y,'#e8b21c',6)}</svg>
+   <p class="out">${n(a)} + ${p(b)} = <b>${n(c)}</b>：從 ${n(a)} 出發，${b===0?'不動':`往${b>0?'右':'左'}跳 ${AB(b)} 格`}。<br><small>加正數往右，加負數往左。</small></p>`};
+  bindSteppers(root,S,{a:[-10,10],b:[-10,10]},draw);draw()};
+
+/* 1-2b 減法＝加相反數：兩條數線對照 */
+TOOLS['1-2b']=root=>{const S={a:2,b:-5};const draw=()=>{const nl=NL(-20,20,340,58);const nl2=NL(-20,20,340,140);const{a,b}=S,c=a-b;const col=-b>0?'#2f9e5b':'#d6455b';
+  root.innerHTML=`<p class="tip">比較「減去一個數」和「加上它的相反數」，兩條路線會一模一樣。</p><div class="stps">${stp('a','被減數',n(a))}${stp('b','減數',n(b))}</div>
+   <svg viewBox="0 0 340 172">${AH}${tlbl(60,18,`${n(a)} − ${p(b)}`,'var(--ink)',13)}${nl.base}${b?arc(nl.X(a),nl.X(c),nl.y,col):''}${dot(nl.X(a),nl.y,'#3a67d1')}
+   ${tlbl(60,102,`${n(a)} + ${p(-b)}`,'var(--ink)',13)}${nl2.base}${b?arc(nl2.X(a),nl2.X(c),nl2.y,col):''}${dot(nl2.X(a),nl2.y,'#3a67d1')}</svg>
+   <p class="out">${n(a)} − ${p(b)} = ${n(a)} + ${p(-b)} = <b>${n(c)}</b><br><small>減去 ${p(b)}，就是加上它的相反數 ${p(-b)}，所以往${-b>0?'右':'左'}跳 ${AB(b)} 格。</small></p>`};
+  bindSteppers(root,S,{a:[-10,10],b:[-10,10]},draw);draw()};
+
+/* 1-3a 乘除與正負號：點選切換正負 */
+TOOLS['1-3a']=root=>{let F=[2,-3,4];const draw=()=>{const prod=F.reduce((x,y)=>x*y,1),neg=F.filter(x=>x<0).length;
+  root.innerHTML=`<p class="tip">點一下數字可以切換正負號。看看負數的個數怎麼決定答案的正負。</p><div class="chips">${F.map((x,i)=>`<button type="button" class="chip ${x<0?'neg':''}" data-i="${i}">${n(x)}</button>`).join('<span class="op">×</span>')}</div>
+   <div class="stps"><button type="button" class="mini" data-add="1">＋ 多一個數</button><button type="button" class="mini" data-add="-1">− 少一個數</button></div>
+   <p class="out">${F.map(p).join(' × ')} = <b>${n(prod)}</b><br>負數有 <b>${neg}</b> 個，是${neg%2?'奇':'偶'}數個 → 乘積是<b>${prod>0?'正':'負'}</b>的。</p>`};
+  root.addEventListener('click',e=>{const c=e.target.closest('[data-i]');if(c){F[+c.dataset.i]*=-1;draw();return}const a=e.target.closest('[data-add]');if(!a)return;if(+a.dataset.add>0&&F.length<6)F.push(pick([2,3,4,5,-1,-2]));else if(+a.dataset.add<0&&F.length>2)F.pop();draw()});draw()};
+
+/* 1-3b 四則運算順序：點選要先算的運算 */
+TOOLS['1-3b']=root=>{let T,hist,msg;
+  const pri=o=>o==='×'||o==='÷';
+  const next=t=>{const ops=t.map((x,i)=>i%2?i:-1).filter(i=>i>0);const md=ops.find(i=>pri(t[i]));return md!==undefined?md:ops[0]};
+  const calc=(a,o,b)=>o==='+'?a+b:o==='−'?a-b:o==='×'?a*b:a/b;
+  const gen=()=>{for(;;){const t=[rnz(-9,9)];for(let i=0;i<3;i++)t.push(pick(['+','−','×','÷']),rnz(-9,9));if(!t.some((x,i)=>i%2&&pri(x)))continue;let u=t.slice(),ok=true;while(u.length>1){const i=next(u);const r=calc(u[i-1],u[i],u[i+1]);if(!Number.isInteger(r)||AB(r)>200){ok=false;break}u.splice(i-1,3,r)}if(ok){T=t;hist=[];msg='點一個運算符號，選出「現在應該先算」的那一步。';return}}};
+  const show=t=>t.map((x,i)=>i%2?`<button type="button" class="opb" data-o="${i}">${x}</button>`:`<span class="num">${p(x)}</span>`).join('');
+  const draw=()=>{root.innerHTML=`<p class="tip">先乘除、後加減；同一級由左到右。</p><div class="expr">${T.length>1?show(T):`<span class="num big">${n(T[0])}</span>`}</div><p class="out">${msg}</p>${hist.length?`<ol class="hist">${hist.map(h=>`<li>${h}</li>`).join('')}</ol>`:''}<button type="button" class="mini" data-new="1">換一題</button>`};
+  root.addEventListener('click',e=>{if(e.target.closest('[data-new]')){gen();draw();return}const b=e.target.closest('[data-o]');if(!b||T.length<2)return;const i=+b.dataset.o,ok=next(T);
+    if(i!==ok){msg=pri(T[ok])&&!pri(T[i])?'<span class="c-no">還有乘除沒算，要先算乘除喔！</span>':'<span class="c-no">同一級的運算要由左到右算。</span>';draw();return}
+    const r=calc(T[i-1],T[i],T[i+1]);hist.push(`${p(T[i-1])} ${T[i]} ${p(T[i+1])} = ${n(r)}`);T.splice(i-1,3,r);msg=T.length>1?'<span class="c-ok">對了！再選下一步。</span>':`<span class="c-ok">完成！答案是 ${n(T[0])}。</span>`;draw()});gen();draw()};
+
+/* 1-4a 指數記法：(−a)ⁿ 和 −aⁿ 對照 */
+TOOLS['1-4a']=root=>{const S={b:2,e:4};const draw=()=>{const{b,e}=S;const rep=x=>Array(e).fill(x).join(' × ');const v1=(-b)**e,v2=-(b**e);
+  root.innerHTML=`<p class="tip">調整底數和指數，比較有括號和沒括號的差別。</p><div class="stps">${stp('b','數字',b)}${stp('e','指數',e)}</div>
+   <div class="cmp"><div><b>(${M}${b})<sup>${e}</sup></b><br><small>${rep(`(${M}${b})`)}</small><br>= <b>${n(v1)}</b></div><div><b>${M}${b}<sup>${e}</sup></b><br><small>${M}(${rep(b)})</small><br>= <b>${n(v2)}</b></div></div>
+   <p class="out">${v1===v2?`指數是奇數，兩個剛好相等，都是 ${n(v1)}。`:`指數是偶數，結果不一樣！括號決定負號要不要一起連乘。`}</p>`};
+  bindSteppers(root,S,{b:[1,6],e:[1,6]},draw);draw()};
+
+/* 1-4b 科學記號：移動小數點 */
+TOOLS['1-4b']=root=>{let D,k,pos;const fresh=()=>{let m;do{m=ri(11,99)}while(m%10===0);D=String(m);k=pick([-7,-6,-5,-4,-3,3,4,5,6]);pos=D.length+k};
+  const show=()=>{if(pos<=0)return'0.'+'0'.repeat(-pos)+D;if(pos>=D.length)return D+'0'.repeat(pos-D.length);return D.slice(0,pos)+'.'+D.slice(pos)};
+  const draw=()=>{const ex=k+D.length-pos;const ok=pos===1;
+   root.innerHTML=`<p class="tip">移動小數點，讓前面的數變成 1 到 10 之間，看看 10 的次方怎麼變。</p><div class="sci ${ok?'ok':''}"><span class="mant">${show()}</span> × 10<sup>${n(ex)}</sup></div>
+    <div class="stps"><button type="button" class="mini" data-mv="-1">← 小數點左移</button><button type="button" class="mini" data-mv="1">小數點右移 →</button></div>
+    <p class="out">${ok?`<span class="c-ok">這就是科學記號！</span> ${show()} 在 1 到 10 之間。`:'小數點往左移一位，次方 +1；往右移一位，次方 −1。數值始終不變。'}</p><button type="button" class="mini" data-new="1">換一個數</button>`};
+  root.addEventListener('click',e=>{if(e.target.closest('[data-new]')){fresh();draw();return}const b=e.target.closest('[data-mv]');if(!b)return;const np=pos+ +b.dataset.mv;if(np<-7||np>D.length+7)return;pos=np;draw()});fresh();draw()};
+
+/* 2-1a 因數：用方塊排長方形 */
+TOOLS['2-1a']=root=>{let N=12;
+  root.innerHTML=`<p class="tip">用這些方塊排成長方形，有幾種排法？每一種排法的長和寬都是它的因數。</p><input type="range" min="2" max="36" value="${N}" class="big-range" aria-label="方塊數"><div class="rects"></div><p class="out"></p>`;
+  const R=root.querySelector('.rects'),O=root.querySelector('.out');
+  const rect=([a,b])=>{const s=Math.min(10,Math.floor(150/b));return`<div class="rect"><svg viewBox="0 0 ${b*s+2} ${a*s+2}" width="${b*s+2}" height="${a*s+2}">${Array.from({length:a*b},(_,i)=>`<rect x="${1+(i%b)*s}" y="${1+Math.floor(i/b)*s}" width="${s-1}" height="${s-1}" fill="#8a5bd6" opacity=".75"/>`).join('')}</svg><small>${a} × ${b}</small></div>`};
+  const draw=()=>{const pairs=[];for(let a=1;a*a<=N;a++)if(N%a===0)pairs.push([a,N/a]);const d=divisors(N);R.innerHTML=pairs.map(rect).join('');
+    O.innerHTML=`<b>${N}</b> 個方塊　因數：${d.join('、')}（共 ${d.length} 個）<br>${d.length===2?`<b>只排得出一種 → ${N} 是質數</b>`:`排法不只一種 → ${N} 是合數`}`};
+  root.querySelector('input').addEventListener('input',e=>{N=+e.target.value;draw()});draw()};
+
+/* 2-1b 質因數分解：因數樹 */
+TOOLS['2-1b']=root=>{let N,cur,chain,msg;const fresh=()=>{N=pick(G2POOL);cur=N;chain=[];msg='選一個能整除的質數。'};
+  const draw=()=>{root.innerHTML=`<p class="tip">一直用質數去除，直到剩下 1，就完成質因數分解。</p><div class="tree">${chain.length?chain.map((c,i)=>`<div class="tr">${c.n} = <b>${c.p}</b> × ${c.r}</div>`).join(''):`<div class="tr">${N}</div>`}</div>
+   <p class="out">${msg}</p>${cur>1?`<div class="primes">${[2,3,5,7,11,13].map(q=>`<button type="button" data-pr="${q}">${q}</button>`).join('')}</div>`:`<p class="out c-ok">${N} = ${fmtF(factorize(N))}</p>`}<button type="button" class="mini" data-new="1">換一個數</button>`};
+  root.addEventListener('click',e=>{if(e.target.closest('[data-new]')){fresh();draw();return}const b=e.target.closest('[data-pr]');if(!b)return;const q=+b.dataset.pr;
+    if(cur%q){msg=`<span class="c-no">${cur} 不能被 ${q} 整除，換一個。</span>`}else{chain.push({n:cur,p:q,r:cur/q});cur/=q;msg=cur>1?`<span class="c-ok">對！繼續拆 ${cur}。</span>`:'<span class="c-ok">拆完了！</span>'}draw()});fresh();draw()};
+
+/* 2-2a 最大公因數：質因數文氏圖 */
+TOOLS['2-2a']=root=>{let A,B;const PAIRS=[[12,18],[24,36],[30,45],[28,42],[40,60],[36,54],[20,50],[18,27]];const fresh=()=>{[A,B]=pick(PAIRS)};
+  const flat=x=>factorize(x).flatMap(([q,e])=>Array(e).fill(q));
+  const draw=()=>{const fa=flat(A),fb=flat(B).slice(),com=[],la=[];fa.forEach(q=>{const j=fb.indexOf(q);if(j>=0){com.push(q);fb.splice(j,1)}else la.push(q)});const G=com.reduce((x,y)=>x*y,1);
+   const chips=(arr,cx)=>arr.map((q,i)=>{const x=cx+((i%3)-1)*22,y=70+Math.floor(i/3)*24;return`<circle cx="${x}" cy="${y}" r="11" fill="#fff" stroke="var(--ink)"/>`+tlbl(x,y+4,q,'var(--ink)',12)}).join('');
+   root.innerHTML=`<p class="tip">把兩個數的質因數放進圈圈。兩圈重疊的部分，就是共同的質因數。</p>
+    <svg viewBox="0 0 340 150"><circle cx="130" cy="80" r="62" fill="#3a67d1" opacity=".15" stroke="#3a67d1"/><circle cx="210" cy="80" r="62" fill="#e9822a" opacity=".15" stroke="#e9822a"/>${tlbl(100,14,A,'#3a67d1',15)}${tlbl(240,14,B,'#e9822a',15)}${chips(la,100)}${chips(com,170)}${chips(fb,240)}</svg>
+    <p class="out">重疊的部分：${com.join(' × ')||'沒有'} → 最大公因數 (${A}, ${B}) = <b>${G}</b><br><small>全部的質因數相乘：${[...la,...com,...fb].join(' × ')} = ${A*B/G}，就是最小公倍數。</small></p><button type="button" class="mini" data-new="1">換一組數</button>`};
+  root.addEventListener('click',e=>{if(e.target.closest('[data-new]')){fresh();draw()}});fresh();draw()};
+
+/* 2-2b 最小公倍數：公車時間軸 */
+TOOLS['2-2b']=root=>{const S={a:6,b:8};const draw=()=>{const{a,b}=S,L=lcm(a,b);const T=Math.min(Math.max(L+Math.max(a,b),30),150);const X=t=>20+t/T*300;
+  let s=`<line x1="20" y1="45" x2="320" y2="45" stroke="var(--line)"/><line x1="20" y1="85" x2="320" y2="85" stroke="var(--line)"/>${tlbl(10,49,'甲','#3a67d1',11)}${tlbl(10,89,'乙','#e9822a',11)}`;
+  for(let t=0;t<=T;t+=a)s+=dot(X(t),45,t%b===0?'#e8b21c':'#3a67d1',t%b===0?7:4);
+  for(let t=0;t<=T;t+=b)s+=dot(X(t),85,t%a===0?'#e8b21c':'#e9822a',t%a===0?7:4);
+  for(let t=0;t<=T;t+=L)s+=`<line x1="${X(t)}" y1="30" x2="${X(t)}" y2="100" stroke="#e8b21c" stroke-dasharray="3 3"/>${tlbl(X(t),122,t+' 分','#b8860b',11)}`;
+  root.innerHTML=`<p class="tip">甲車每 ${a} 分一班、乙車每 ${b} 分一班，0 分時一起出發。金色的點是兩車同時發車的時刻。</p><div class="stps">${stp('a','甲每幾分',a)}${stp('b','乙每幾分',b)}</div><svg viewBox="0 0 340 130">${s}</svg>
+   <p class="out">下一次同時發車：<b>${L} 分鐘後</b>，就是 [${a}, ${b}] = ${L}。${L>150?'（超出畫面範圍）':''}</p>`};
+  bindSteppers(root,S,{a:[2,15],b:[2,15]},draw);draw()};
+
+/* 2-3a 分數加減：分數條與通分 */
+TOOLS['2-3a']=root=>{const S={a:1,b:2,c:1,d:3,same:0};const draw=()=>{if(S.a>=S.b)S.a=S.b-1;if(S.c>=S.d)S.c=S.d-1;const{a,b,c,d}=S;const L=lcm(b,d);const k1=S.same?L:b,k2=S.same?L:d,s1=S.same?a*L/b:a,s2=S.same?c*L/d:c;
+  const bar=(y,parts,shade,col,lab)=>{let r=`${tlbl(24,y+17,lab,col,12)}`;for(let i=0;i<parts;i++)r+=`<rect x="${50+i*270/parts}" y="${y}" width="${270/parts}" height="26" fill="${i<shade?col:'#fff'}" opacity="${i<shade?.8:1}" stroke="var(--ink)" stroke-width=".8"/>`;return r};
+  const tot=a*L/b+c*L/d;let sum='';for(let r=0;r*L<tot;r++)sum+=bar(96+r*34,L,Math.min(L,tot-r*L),'#2f9e5b',r?'':'合起來');
+  root.innerHTML=`<p class="tip">兩條分數條切的格子大小不同，不能直接加。按「通分」把它們切成一樣大的格子。</p><div class="stps">${stp('a','第一個分子',a)}${stp('b','分母',b)}${stp('c','第二個分子',c)}${stp('d','分母',d)}</div>
+   <svg viewBox="0 0 340 ${tot>L?170:136}">${bar(10,k1,s1,'#3a67d1','')}${bar(48,k2,s2,'#e9822a','')}${S.same?sum:''}</svg>
+   <button type="button" class="mini" data-same="1">${S.same?'取消通分':'通分'}</button>
+   <p class="out">${frRaw(a,b)} + ${frRaw(c,d)}${S.same?` = ${frRaw(a*L/b,L)} + ${frRaw(c*L/d,L)} = <b>${fh(new Fr(a,b).add(new Fr(c,d)))}</b>`:'：格子大小不一樣，先通分。'}<br><small>分母 ${b} 和 ${d} 的最小公倍數是 ${L}。</small></p>`};
+  root.addEventListener('click',e=>{if(e.target.closest('[data-same]')){S.same^=1;draw()}});bindSteppers(root,S,{a:[1,5],b:[2,6],c:[1,5],d:[2,6]},draw);draw()};
+
+/* 2-3b 分數乘法：面積模型 */
+TOOLS['2-3b']=root=>{const S={a:2,b:3,c:3,d:4};const draw=()=>{if(S.a>S.b)S.a=S.b;if(S.c>S.d)S.c=S.d;const{a,b,c,d}=S;const W=240,H=160,cw=W/b,ch=H/d;let s='';
+  for(let i=0;i<b;i++)for(let j=0;j<d;j++){const inA=i<a,inC=j<c;s+=`<rect x="${50+i*cw}" y="${10+j*ch}" width="${cw}" height="${ch}" fill="${inA&&inC?'#8a5bd6':inA?'#c9d6f5':inC?'#fbd9bd':'#fff'}" stroke="var(--ink)" stroke-width=".8"/>`}
+  root.innerHTML=`<p class="tip">直的塗 ${frRaw(a,b)}、橫的塗 ${frRaw(c,d)}，兩種都塗到的紫色部分就是相乘的結果。</p><div class="stps">${stp('a','直的分子',a)}${stp('b','分母',b)}${stp('c','橫的分子',c)}${stp('d','分母',d)}</div><svg viewBox="0 0 340 180">${s}</svg>
+   <p class="out">${frRaw(a,b)} × ${frRaw(c,d)}：紫色 ${a*c} 格，全部 ${b*d} 格 → ${frRaw(a*c,b*d)}${gcd(a*c,b*d)>1?` = <b>${fh(new Fr(a*c,b*d))}</b>`:''}<br><small>分子乘分子（${a} × ${c}）、分母乘分母（${b} × ${d}）。</small></p>`};
+  bindSteppers(root,S,{a:[1,6],b:[1,6],c:[1,6],d:[1,6]},draw);draw()};
+
+/* 2-4a 同底數相乘除：展開與消去 */
+TOOLS['2-4a']=root=>{const S={m:5,k:2,div:0};const draw=()=>{const{m,k,div}=S;const tile=(c,x='')=>`<span class="tile ${x}" style="--t:${c}">a</span>`;
+  const body=div?`<div class="frac-t"><div>${Array.from({length:m},(_,i)=>tile('#3a67d1',i<Math.min(m,k)?'gone':'')).join('')}</div><div class="bar-t"></div><div>${Array.from({length:k},(_,i)=>tile('#e9822a',i<Math.min(m,k)?'gone':'')).join('')}</div></div>`
+   :`<div class="row-t">${Array.from({length:m},()=>tile('#3a67d1')).join('')}<span class="op">×</span>${Array.from({length:k},()=>tile('#e9822a')).join('')}</div>`;
+  const res=div?(m>=k?pw('a',m-k).replace('a<sup>0</sup>','1'):`${frRaw(1,'a'+(k-m>1?'<sup>'+(k-m)+'</sup>':''))}`):pw('a',m+k);
+  root.innerHTML=`<p class="tip">把次方展開成一個一個的 a。相乘就把它們排在一起；相除時，上下各劃掉一個 a。</p><div class="stps">${stp('m','前面的指數',m)}${stp('k','後面的指數',k)}<button type="button" class="mini" data-div="1">${div?'改成相乘':'改成相除'}</button></div>${body}
+   <p class="out">${pw('a',m)} ${div?'÷':'×'} ${pw('a',k)} = <b>${res}</b><br><small>${div?`上下各消去 ${Math.min(m,k)} 個 a，指數相減：${m} − ${k}。`:`一共有 ${m} + ${k} = ${m+k} 個 a，指數相加。`}</small></p>`};
+  root.addEventListener('click',e=>{if(e.target.closest('[data-div]')){S.div^=1;draw()}});bindSteppers(root,S,{m:[1,7],k:[1,7]},draw);draw()};
+
+/* 2-4b 次方的次方：分組方塊 */
+TOOLS['2-4b']=root=>{const S={m:2,k:3};const draw=()=>{const{m,k}=S;
+  root.innerHTML=`<p class="tip">(a<sup>${m}</sup>)<sup>${k}</sup> 是 ${k} 組 a<sup>${m}</sup> 相乘。數數看一共有幾個 a。</p><div class="stps">${stp('m','裡面的指數',m)}${stp('k','外面的指數',k)}</div>
+   <div class="groups">${Array.from({length:k},()=>`<div class="grp">${Array.from({length:m},()=>'<span class="tile" style="--t:#2f9e5b">a</span>').join('')}</div>`).join('')}</div>
+   <p class="out">${k} 組 × 每組 ${m} 個 = ${m*k} 個 a → (a<sup>${m}</sup>)<sup>${k}</sup> = <b>${pw('a',m*k)}</b><br><small>次方再次方，指數相乘。</small></p>`};
+  bindSteppers(root,S,{m:[1,5],k:[1,5]},draw);draw()};
 /* ================= 導覽 ================= */
-function openSection(id){const s=SECTIONS.find(x=>x.id===id);P={view:'section',sec:id,tab:P.tab};const [x,y]=s.pos;moveTeacher(x+22,y+8,s.from);if(M3.ok)M3.focus(x,y);say(`來到 ${s.vol} ${s.no}「${s.title}」，先讀重點再挑戰！`);render();$('panel').scrollTop=0}
-function toIndex(){P={view:'index',tab:P.tab};moveTeacher(430,330);if(M3.ok)M3.focus(null);say(`${esc(S.name||'同學')}，點一座小島開始挑戰！`);render();$('panel').scrollTop=0}
-function back(){if(P.view==='quiz'&&P.quiz.from==='section'){openSection(P.quiz.kind==='sub'?SUBS[P.quiz.id].sec.id:P.sec);return}
+function openSection(id,sub){const s=SECTIONS.find(x=>x.id===id);P={view:'section',sec:id,tab:P.tab,tool:null};const [x,y]=s.pos;moveTeacher(x+22,y+8,s.from);if(M3.ok)M3.focus(x,y);say(`來到 ${s.vol} ${s.no}「${s.title}」，先讀重點再挑戰！`);render();const card=sub&&$('sub-'+sub);if(card)card.scrollIntoView({block:'start'});else $('panel').scrollTop=0}
+function teacherToNext(){const nx=nextStation();if(nx)moveTeacher(nx.pos[0]+22,nx.pos[1]+8,nx.from);else moveTeacher(430,330)}
+function toIndex(){P={view:'index',tab:P.tab};teacherToNext();if(M3.ok)M3.focus(null);const nx=nextStation();say(nx?`${esc(S.name||'同學')}，建議下一站是 ${nx.vol} ${nx.no}「${nx.title}」，我在那裡等你！`:`${esc(S.name||'同學')}，這座島全部完成了，太厲害了！`);render();$('panel').scrollTop=0}
+function back(){if(P.view==='example'){openSection(SUBS[P.ex.sub].sec.id,P.ex.sub);return}if(P.view==='review'){P.view='quiz';P.quiz=P.rv.quiz;render();return}
+  if(P.view==='quiz'&&P.quiz.from==='section'){openSection(P.quiz.kind==='sub'?SUBS[P.quiz.id].sec.id:P.sec,P.quiz.kind==='sub'?P.quiz.id:null);return}
   if((P.view==='g1'||P.view==='g2')&&P.from==='section'){openSection(GAMES[P.view].sec);return}toIndex()}
 $('panel').addEventListener('click',e=>{const b=e.target.closest('button');if(!b){if(e.target.closest('#nl'))g1Click(e);return}
   const d=b.dataset;
   if(d.act==='back')back();else if(d.act==='close')toIndex();else if(d.act==='next')next();
   else if(d.act==='retry')startQuiz(P.quiz.kind,P.quiz.id);
   else if(d.act==='g1next')g1Next();else if(d.act==='g2next')g2Next();
+  else if(d.act==='idk')idk();else if(d.act==='twin')startTwin();
+  else if(d.act==='exnext'){P.ex.shown++;P.scrollSel=P.ex.shown<P.ex.q.steps.length?'.exnext':'.fb';render()}else if(d.act==='exagain')startExample(P.ex.sub);
+  else if(d.act==='rvnext'){P.rv.shown++;P.scrollSel='.steps-done li:last-child';render()}else if(d.act==='rvback'){P.view='quiz';P.quiz=P.rv.quiz;render();$('panel').scrollTop=0}
+  else if(d.step!==undefined)chooseStep(+d.step);else if(d.twin!==undefined)chooseTwin(+d.twin);
+  else if(d.ex)startExample(d.ex);else if(d.review!==undefined)startReview(+d.review);
+  else if(d.reviewCard)openSection(SUBS[d.reviewCard].sec.id,d.reviewCard);
+  else if(d.toolOpen){P.tool=d.toolOpen;render();const c=$('sub-'+d.toolOpen);if(c)c.scrollIntoView({block:'start'})}
+  else if(d.toolClose){P.tool=null;render()}
   else if(d.tab){P.tab=d.tab;render()}
   else if(d.sec)openSection(d.sec);
   else if(d.quiz)startQuiz('sub',d.quiz);
@@ -1323,7 +1833,7 @@ $('home').addEventListener('click',e=>{const b=e.target.closest('button');if(!b|
 function route(){const h=location.hash.replace('#','');
   if(ISL[h]){setIsland(h);$('home').classList.add('hidden');$('island').classList.remove('hidden');$('sayName').textContent=CUR.hub.replace('島','')+'老師';
     TPOS=[430,330];M3.init();if(M3.ok)M3.load();drawMap();
-    if(pendingSec){openSection(pendingSec);pendingSec=null}else{P={view:'index',tab:'learn'};render();say(`${S.name?esc(S.name)+'，':''}歡迎來到${CUR.name}！點一座小島開始挑戰${M3.ok?'（拖曳可以旋轉地圖）':''}。`)}
+    if(pendingSec){openSection(pendingSec);pendingSec=null}else{P={view:'index',tab:'learn'};render();teacherToNext();say(`${S.name?esc(S.name)+'，':''}歡迎來到${CUR.name}！點一座小島開始挑戰${M3.ok?'（拖曳可以旋轉地圖）':''}。`)}
     if(!S.name)askName()}
   else{$('island').classList.add('hidden');$('home').classList.remove('hidden');renderHome();$('home').scrollTop=0}}
 window.addEventListener('hashchange',route);
